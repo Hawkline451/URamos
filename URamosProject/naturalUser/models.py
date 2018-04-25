@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class NaturalUser(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
 	isLocked = models.BooleanField(default=False)
+	isModerator = models.BooleanField(default=False)
 
 class LockedUser(models.Model):
 	lockedUser =  models.ForeignKey(NaturalUser, on_delete=models.CASCADE)
