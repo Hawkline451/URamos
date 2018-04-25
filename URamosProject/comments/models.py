@@ -1,9 +1,12 @@
 from django.db import models
 from django.utils import timezone
 
+from naturalUser.models import NaturalUser
+
 
 class Comment(models.Model):
 	content = models.TextField(max_length=1024)
+	user =  models.ForeignKey(NaturalUser, on_delete=models.CASCADE)
 	date = models.DateField(default=timezone.now)
 	isVisible = models.BooleanField(default=True)
 	positivePoints = models.IntegerField(default=0)
