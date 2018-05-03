@@ -87,4 +87,4 @@ create_json()
 
 # python manage.py makemigrations
 # python manage.py migrate --run-syncdb
-# Can you run python manage.py loaddata ParserCursos.json and then python manage.py loaddata ParserCursosTableCourse.json
+# Can you run python manage.py loaddata ParserCursos.json
