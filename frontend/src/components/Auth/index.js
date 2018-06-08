@@ -5,7 +5,7 @@ class Auth extends Component {
 	render(){
 		console.log(this.props['ticket'])
 		
-		fetch('https://www.u-cursos.cl/upasaporte/login?servicio=uramos&ticket='+this.props['ticket']).
+		fetch('https://www.u-cursos.cl/upasaporte/login?servicio=uramos&ticket='+this.props['ticket'])
 		.then((response) => {
     		return response.json()})
     	.then((data) => {
