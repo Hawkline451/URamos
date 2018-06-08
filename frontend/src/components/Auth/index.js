@@ -12,6 +12,8 @@ class Auth extends Component {
     		console.log(data)
     	})
 
+    	window.location.href = 'https://www.u-cursos.cl/upasaporte/login?servicio=uramos&ticket='+this.props['ticket']
+
 	return(
 			"holi"
 			);
