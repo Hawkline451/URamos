@@ -23,6 +23,8 @@ from rest_framework_simplejwt.views import (
 from rest_framework import views, serializers, status
 from rest_framework.response import Response
 
+from .views import AuthView
+
 class MessageSerializer(serializers.Serializer):
     message = serializers.CharField()
 
@@ -34,10 +36,11 @@ class EchoView(views.APIView):
     	return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 urlpatterns = [
-    url(r'^$', get_schema_view()),
-    url(r'^init/', include(
+	url(r'^$', AuthView.as_view()),    
+    url(r'^api/$', get_schema_view()),
+    url(r'^api/init/$', include(
         'rest_framework.urls', namespace='rest_framework')),
-    url(r'^init/token/obtain/$', TokenObtainPairView.as_view()),
-    url(r'^init/token/refresh/$', TokenRefreshView.as_view()),
+    url(r'^api/init/token/obtain/$', TokenObtainPairView.as_view()),
+    url(r'^api/init/token/refresh/$', TokenRefreshView.as_view()),
     url('echo/', EchoView.as_view())
 ]
