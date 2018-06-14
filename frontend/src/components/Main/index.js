@@ -4,7 +4,7 @@ import Auth from '../Auth';
 
 const Main = props => (
 	<Switch>
-		<Route exact path = "/auth" component = {Auth} />
+		<Route path = "/auth" component = {Auth} />
 	</Switch>
 	);
 
