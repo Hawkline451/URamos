@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'moderator',
     'naturalUser',
     'teacher',
-    'auth',
+    'login',
+
 ]
 
 REST_FRAMEWORK = {
