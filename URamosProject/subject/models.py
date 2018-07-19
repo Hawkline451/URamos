@@ -6,7 +6,8 @@ class Subject(models.Model):
 	code = models.CharField(max_length=16, primary_key=True)
 	department = models.CharField(max_length=64)
 	name = models.CharField(max_length=256)
-	note = models.FloatField(default=0)
+	noteSubject = models.FloatField(default=0)
+
 
 class Semester(models.Model):
 	name = models.CharField(max_length=16)
@@ -16,3 +17,5 @@ class Course(models.Model):
 	subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
 	semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
 	teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+	noteCourse = models.FloatField(default=0)
+	noteTeacher = models.FloatField(default=0)
