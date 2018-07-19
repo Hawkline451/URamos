@@ -13,8 +13,8 @@ class Comment(models.Model):
 	positivePoints = models.IntegerField(default=0)
 	negativePoints = models.IntegerField(default=0)
 	isEdited = models.BooleanField(default=False)
-	note_Teacher = models.IntegerField(default=0)
-	note_Course = models.IntegerField(default=0)
+	noteTeacher = models.IntegerField(default=0)
+	noteCourse = models.IntegerField(default=0)
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
 class InvisibleComment(models.Model):
