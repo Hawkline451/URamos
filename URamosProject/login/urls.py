@@ -25,6 +25,9 @@ from rest_framework.response import Response
 
 from .views import AuthView
 
+from django.views.decorators.csrf import csrf_exempt
+
+
 class MessageSerializer(serializers.Serializer):
     message = serializers.CharField()
 
@@ -36,7 +39,7 @@ class EchoView(views.APIView):
     	return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 urlpatterns = [
-	url(r'^$', AuthView.as_view()),    
+	url(r'^$', (csrf_exempt)(AuthView.as_view())),    
     url(r'^api/$', get_schema_view()),
     url(r'^api/init/$', include(
         'rest_framework.urls', namespace='rest_framework')),
