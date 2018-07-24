@@ -1,0 +1,24 @@
+{
+  "name": "uramos",
+  "version": "1.0.0",
+  "description": "uramos",
+  "main": "index.js",
+  "dependencies": {
+    "eslint": "^5.1.0",
+    "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hawkline451/URamos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hawkline451/URamos/issues"
+  },
+  "homepage": "https://github.com/Hawkline451/URamos#readme"
+}
