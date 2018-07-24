@@ -13,22 +13,28 @@ class UramosBar extends Component {
   render() {
     return (
       <div className="App-bar-custom">
-        <AppBar position="static">
-          <ToolBar>
+        <AppBar position="static" color="default">
+          <ToolBar className="main-toolbar">
             <Typography variant="title" color="inherit">
               <Link to="/">URamos</Link>
             </Typography>
-            <Button color="inherit">
-              <Link to="/evaluacion">Evaluar</Link>
-            </Button>
-            <Button color="inherit">
-              <Link to="/busqueda">Todos los cursos</Link>
-            </Button>
-            <div className="search-button">
-              <TextField id="search" placeholder="Buscar" margin="normal" />
+            <div className="buttons">
               <Button color="inherit">
-                <Link to="/busqueda">Buscar</Link>
+                <Link to="/evaluacion">Evaluar</Link>
               </Button>
+              <Button color="inherit">
+                <Link to="/busqueda">Todos los cursos</Link>
+              </Button>
+            </div>
+            <div className="search-frame">
+              <TextField id="search" placeholder="Buscar" margin="normal" />
+              <div className="search-button">
+                <Button color="inherit">
+                  <Link to="/busqueda" className="search">
+                    Buscar
+                  </Link>
+                </Button>
+              </div>
             </div>
             <div className="right-user-div" align="right">
               <ToolBar>
@@ -36,27 +42,47 @@ class UramosBar extends Component {
                   <Route
                     exact
                     path="/"
-                    component={() => <div>Actividad Reciente</div>}
+                    component={() => (
+                      <div className="reference">
+                        <span>Actividad Reciente</span>
+                      </div>
+                    )}
                   />
                   <Route
                     exact
                     path="/busqueda"
-                    component={() => <div>Busqueda</div>}
+                    component={() => (
+                      <div className="reference">
+                        <span>Busqueda</span>
+                      </div>
+                    )}
                   />
                   <Route
                     exact
                     path="/curso"
-                    component={() => <div>Curso</div>}
+                    component={() => (
+                      <div className="reference">
+                        <span>Curso</span>
+                      </div>
+                    )}
                   />
                   <Route
                     exact
                     path="/profesor"
-                    component={() => <div>Profesor</div>}
+                    component={() => (
+                      <div className="reference">
+                        <span>Profesor</span>
+                      </div>
+                    )}
                   />
                   <Route
                     exact
                     path="/evaluacion"
-                    component={() => <div>Evaluacion</div>}
+                    component={() => (
+                      <div className="reference">
+                        <span>Evaluacion</span>
+                      </div>
+                    )}
                   />
                 </Typography>
                 <Chip avatar={<Avatar>MB</Avatar>} label="User Name" />
