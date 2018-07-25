@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Input from '@material-ui/core/Input';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import CancelIcon from '@material-ui/icons/Cancel';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import ClearIcon from '@material-ui/icons/Clear';
-import Chip from '@material-ui/core/Chip';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+/**
+ * Created by Android on 23-07-2018.
+ */
 
-var FilteredList = React.createClass({
+import React, { Component } from 'react';
+//import { withStyles } from 'material-ui/styles';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
+import ListItemIcon from 'material-ui/List/ListItemIcon';
+import ListItemText from 'material-ui/List/ListItemText';
+import InboxIcon from '@material-ui/icons/Inbox';
+//import 'react-select/dist/react-select.css';
+
+var createReactClass = require('create-react-class');
+
+var Busqueda = createReactClass({
   filterList: function(event){
     /*Ale, aca haz el GET  a la API*/
     var updatedList = this.state.initialItems;
@@ -56,7 +56,7 @@ var FilteredList = React.createClass({
         <fieldset className="form-group">
         <input type="text" className="form-control form-control-lg" placeholder="Search" onChange={this.filterList} onFocus={this.showSuggestions} onBlur={this.hideSuggestions}/>
           {this.state.show && (
-<List items={this.state.items}/>
+<List1 items={this.state.items}/>
       )}
         </fieldset>
         </form>
@@ -65,18 +65,22 @@ var FilteredList = React.createClass({
   }
 });
 
-var List = React.createClass({
+var List1 = createReactClass({
   render: function(){
     return (
-      <ul className="list-group">
-      {
-        this.props.items.map(function(item) {
-          return <li className="list-group-item" data-category={item} key={item}>{item}</li>
-        })
-       }
-      </ul>
+      <List component="nav">
+          {
+              this.props.items.map(function (item) {
+                  return (
+                      <ListItem button>
+                          <ListItemText primary={item}/>
+                      </ListItem>
+                  )
+              })
+          }
+      </List>
     )
   }
 });
 
-React.render(<FilteredList/>, document.getElementById('app'));
+export default Busqueda;
