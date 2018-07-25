@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'moderator',
     'naturalUser',
     'teacher',
+    'login',
+    
 ]
 
 MIDDLEWARE = [
