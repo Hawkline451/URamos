@@ -8,16 +8,19 @@ a {
   margin-left: 1%;
 }
 
-.buttons>button {
+.buttons>a {
   padding: 20px 16px; 
 }
 
-.buttons>button>span>a {
+.buttons>a>span {
   font-size: 20px;
+  color: white;
+  text-transform: none;
 }
 
 .App-bar-custom {
   flex-grow: 1;
+  max-height: 64px;
 }
 
 .main-toolbar {
@@ -29,10 +32,11 @@ a {
 
 .search-frame {
   flex: 1;
+  max-height: 64px;
 }
 
 .search-button {
-  margin-left: 1%;
+  margin-left: 2.3%;
   background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
   background-repeat: repeat-x;
   border-color: #ccc;
@@ -52,3 +56,18 @@ a {
   color: white;
   margin-right: 15px;
 }
+
+.search-bar {
+  max-width: 190px;
+  max-height: 64px;
+  margin-top: 2.1%;
+  display: inline-block;
+
+}
+
+.search-bar>div>div:not(#react-autowhatever-1) {
+  background-color: white;
+  padding: 3px 5px;
+  border-radius: 4px;
+}
+
