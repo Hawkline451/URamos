@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
-import AppBar from 'material-ui/AppBar';
-import ToolBar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
-import Avatar from 'material-ui/Avatar';
-import Chip from 'material-ui/Chip';
+import AppBar from '@material-ui/core/AppBar';
+import ToolBar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
 import './styles.css';
 
 class UramosBar extends Component {
@@ -78,6 +78,15 @@ class UramosBar extends Component {
                   <Route
                     exact
                     path="/evaluacion"
+                    component={() => (
+                      <div className="reference">
+                        <span>Evaluacion</span>
+                      </div>
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/evaluacion/formulario"
                     component={() => (
                       <div className="reference">
                         <span>Evaluacion</span>

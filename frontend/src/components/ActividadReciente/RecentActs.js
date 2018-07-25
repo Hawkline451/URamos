@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ListItem from 'material-ui/List/ListItem';
-import ListItemText from 'material-ui/List/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 class RecentActs extends Component {
   render() {
