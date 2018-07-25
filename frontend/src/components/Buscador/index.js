@@ -7,7 +7,10 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
+const suggestions = [];
+/*
 const suggestions = [
   { label: 'Afghanistan' },
   { label: 'Aland Islands' },
@@ -44,6 +47,7 @@ const suggestions = [
   { label: 'British Indian Ocean Territory' },
   { label: 'Brunei Darussalam' },
 ];
+*/
 
 function renderInput(inputProps) {
   const { classes, ref, ...other } = inputProps;
@@ -147,6 +151,15 @@ class IntegrationAutosuggest extends React.Component {
     suggestions: [],
   };
 
+  getInfo = () => {
+      axios.get('http://127.0.0.1:8000/test')
+          .then(({data}) => {
+            this.setState({
+                suggestions: data.data
+            })
+          })
+  };
+
   handleSuggestionsFetchRequested = ({ value }) => {
     this.setState({
       suggestions: getSuggestions(value),
@@ -162,6 +175,13 @@ class IntegrationAutosuggest extends React.Component {
   handleChange = (event, { newValue }) => {
     this.setState({
       value: newValue,
+    }, () => {
+      if (this.state.value && this.state.value.length > 1) {
+        if (this.state.value.length % 2 === 0) {
+          this.getInfo()
+        }
+      } else if (!this.state.value) {
+      }
     });
   };
 
@@ -185,7 +205,7 @@ class IntegrationAutosuggest extends React.Component {
         renderSuggestion={renderSuggestion}
         inputProps={{
           classes,
-          placeholder: 'Busca un curso',
+          placeholder: 'Buscar curso',
           value: this.state.value,
           onChange: this.handleChange,
         }}
