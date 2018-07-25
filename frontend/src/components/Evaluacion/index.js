@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 import CursosEvaluacion from './CursosEvaluacion';
 import FormEvaluacion from './FormEvaluacion';
 
