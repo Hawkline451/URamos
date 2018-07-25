@@ -39,10 +39,10 @@
   text-transform: none;
 }
 
-.danger>h3 {
+.danger>span {
   color: red;
 }
 
-.default>h3 {
+.default>span {
   color:blue;
 }
