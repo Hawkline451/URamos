@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import GetHelperName from '../../utils/URamos-BarUtils';
+import IntegrationAutosuggest from '../Buscador';
 import './styles.css';
 
 class UramosBar extends Component {
@@ -20,20 +21,20 @@ class UramosBar extends Component {
               <Link to="/">URamos</Link>
             </Typography>
             <div className="buttons">
-              <Button color="inherit">
-                <Link to="/evaluacion">Evaluar</Link>
+              <Button color="inherit" href={'/evaluacion'}>
+                Evaluar
               </Button>
-              <Button color="inherit">
-                <Link to="/busqueda">Todos los cursos</Link>
+              <Button color="inherit" href={'/busqueda'}>
+                Todos los cursos
               </Button>
             </div>
             <div className="search-frame">
-              <TextField id="search" placeholder="Buscar" margin="normal" />
+                <div className="search-bar">
+                    <IntegrationAutosuggest />
+                </div>
               <div className="search-button">
-                <Button color="inherit">
-                  <Link to="/busqueda" className="search">
+                <Button color="inherit" href={'/busqueda'} className="search">
                     Buscar
-                  </Link>
                 </Button>
               </div>
             </div>
