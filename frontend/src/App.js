@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import UramosBar from './components/URamos-Bar';
 import ActividadReciente from './components/ActividadReciente';
-import Busqueda from './components/Busqueda';
+import Busqueda from './components/Buscador';
 import Curso from './components/Cursos';
 import Profesor from './components/Profesores';
 import Evaluacion from './components/Evaluacion';
@@ -21,6 +21,8 @@ class App extends Component {
             <Route exact path="/curso" component={Curso} />
             <Route exact path="/profesor" component={Profesor} />
             <Route exact path="/evaluacion" component={Evaluacion} />
+            <Route exact path="/evaluacion/formulario"
+              component={Evaluacion} />
           </div>
         </Router>
       </div>
