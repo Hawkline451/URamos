@@ -64,7 +64,7 @@ def Auth(request):
 		nu = NaturalUser(user = user, isLocked=False, isModerator=False)
 		nu.save()
 
-	return "www.google.cl"
+	return HttpResponse(str('htpp://www.google.com'))
 
 
 
