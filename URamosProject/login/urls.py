@@ -24,7 +24,7 @@ from rest_framework_simplejwt.views import (
 from rest_framework import views, serializers, status
 from rest_framework.response import Response
 
-from .views import AuthView, Auth
+from .views import AuthView
 
 from django.views.decorators.csrf import csrf_exempt
 
