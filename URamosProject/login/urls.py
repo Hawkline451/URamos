@@ -40,10 +40,10 @@ class EchoView(views.APIView):
 
 urlpatterns = [
     path('', (csrf_exempt)(AuthView.as_view())),
-    url(r'^api/$', get_schema_view()),
-    url(r'^api/init/$', include(
+    url(r'^/api/$', get_schema_view()),
+    url(r'^/api/init/$', include(
         'rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/init/token/obtain/$', TokenObtainPairView.as_view()),
-    url(r'^api/init/token/refresh/$', TokenRefreshView.as_view()),
+    url(r'^/api/init/token/obtain/$', TokenObtainPairView.as_view()),
+    url(r'^/api/init/token/refresh/$', TokenRefreshView.as_view()),
     url('echo/', EchoView.as_view())
 ]
