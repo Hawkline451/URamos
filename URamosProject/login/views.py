@@ -11,6 +11,8 @@ class AuthView(View):
 		servicio = 'uramos'
 
 		ticket = request.POST['ticket']
+		print(ticket)
+
 		params = {'servicio': servicio, 'ticket':ticket}
 		data = urlopen.urlopen(url_upasaporte+'/?'+urllib.urlencode(params)).read()
 		data = json.loads(data)
