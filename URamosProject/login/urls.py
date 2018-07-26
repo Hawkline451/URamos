@@ -38,11 +38,12 @@ class EchoView(views.APIView):
     	return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 urlpatterns = [
-	url(r'^$', (csrf_exempt)(AuthView.as_view())),    
-    url(r'^api/$', get_schema_view()),
-    url(r'^api/init/$', include(
+    url(r'', (csrf_exempt)(AuthView.as_view())),
+	url(r'^/$', (csrf_exempt)(AuthView.as_view())),    
+    url(r'^/api/$', get_schema_view()),
+    url(r'^/api/init/$', include(
         'rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/init/token/obtain/$', TokenObtainPairView.as_view()),
-    url(r'^api/init/token/refresh/$', TokenRefreshView.as_view()),
+    url(r'^/api/init/token/obtain/$', TokenObtainPairView.as_view()),
+    url(r'^/api/init/token/refresh/$', TokenRefreshView.as_view()),
     url('echo/', EchoView.as_view())
 ]
