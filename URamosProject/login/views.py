@@ -29,9 +29,9 @@ class AuthView(View):
 		if User.objects.filter(username=rut).exists():
 			user = User.objects.get(username=rut)
 		else:
-			user = User.objects.create_user(username=rut, password = rut, first_name=name)
+			user = User.objects.create_user(username=rut, password=rut, first_name=name)
 			user.save()
-			nu = NaturalUser(user = user, isLocked = False, isModerator = False)
+			nu = NaturalUser(user = user, isLocked=False, isModerator=False)
 			nu.save()
 
 
