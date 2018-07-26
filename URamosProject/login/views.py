@@ -48,7 +48,7 @@ def Auth(request):
 
 	ticket = request.POST['ticket']
 
-	params = {'servicio': servicio, 'ticket':ticket}
+	params = {'servicio': servicio, 'ticket':ticket, 'debug':2}
 	data = urllib.request.urlopen(url_upasaporte+'/?'+urllib.parse.urlencode(params)).read()
 	data = json.loads(data)
 
