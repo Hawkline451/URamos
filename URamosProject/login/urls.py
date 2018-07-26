@@ -39,7 +39,7 @@ class EchoView(views.APIView):
     	return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 urlpatterns = [
-    path('', (csrf_exempt)(Auth)),
+    path('', (csrf_exempt)(AuthView.as_view())),
     url(r'^/api/$', get_schema_view()),
     url(r'^/api/init/$', include(
         'rest_framework.urls', namespace='rest_framework')),
