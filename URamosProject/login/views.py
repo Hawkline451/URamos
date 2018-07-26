@@ -5,6 +5,9 @@ import json
 import urllib.request
 import urllib.parse
 
+from naturalUser.models import naturalUser
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 class AuthView(View):
@@ -20,6 +23,10 @@ class AuthView(View):
 		data = urllib.request.urlopen(url_upasaporte+'/?'+urllib.parse.urlencode(params)).read()
 		data = json.loads(data)
 		print(data)
+
+		print(data['pers_id'])
+
+
 		redirect('http://www.google.com')
 		return HttpResponse('htpp://www.google.com')
 
