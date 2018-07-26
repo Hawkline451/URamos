@@ -16,8 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import Search
+from django.views.decorators.csrf import csrf_exempt
 
 
 urlpatterns = [
-    path(r'', Search)
+    path(r'', (csrf_exempt)(Search.as_view()))
 ]
