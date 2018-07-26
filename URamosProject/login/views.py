@@ -19,5 +19,6 @@ class AuthView(View):
 		data = urllib.request.urlopen(url_upasaporte+'/?'+urllib.parse.urlencode(params)).read()
 		data = json.loads(data)
 		print(data)
+		redirect('http://www.google.com')
 		return redirect('http://www.google.com')
 
