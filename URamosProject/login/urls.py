@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.urls import path
 from django.conf.urls import url, include
 from django.views import generic
 from rest_framework.schemas import get_schema_view
@@ -38,12 +39,11 @@ class EchoView(views.APIView):
     	return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 urlpatterns = [
-    url(r'', (csrf_exempt)(AuthView.as_view())),
-	url(r'^/$', (csrf_exempt)(AuthView.as_view())),    
-    url(r'^/api/$', get_schema_view()),
-    url(r'^/api/init/$', include(
+    path('', (csrf_exempt)(AuthView.as_view())),
+    url(r'^api/$', get_schema_view()),
+    url(r'^api/init/$', include(
         'rest_framework.urls', namespace='rest_framework')),
-    url(r'^/api/init/token/obtain/$', TokenObtainPairView.as_view()),
-    url(r'^/api/init/token/refresh/$', TokenRefreshView.as_view()),
+    url(r'^api/init/token/obtain/$', TokenObtainPairView.as_view()),
+    url(r'^api/init/token/refresh/$', TokenRefreshView.as_view()),
     url('echo/', EchoView.as_view())
 ]

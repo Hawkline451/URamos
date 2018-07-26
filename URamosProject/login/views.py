@@ -34,8 +34,11 @@ class AuthView(View):
 			nu = NaturalUser(user = user, isLocked=False, isModerator=False)
 			nu.save()
 
-
-
-		redirect('http://www.google.com')
+		prin(HttpResponse('htpp://www.google.com'))
 		return HttpResponse('htpp://www.google.com')
+
+	def get(self, request):
+		print("holi")
+		return HttpResponse('htpp://www.google.com')
+
 
