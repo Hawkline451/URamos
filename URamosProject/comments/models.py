@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 from naturalUser.models import NaturalUser
+from subject.models import Course
 
 
 class Comment(models.Model):
@@ -12,6 +13,9 @@ class Comment(models.Model):
 	positivePoints = models.IntegerField(default=0)
 	negativePoints = models.IntegerField(default=0)
 	isEdited = models.BooleanField(default=False)
+	noteTeacher = models.IntegerField(default=0)
+	noteCourse = models.IntegerField(default=0)
+	course = models.ForeignKey(Course, on_delete=models.CASCADE)
 	def __str__(self):
 		return self.user.name
 
