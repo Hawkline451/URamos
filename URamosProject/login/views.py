@@ -5,7 +5,7 @@ import json
 import urllib.request
 import urllib.parse
 
-from naturalUser.models import naturalUser
+from naturalUser.models import NaturalUser
 from django.contrib.auth.models import User
 
 
