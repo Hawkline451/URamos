@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 import json
@@ -20,5 +21,5 @@ class AuthView(View):
 		data = json.loads(data)
 		print(data)
 		redirect('http://www.google.com')
-		return 'htpp://www.google.com'
+		return HttpResponse('htpp://www.google.com')
 
