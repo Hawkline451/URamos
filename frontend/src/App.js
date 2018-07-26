@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import UramosBar from './components/URamos-Bar';
+import ActividadReciente from './components/ActividadReciente';
+import Busqueda from './components/Buscador';
+import Curso from './components/Cursos';
+import Profesor from './components/Profesores';
+import Evaluacion from './components/Evaluacion';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Router>
+          <div>
+            <UramosBar />
+
+            <Route exact path="/" component={ActividadReciente} />
+            <Route exact path="/busqueda" component={Busqueda} />
+            <Route exact path="/curso" component={Curso} />
+            <Route exact path="/profesor" component={Profesor} />
+            <Route exact path="/evaluacion" component={Evaluacion} />
+            <Route exact path="/evaluacion/formulario"
+              component={Evaluacion} />
+          </div>
+        </Router>
       </div>
     );
   }
