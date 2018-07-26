@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+from subject.models import Course
+
 # Create your models here.
 class NaturalUser(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
@@ -18,3 +20,6 @@ class LockedUser(models.Model):
 	def __str__(self):
 		return self.lockedUser.user.name
 
+class UserCourses(models.Model):
+	user = models.ForeignKey(NaturalUser, on_delete=models.CASCADE)
+	course = models.ForeignKey(Course, on_delete=models.CASCADE)
