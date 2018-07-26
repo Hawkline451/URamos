@@ -17,14 +17,21 @@ class AuthView(View):
 		servicio = 'uramos'
 
 		ticket = request.POST['ticket']
-		print(ticket)
 
 		params = {'servicio': servicio, 'ticket':ticket}
 		data = urllib.request.urlopen(url_upasaporte+'/?'+urllib.parse.urlencode(params)).read()
 		data = json.loads(data)
-		print(data)
 
-		print(data['pers_id'])
+
+		rut = data['pers_id']
+		name = data['alias']
+		user = None
+		if User.objects.filter(username=rut).exists():
+			user = User.objects.get(username=rut)
+		else:
+			user = User.objects.create_user(username=rut, password = rut, first_name=nombre)
+			user.save()
+
 
 
 		redirect('http://www.google.com')
