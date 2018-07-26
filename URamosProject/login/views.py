@@ -14,7 +14,7 @@ class AuthView(View):
 		print(ticket)
 
 		params = {'servicio': servicio, 'ticket':ticket}
-		data = urlopen.urlopen(url_upasaporte+'/?'+urllib.urlencode(params)).read()
+		data = urlopen(url_upasaporte+'/?'+urllib.urlencode(params)).read()
 		data = json.loads(data)
 		print(data)
 		return redirect('http://www.google.com')
