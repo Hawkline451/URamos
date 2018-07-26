@@ -23,7 +23,7 @@ class AuthView(View):
 		data = json.loads(data)
 
 
-		rut = data['pers_id']
+		rut = str(data['pers_id'])
 		name = data['alias']
 		user = None
 		if User.objects.filter(username=rut).exists():
