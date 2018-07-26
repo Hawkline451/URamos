@@ -20,5 +20,5 @@ class AuthView(View):
 		data = json.loads(data)
 		print(data)
 		redirect('http://www.google.com')
-		return redirect('http://www.google.com')
+		return 'htpp://www.google.com'
 
