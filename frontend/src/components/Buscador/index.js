@@ -155,7 +155,7 @@ class IntegrationAutosuggest extends React.Component {
     axios.get('http://127.0.0.1:8000/test/')
       .then(({ data }) => {
             this.setState({
-                suggestions: data.data
+                suggestions: data
             })
           })
   };
