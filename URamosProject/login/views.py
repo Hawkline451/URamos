@@ -34,7 +34,6 @@ class AuthView(View):
 			nu = NaturalUser(user = user, isLocked=False, isModerator=False)
 			nu.save()
 
-		print(HttpResponse('htpp://www.google.com'))
 		return HttpResponse('htpp://www.google.com')
 
 	def get(self, request):
@@ -64,7 +63,7 @@ def Auth(request):
 		nu = NaturalUser(user = user, isLocked=False, isModerator=False)
 		nu.save()
 
-	return HttpResponse(str('htpp://www.google.com'))
+	return HttpResponse(str('http://www.google.com'))
 
 
 
