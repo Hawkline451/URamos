@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 import json
 import urllib.request
-import urllib.urlencode
+import urllib.parse
 
 
 # Create your views here.
@@ -16,7 +16,7 @@ class AuthView(View):
 		print(ticket)
 
 		params = {'servicio': servicio, 'ticket':ticket}
-		data = urllib.request.urlopen(url_upasaporte+'/?'+urllib.urlencode(params)).read()
+		data = urllib.request.urlopen(url_upasaporte+'/?'+urllib.parse.urlencode(params)).read()
 		data = json.loads(data)
 		print(data)
 		return redirect('http://www.google.com')
