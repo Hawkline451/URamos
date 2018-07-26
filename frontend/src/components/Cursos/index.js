@@ -4,6 +4,8 @@ import SectionName from './SectionName';
 
 class Curso extends Component {
   render() {
+    const { code } = this.props;
+
     return (
       <div>
         <TopTabs code='CC3201' />
