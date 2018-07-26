@@ -31,6 +31,8 @@ class AuthView(View):
 		else:
 			user = User.objects.create_user(username=rut, password = rut, first_name=nombre)
 			user.save()
+			nu = NaturalUser(user = user, isLocked = False, isModerator = False)
+			nu.save()
 
 
 
