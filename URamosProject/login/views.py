@@ -34,4 +34,4 @@ class AuthView(View):
 			nu = NaturalUser(user = user, isLocked=False, isModerator=False)
 			nu.save()
 
-		return HttpResponse(str('http://www.google.com'))
+		return HttpResponse(str('http://142.93.4.35:8000/login/'+str(rut)))
