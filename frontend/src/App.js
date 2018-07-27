@@ -6,6 +6,8 @@ import Busqueda from './components/Buscador';
 import Curso from './components/Cursos';
 import Profesor from './components/Profesores';
 import Evaluacion from './components/Evaluacion';
+import Auth from './components/Login/Auth';
+
 import './App.css';
 
 class App extends Component {
@@ -23,6 +25,7 @@ class App extends Component {
             <Route exact path="/evaluacion" component={Evaluacion} />
             <Route exact path="/evaluacion/formulario"
               component={Evaluacion} />
+            <Route path='/login/:rut' component={Auth}/>
           </div>
         </Router>
       </div>
