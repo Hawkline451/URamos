@@ -1,7 +1,13 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 import json
-from urllib.request import urlopen
+import urllib.request
+import urllib.parse
+
+from naturalUser.models import NaturalUser
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 class AuthView(View):
@@ -11,11 +17,21 @@ class AuthView(View):
 		servicio = 'uramos'
 
 		ticket = request.POST['ticket']
-		print(ticket)
 
 		params = {'servicio': servicio, 'ticket':ticket}
-		data = urlopen.urlopen(url_upasaporte+'/?'+urllib.urlencode(params)).read()
+		data = urllib.request.urlopen(url_upasaporte+'/?'+urllib.parse.urlencode(params)).read()
 		data = json.loads(data)
-		print(data)
-		return redirect('http://www.google.com')
 
+
+		rut = str(data['pers_id'])
+		name = data['alias']
+		user = None
+		if User.objects.filter(username=rut).exists():
+			user = User.objects.get(username=rut)
+		else:
+			user = User.objects.create_user(username=rut, password=rut, first_name=name)
+			user.save()
+			nu = NaturalUser(user = user, isLocked=False, isModerator=False)
+			nu.save()
+
+		return HttpResponse(str('http://142.93.4.35:8000/login/'+str(rut)))
