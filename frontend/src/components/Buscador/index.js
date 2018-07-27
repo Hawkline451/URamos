@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {withStyles} from "@material-ui/core/styles";
 import axios from "axios";
 
-const suggestions = [];
+let suggestions = [];
 
 function renderInput(inputProps) {
     const {classes, ref, ...other} = inputProps;
@@ -32,7 +32,6 @@ function renderSuggestion(suggestion, {query, isHighlighted}) {
     const matches = match(suggestion.label, query);
     const parts = parse(suggestion.label, matches);
 
-    console.log(suggestion.label)
     return (
         <MenuItem selected={isHighlighted} component="div">
             <div>
@@ -66,20 +65,18 @@ function getSuggestionValue(suggestion) {
     return suggestion.label;
 }
 
+function setSuggestion(suggestion) {
+    suggestions = suggestion;
+}
+
 function getSuggestions(value) {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
-    let count = 0;
-
     return inputLength === 0
         ? []
         : suggestions.filter(suggestion => {
             const keep =
-                count < 5 && suggestion.label.toLowerCase().slice(0, inputLength) === inputValue;
-
-            if (keep) {
-                count += 1;
-            }
+                suggestion.label.toLowerCase().slice(0, inputLength) === inputValue;
 
             return keep;
         });
@@ -126,8 +123,9 @@ class IntegrationAutosuggest extends React.Component {
             });
             this.setState({
                 suggestions: newData
-            })
-        })
+            });
+            setSuggestion(this.state.suggestions)
+        });
     };
 
     handleSuggestionsFetchRequested = ({value}) => {
@@ -147,7 +145,7 @@ class IntegrationAutosuggest extends React.Component {
             value: newValue,
         }, () => {
             if (this.state.value && this.state.value.length > 1) {
-                if (this.state.value.length % 2 === 0) {
+                if (this.state.value.length === 2) {
                     this.getInfo()
                 }
             } else if (!this.state.value) {
