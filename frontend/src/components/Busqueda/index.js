@@ -148,7 +148,14 @@ class Busqueda extends React.Component {
     suggestions: [],
   };
 
+  getInfo = () => {
+      axios.get('localhost')
+          .then(({data}) => {
 
+              }
+
+          )
+  }
 
   handleSuggestionsFetchRequested = ({ value }) => {
     this.setState({
