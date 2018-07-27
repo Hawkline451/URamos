@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import GetHelperName from '../../utils/URamos-BarUtils';
 import IntegrationAutosuggest from '../Buscador';
+import Login from '../Login'
 import './styles.css';
 
 class UramosBar extends Component {
@@ -43,7 +44,8 @@ class UramosBar extends Component {
                 <Typography variant="title" color="inherit" align="right">
                   <GetHelperName />
                 </Typography>
-                <Chip avatar={<Avatar>MB</Avatar>} label="User Name" />
+                {/*<Chip avatar={<Avatar>MB</Avatar>} label="User Name" />*/}
+                <Login />
               </ToolBar>
             </div>
           </ToolBar>
