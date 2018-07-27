@@ -10,44 +10,6 @@ import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
 const suggestions = [];
-/*
-const suggestions = [
-  { label: 'Afghanistan' },
-  { label: 'Aland Islands' },
-  { label: 'Albania' },
-  { label: 'Algeria' },
-  { label: 'American Samoa' },
-  { label: 'Andorra' },
-  { label: 'Angola' },
-  { label: 'Anguilla' },
-  { label: 'Antarctica' },
-  { label: 'Antigua and Barbuda' },
-  { label: 'Argentina' },
-  { label: 'Armenia' },
-  { label: 'Aruba' },
-  { label: 'Australia' },
-  { label: 'Austria' },
-  { label: 'Azerbaijan' },
-  { label: 'Bahamas' },
-  { label: 'Bahrain' },
-  { label: 'Bangladesh' },
-  { label: 'Barbados' },
-  { label: 'Belarus' },
-  { label: 'Belgium' },
-  { label: 'Belize' },
-  { label: 'Benin' },
-  { label: 'Bermuda' },
-  { label: 'Bhutan' },
-  { label: 'Bolivia, Plurinational State of' },
-  { label: 'Bonaire, Sint Eustatius and Saba' },
-  { label: 'Bosnia and Herzegovina' },
-  { label: 'Botswana' },
-  { label: 'Bouvet Island' },
-  { label: 'Brazil' },
-  { label: 'British Indian Ocean Territory' },
-  { label: 'Brunei Darussalam' },
-];
-*/
 
 function renderInput(inputProps) {
   const { classes, ref, ...other } = inputProps;
@@ -112,7 +74,8 @@ function getSuggestions(value) {
     ? []
     : suggestions.filter(suggestion => {
         const keep =
-          count < 5 && suggestion.label.toLowerCase().slice(0, inputLength) === inputValue;
+          count < 5 &&
+          suggestion.label.toLowerCase().slice(0, inputLength) === inputValue;
 
         if (keep) {
           count += 1;
@@ -134,9 +97,14 @@ const styles = theme => ({
     marginTop: theme.spacing.unit,
     left: 0,
     right: 0,
+    width: 520,
+    maxHeight: 500,
+    overflowY: 'scroll',
+    overflowX: 'hidden',
   },
   suggestion: {
     display: 'block',
+    width: 520,
   },
   suggestionsList: {
     margin: 0,
@@ -152,12 +120,19 @@ class IntegrationAutosuggest extends React.Component {
   };
 
   getInfo = () => {
-    axios.get('http://127.0.0.1:8000/test/')
-      .then(({ data }) => {
-            this.setState({
-                suggestions: data
-            })
-          })
+    axios({
+      method: 'post',
+      url: 'http://localhost:8000/search/',
+      data: 'value=' + this.state.value,
+      responseType: 'json',
+    }).then(({ data }) => {
+      const newData = data.map(item => {
+        return { label: item.code + ' - ' + item.name };
+      });
+      this.setState({
+        suggestions: newData,
+      });
+    });
   };
 
   handleSuggestionsFetchRequested = ({ value }) => {
@@ -173,16 +148,21 @@ class IntegrationAutosuggest extends React.Component {
   };
 
   handleChange = (event, { newValue }) => {
-    this.setState({
-      value: newValue,
-    }, () => {
-      if (this.state.value && this.state.value.length > 1) {
-        if (this.state.value.length % 2 === 0) {
-          this.getInfo()
+    this.setState(
+      {
+        value: newValue,
+      },
+      () => {
+        if (this.state.value && this.state.value.length > 1) {
+          if (this.state.value.length === 2) {
+            this.getInfo();
+          } else {
+            this.handleSuggestionsFetchRequested(this.state.value);
+          }
+        } else if (!this.state.value) {
         }
-      } else if (!this.state.value) {
-      }
-    });
+      },
+    );
   };
 
   render() {

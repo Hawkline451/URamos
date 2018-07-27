@@ -10,6 +10,6 @@ from django.views import View
 class Search(View):
     def post(self, request):
         key = request.POST.get('value')
-        subjects = Subject.objects.filter(code__icontains=key).values('code', 'name')
+        subjects = Subject.objects.filter(code__startswith=key).values('code', 'name')
         json_data = json.dumps(list(subjects), cls=DjangoJSONEncoder)
         return HttpResponse(json_data, content_type='application/json')
