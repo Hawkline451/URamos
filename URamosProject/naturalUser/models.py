@@ -25,7 +25,7 @@ class NaturalUser(models.Model):
 
 	
 	def __str__(self):
-		return self.user.name
+		return self.nickname
 
 class LockedUser(models.Model):
 	lockedUser =  models.ForeignKey(NaturalUser, on_delete=models.CASCADE)
@@ -33,7 +33,7 @@ class LockedUser(models.Model):
 	date = models.DateField(default=timezone.now)
 	lockedBy = models.ForeignKey(User, on_delete=models.CASCADE)
 	def __str__(self):
-		return self.lockedUser.user.name
+		return self.lockedUser.nickname
 
 class UserCourses(models.Model):
 	user = models.ForeignKey(NaturalUser, on_delete=models.CASCADE)
