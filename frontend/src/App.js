@@ -19,7 +19,7 @@ class App extends Component {
 
   componentDidMount() {
     if (this.state.logged_in) {
-      fetch('http://142.93.4.35:3000/user/', {
+      fetch('http://http://142.93.4.35:3000/user/', {
         headers: {
           Authorization: `JWT ${localStorage.getItem('token')}`
         }
@@ -53,8 +53,9 @@ class App extends Component {
         this.setState({
           logged_in: true,
       });
-    }).then(
-        fetch('http://142.93.4.35:3000/user/', {
+    });
+
+    fetch('http://142.93.4.35:3000/user/', {
             headers: {
               Authorization: `JWT ${localStorage.getItem('token')}`
             }
@@ -62,11 +63,9 @@ class App extends Component {
           .then(res => res.json())
           .then(json => {
             this.setState({ user: json})
-          })
-    );
-    console.log(this.state.user)
+          });
 
-
+    console.log(user)
     return <Redirect to='/'/>;
   };   
 
