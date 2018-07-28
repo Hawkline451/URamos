@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth', include('login.urls')), 
     path('token-auth/', obtain_jwt_token),
+    path('user/', include('naturalUser.urls'))
 
 ]
