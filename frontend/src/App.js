@@ -13,20 +13,20 @@ class App extends Component {
     super(props);
     this.state = {
     logged_in: localStorage.getItem('token') ? true : false,
-    username: ''
+    user: ''
   };  
   }
 
   componentDidMount() {
     if (this.state.logged_in) {
-      fetch('http://http://142.93.4.35:3000/auth/current_user/', {
+      fetch('http://http://142.93.4.35:3000/user/', {
         headers: {
           Authorization: `JWT ${localStorage.getItem('token')}`
         }
       })
       .then(res => res.json())
       .then(json => {
-        this.setState({ username: json.username });
+        this.setState({ user: json});
       });
     }
   }
@@ -37,8 +37,6 @@ class App extends Component {
   }; 
 
   handle_login = (props) => {
-    console.log(props.match.params.rut)
-    const rut = props.match.params.rut
     fetch('http://142.93.4.35:3000/token-auth/', {
       method: 'POST',
       headers: {
@@ -54,9 +52,21 @@ class App extends Component {
         localStorage.setItem('token', json.token);
         this.setState({
           logged_in: true,
-          username: json.user.username
-    });
-  });
+      });
+    }).then(
+        fetch('http://http://142.93.4.35:3000/user/', {
+            headers: {
+              Authorization: `JWT ${localStorage.getItem('token')}`
+            }
+          })
+          .then(res => res.json())
+          .then(json => {
+            this.setState({ user: json})
+          })
+    );
+    console.log(this.state.user)
+
+
     return <Redirect to='/'/>;
   };   
 
