@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import UramosBar from './components/URamos-Bar';
 import ActividadReciente from './components/ActividadReciente';
 import Busqueda from './components/Buscador';
@@ -38,26 +38,26 @@ class App extends Component {
 
   handle_login = (props) => {
     console.log(props.match.params.rut)
+    const rut = props.match.params.rut
     fetch('http://142.93.4.35:3000/token-auth/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: {
-        "Username" : props.match.params.rut,
-        "Password" : props.match.params.rut
-      }
+      body: JSON.stringify({
+        "username" : props.match.params.rut.toString(),
+        "password" : props.match.params.rut.toString()
+      })
     })
       .then(res => res.json())
       .then(json => {
         localStorage.setItem('token', json.token);
         this.setState({
           logged_in: true,
-          displayed_form: '',
           username: json.user.username
     });
   });
-    return("holi")
+    return <Redirect to='/'/>;
   };   
 
 
