@@ -19,7 +19,7 @@ class App extends Component {
 
   componentDidMount() {
     if (this.state.logged_in) {
-      fetch('http://http://142.93.4.35:3000/user/', {
+      fetch('http://142.93.4.35:3000/user/', {
         headers: {
           Authorization: `JWT ${localStorage.getItem('token')}`
         }
