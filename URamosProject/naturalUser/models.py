@@ -3,12 +3,27 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 from subject.models import Course
+import random
 
 # Create your models here.
 class NaturalUser(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
+	nickname = models.TextField(max_length=128)
 	isLocked = models.BooleanField(default=False)
 	isModerator = models.BooleanField(default=False)
+	isTeacher = models.BooleanField(default=False)
+
+	def setNickName(self):
+		sounds = ['miau', 'guau', 'cuak cuak', 'muuuuu', 'pio pio', 'beeee',
+			'auuuuh', 'qui qui ri quii', 'oink oink', 'cri cri', 'grrrrr']
+
+		adjectives = ['consecuente', 'simple', 'feliz', 'habil', 'amable',
+			'angelical', 'debil', 'fuerte', 'realista', 'libre', 'coherente',
+			'brillante', 'grande', 'veloz', 'joven', 'perspicaz']
+
+		this.nickname = random.choice(sounds)+" "+random.choice(adjectives)+" "+str(random.randint(10,99))
+		
+	
 	def __str__(self):
 		return self.user.name
 

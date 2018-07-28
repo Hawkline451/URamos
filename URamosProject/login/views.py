@@ -37,9 +37,11 @@ class AuthView(View):
 		last_name = name[1]
 		user = None
 		if not User.objects.filter(username=rut).exists():
-			user = User.objects.create_user(username=rut, password=rut, first_name=name)
+			user = User.objects.create_user(username=rut, password=rut,
+			 first_name=first_name, last_name=last_name)
 			user.save()
 			nu = NaturalUser(user = user, isLocked=False, isModerator=False)
+			nu.setNickName()
 			nu.save()
 
 		return HttpResponse(str('http://142.93.4.35:8000/login/'+str(rut)))
