@@ -32,9 +32,7 @@ class AuthView(View):
 		rut = str(data['pers_id'])
 		name = data['alias']
 		user = None
-		if User.objects.filter(username=rut).exists():
-			user = User.objects.get(username=rut)
-		else:
+		if not User.objects.filter(username=rut).exists():
 			user = User.objects.create_user(username=rut, password=rut, first_name=name)
 			user.save()
 			nu = NaturalUser(user = user, isLocked=False, isModerator=False)
