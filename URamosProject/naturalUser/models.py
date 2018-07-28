@@ -21,8 +21,8 @@ class NaturalUser(models.Model):
 			'angelical', 'debil', 'fuerte', 'realista', 'libre', 'coherente',
 			'brillante', 'grande', 'veloz', 'joven', 'perspicaz']
 
-		this.nickname = random.choice(sounds)+" "+random.choice(adjectives)+" "+str(random.randint(10,99))
-		
+		self.nickname = random.choice(sounds)+" "+random.choice(adjectives)+" "+str(random.randint(10,99))
+
 	
 	def __str__(self):
 		return self.user.name
