@@ -84,6 +84,7 @@ class App extends Component {
             <UramosBar 
               logged_in={this.state.logged_in}
               handle_logout={this.handle_logout}
+              get_user = {this.get_user}
             />
 
             <Route exact path="/" component={ActividadReciente} />
