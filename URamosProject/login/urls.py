@@ -24,7 +24,7 @@ from rest_framework_simplejwt.views import (
 from rest_framework import views, serializers, status
 from rest_framework.response import Response
 
-from .views import AuthView
+from .views import current_user, UserList, AuthView
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -40,10 +40,6 @@ class EchoView(views.APIView):
 
 urlpatterns = [
     path('', (csrf_exempt)(AuthView.as_view())),
-    url(r'^/api/$', get_schema_view()),
-    url(r'^/api/init/$', include(
-        'rest_framework.urls', namespace='rest_framework')),
-    url(r'^/api/init/token/obtain/$', TokenObtainPairView.as_view()),
-    url(r'^/api/init/token/refresh/$', TokenRefreshView.as_view()),
-    url('echo/', EchoView.as_view())
+    path('/current_user/', current_user),
+    path('/users/', UserList.as_view())
 ]
