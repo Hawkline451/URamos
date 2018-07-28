@@ -103,6 +103,10 @@ DATABASES = {
     }
 }
 
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'URamosProject.utils.my_jwt_response_handler'
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
