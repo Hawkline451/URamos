@@ -13,27 +13,28 @@ class App extends Component {
     super(props);
     this.state = {
     logged_in: localStorage.getItem('token') ? true : false,
-    user: ''
+    normal_user: '',
+    user: '',
   };  
   }
 
   componentDidMount() {
     if (this.state.logged_in) {
-      fetch('http://142.93.4.35:3000/user/', {
+      fetch('http://142.93.4.35:3000/auth/current_user/', {
         headers: {
           Authorization: `JWT ${localStorage.getItem('token')}`
         }
       })
       .then(res => res.json())
       .then(json => {
-        this.setState({ user: json});
+        this.setState({ normal_user: json});
       });
     }
   }
 
   handle_logout = () => {
     localStorage.removeItem('token');
-    this.setState({ logged_in: false, username: '' });
+    this.setState({ logged_in: false, normal_user: '' , user:''});
   }; 
 
   handle_login = (props) => {
@@ -52,22 +53,27 @@ class App extends Component {
         localStorage.setItem('token', json.token);
         this.setState({
           logged_in: true,
+          normal_user: json.user
       });
     });
-
-    fetch('http://142.93.4.35:3000/user/', {
-            headers: {
-              Authorization: `JWT ${localStorage.getItem('token')}`
-            }
-          })
-          .then(res => res.json())
-          .then(json => {
-            this.setState({ user: json})
-          });
-
-    console.log(this.state.user)
     return <Redirect to='/'/>;
-  };   
+  };
+
+  get_user = () =>{
+    if(this.state.user !== ''){
+      fetch('http://142.93.4.35:3000/user/', {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem('token')}`
+        }
+      })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({ user: json});
+      });
+
+    }
+    return this.state.user;
+  };
 
 
   render() {
