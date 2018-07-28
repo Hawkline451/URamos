@@ -65,7 +65,7 @@ class App extends Component {
             this.setState({ user: json})
           });
 
-    console.log(user)
+    console.log(this.state.user)
     return <Redirect to='/'/>;
   };   
 
