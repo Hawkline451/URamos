@@ -26,12 +26,14 @@ class Auth extends Component{
 		  errors: authErrors(state),
 		  isAuthenticated: isAuthenticated(state)
 		});
+		login(rut, rut)
 
+		console.log(login(rut, rut))
 
 		const mapDispatchToProps = (dispatch) => {
 		    dispatch(login(rut, rut))
 		}
-		connect(mapStateToProps, mapDispatchToProps)	
+		console.log(connect(login(rut,rut)))	
 	}
 
 	render(){

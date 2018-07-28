@@ -10,7 +10,7 @@ export const TOKEN_FAILURE = '@@auth/TOKEN_FAILURE';
 
 export const login = (username, password) => ({
   [RSAA]: {
-    endpoint: '/auth/api/init/token/obtain/',
+    endpoint: 'http://142.93.4.35:3000/auth/api/init/token/obtain/',
     method: 'POST',
     body: JSON.stringify({username, password}),
     headers: { 'Content-Type': 'application/json' },
@@ -18,6 +18,7 @@ export const login = (username, password) => ({
       LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE
     ]
   }
+
 })
 
 export const refreshAccessToken = (token) => ({
