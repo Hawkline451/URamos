@@ -18,7 +18,6 @@ from .serializers import UserSerializer, UserSerializerWithToken
 # Create your views here.
 class AuthView(View):
 	def post(self, request, *args, **kwargs):
-		print("hola")
 		url_upasaporte = 'https://www.u-cursos.cl/upasaporte';
 		servicio = 'uramos'
 
@@ -30,9 +29,7 @@ class AuthView(View):
 
 
 		rut = str(data['pers_id'])
-		name = data['alias']
-		print(name)
-		name = name.split(' ')
+		name = data['alias'].split(' ')
 		first_name = name[0]
 		last_name = name[1]
 		user = None
