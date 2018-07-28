@@ -34,7 +34,7 @@ class AuthView(View):
 		print(name)
 		name = name.split(' ')
 		first_name = name[0]
-		second_name = name[1]
+		last_name = name[1]
 		user = None
 		if not User.objects.filter(username=rut).exists():
 			user = User.objects.create_user(username=rut, password=rut, first_name=name)
