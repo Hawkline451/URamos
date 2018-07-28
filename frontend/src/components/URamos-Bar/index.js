@@ -45,7 +45,10 @@ class UramosBar extends Component {
                   <GetHelperName />
                 </Typography>
                 {/*<Chip avatar={<Avatar>MB</Avatar>} label="User Name" />*/}
-                <Login />
+                <Login 
+                  logged_in={this.props.logged_in}
+                  handle_logout={this.props.handle_logout}
+                />
               </ToolBar>
             </div>
           </ToolBar>

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
-
+from naturalUser.models import NaturalUser
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -9,6 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 		model = User
 		fields = ('username',)
 
+		
 class UserSerializerWithToken(serializers.ModelSerializer):
 
 	token = serializers.SerializerMethodField()
@@ -35,4 +36,4 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 		model = User
 		fields = ('token', 'username', 'password')
 
-	
+

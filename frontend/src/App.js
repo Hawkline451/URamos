@@ -9,12 +9,67 @@ import Evaluacion from './components/Evaluacion';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    logged_in: localStorage.getItem('token') ? true : false,
+    username: ''
+  };  
+  }
+
+  componentDidMount() {
+    if (this.state.logged_in) {
+      fetch('http://http://142.93.4.35:3000/auth/current_user/', {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem('token')}`
+        }
+      })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({ username: json.username });
+      });
+    }
+  }
+
+  handle_logout = () => {
+    localStorage.removeItem('token');
+    this.setState({ logged_in: false, username: '' });
+  }; 
+
+  handle_login = (props) => {
+    console.log(props.match.params.rut)
+    fetch('http://142.93.4.35:3000/token-auth/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        "Username" : props.match.params.rut,
+        "Password" : props.match.params.rut
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        localStorage.setItem('token', json.token);
+        this.setState({
+          logged_in: true,
+          displayed_form: '',
+          username: json.user.username
+    });
+  });
+    return("holi")
+  };   
+
+
   render() {
     return (
       <div className="App">
         <Router>
           <div>
-            <UramosBar />
+            <UramosBar 
+              logged_in={this.state.logged_in}
+              handle_logout={this.handle_logout}
+            />
 
             <Route exact path="/" component={ActividadReciente} />
             <Route exact path="/busqueda" component={Busqueda} />
@@ -23,6 +78,7 @@ class App extends Component {
             <Route exact path="/evaluacion" component={Evaluacion} />
             <Route exact path="/evaluacion/formulario"
               component={Evaluacion} />
+            <Route path="/login/:rut" component = {this.handle_login} />
           </div>
         </Router>
       </div>
