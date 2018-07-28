@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import NaturalUser, LockedUser
+from .models import NaturalUser, LockedUser, UserCourses
 
 # Register your models here.
 admin.site.register(NaturalUser)
