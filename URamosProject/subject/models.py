@@ -7,11 +7,15 @@ class Subject(models.Model):
 	department = models.CharField(max_length=64)
 	name = models.CharField(max_length=256)
 	noteSubject = models.FloatField(default=0)
-
+	note = models.FloatField(default=0)
+	def __str__(self):
+		return self.code+ " " + self.name
 
 class Semester(models.Model):
 	name = models.CharField(max_length=16)
 	year = models.IntegerField()
+	def __str__(self):
+		return self.name+ " " + str(self.year)
 
 class Course(models.Model):
 	subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
@@ -19,3 +23,6 @@ class Course(models.Model):
 	teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 	noteCourse = models.FloatField(default=0)
 	noteTeacher = models.FloatField(default=0)
+	section = models.IntegerField()
+	def __str__(self):
+		return self.subject.name + "-" + str(self.section) + " " + str(self.semester.year)
