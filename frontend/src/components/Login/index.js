@@ -6,7 +6,7 @@ import Chip from '@material-ui/core/Chip'; */}
 
 
 function Login(props){
-	const logged_in = localStorage.getItem('token') ? true : false;
+	const logged_in = false;
 
 	const logged_out_nav = (
 		<LoginBar />
