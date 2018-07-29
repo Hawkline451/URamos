@@ -11,6 +11,7 @@ import './App.css';
 class App extends Component {
 
   handle_login = (props) => {
+    var token = null;
     fetch('http://142.93.4.35:3000/token-auth/', {
       method: 'POST',
       headers: {
@@ -23,10 +24,23 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(json => {
+        token = json.token;
         localStorage.setItem('token', json.token);
         localStorage.setItem('normal_user', JSON.stringify(json.user));
         localStorage.setItem('isLogged', true);
     });
+
+    fetch('http://142.93.4.35:3000/user/', {
+      headers: {
+            Authorization: `JWT ${token}`
+          }
+      })
+      .then(res => res.json())
+      .then(json => {
+          localStorage.setItem('user', JSON.stringify(json));
+        this.setState({user:json});
+      });
+
     return <Redirect to='/'/>;
   };
 
