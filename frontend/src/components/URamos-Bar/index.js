@@ -41,11 +41,7 @@ class UramosBar extends Component {
                 <Typography variant="title" color="inherit" align="right">
                   <GetHelperName />
                 </Typography>
-                <Login 
-                  logged_in={this.props.logged_in}
-                  handle_logout={this.props.handle_logout}
-                  get_user = {this.props.get_user}
-                />
+                <Login />
               </ToolBar>
             </div>
           </ToolBar>
