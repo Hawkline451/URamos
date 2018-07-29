@@ -7,8 +7,8 @@ import Chip from '@material-ui/core/Chip'; */}
 
 
 function Login(props){
-
-	return <div>{localStorage.getItem('isLogged') ?  <LoginBar />: <InfoUser />}</div>;
+	
+	return (localStorage.getItem('isLogged') === 'true') ? (<InfoUser />): (<LoginBar />);
 }
 
 export default Login;
