@@ -20,6 +20,7 @@ class App extends Component {
         })
         .then(res => res.json())
         .then(json => {
+          console.log(json)
           localStorage.setItem('user', json);
         });
     }
@@ -33,6 +34,7 @@ class App extends Component {
       })
       .then(res => res.json())
       .then(json => {
+        console.log(json)
         localStorage.setItem('normal_user',json);
       });
     }
