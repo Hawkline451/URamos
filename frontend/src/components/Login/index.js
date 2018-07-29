@@ -1,24 +1,34 @@
 import React from 'react';
-import LoginBar from './login_bar'
+import LoginBar from './login_bar';
 import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
-import Chip from '@material-ui/core/Chip';
+import InfoUser from './info_user';
+{/*import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip'; */}
 
 
 function Login(props){
+	var logged_in = localStorage.getItem('token') ? true : false;
+
 	const logged_out_nav = (
 		<LoginBar />
 	);
 
+	const handle_logout = () => {
+		localStorage.removeItem('token');
+		localStorage.removeItem('user');
+		localStorage.removeItem('normal_user');
+	}; 
+
 	const logged_in_nav = (
-		"holii"+
-		<li onClick={props.handle_logout}>logout</li>
+		<InfoUser />+
+		<li onClick={handle_logout}>logout</li>
 	);
 
-	return <div>{props.logged_in ? logged_in_nav : logged_out_nav}</div>;
+	return <div>{logged_in ? logged_in_nav : logged_out_nav}</div>;
 }
 
 export default Login;
+
 Login.propTypes = {
 	logged_in: PropTypes.bool.isRequired,
 	handle_logout: PropTypes.func.isRequired
