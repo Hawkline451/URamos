@@ -10,34 +10,6 @@ import './App.css';
 
 class App extends Component {
 
-  componentDidMount() {
-    if(localStorage.getItem('isLogged')){
-      fetch('http://142.93.4.35:3000/user/', {
-        headers: {
-              Authorization: `JWT ${localStorage.getItem('token')}`
-            }
-        })
-        .then(res => res.json())
-        .then(json => {
-          localStorage.setItem('user', JSON.stringify(json));
-        });
-    }
-
-    var havent_normal_user = localStorage.getItem('normal_user') === null;
-    if(havent_normal_user){
-      fetch('http://142.93.4.35:3000/auth/current_user/', {
-        headers: {
-          Authorization: `JWT ${localStorage.getItem('token')}`
-        }
-      })
-      .then(res => res.json())
-      .then(json => {
-        localStorage.setItem('normal_user', JSON.stringify(json.user));
-      });
-    }
-  }
-
-
   handle_login = (props) => {
     fetch('http://142.93.4.35:3000/token-auth/', {
       method: 'POST',
@@ -57,10 +29,6 @@ class App extends Component {
     });
     return <Redirect to='/'/>;
   };
-
-  
-
-
 
   render() {
     return (

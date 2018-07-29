@@ -12,39 +12,33 @@ class InfoUser extends Component {
 	}
 
 	componentDidMount(){
-		var havent_user = localStorage.getItem('user') === null;
-		if(havent_user){
-			fetch('http://142.93.4.35:3000/user/', {
-				headers: {
-		        	Authorization: `JWT ${localStorage.getItem('token')}`
-		        }
-		    })
-		    .then(res => res.json())
-		    .then(json => {
-          		localStorage.setItem('user', JSON.stringify(json));
-		    	this.setState({user:json});
-		    });
-		}
+		fetch('http://142.93.4.35:3000/user/', {
+			headers: {
+	        	Authorization: `JWT ${localStorage.getItem('token')}`
+	        }
+	    })
+	    .then(res => res.json())
+	    .then(json => {
+      		localStorage.setItem('user', JSON.stringify(json));
+	    	this.setState({user:json});
+	    });
 
-		var havent_normal_user = localStorage.getItem('normal_user') === null;
-		if(havent_normal_user){
-			fetch('http://142.93.4.35:3000/auth/current_user/', {
-				headers: {
-					Authorization: `JWT ${localStorage.getItem('token')}`
-				}
-			})
-			.then(res => res.json())
-			.then(json => {
-          		localStorage.setItem('user', JSON.stringify(json));
+		fetch('http://142.93.4.35:3000/auth/current_user/', {
+			headers: {
+				Authorization: `JWT ${localStorage.getItem('token')}`
+			}
+		})
+		.then(res => res.json())
+		.then(json => {
+      		localStorage.setItem('user', JSON.stringify(json));
 
-		    	this.setState({normal_user:json});
+	    	this.setState({normal_user:json});
 
-			});
-		}
+		});
 	}
 
 	render(){
-		return "holi"+this.state.normal_user.nickname;
+		return "holi"+this.state.user.nickname;
 	}
 
 }
