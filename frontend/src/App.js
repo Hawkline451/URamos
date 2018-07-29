@@ -20,8 +20,7 @@ class App extends Component {
         })
         .then(res => res.json())
         .then(json => {
-          console.log(json)
-          localStorage.setItem('user', json);
+          localStorage.setItem('user', JSON.stringify(json));
         });
     }
 
@@ -34,8 +33,7 @@ class App extends Component {
       })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
-        localStorage.setItem('normal_user',json);
+        localStorage.setItem('normal_user', JSON.stringify(json.user));
       });
     }
   }
@@ -55,7 +53,7 @@ class App extends Component {
       .then(res => res.json())
       .then(json => {
         localStorage.setItem('token', json.token);
-        localStorage.setItem('normal_user', json.user);
+        localStorage.setItem('normal_user', JSON.stringify(json.user));
     });
     return <Redirect to='/'/>;
   };

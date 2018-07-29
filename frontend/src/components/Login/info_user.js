@@ -21,8 +21,7 @@ class InfoUser extends Component {
 		    })
 		    .then(res => res.json())
 		    .then(json => {
-		    	localStorage.setItem('user', json);
-		    	console.log(json)
+          		localStorage.setItem('user', JSON.stringify(json));
 		    	this.setState({user:json});
 		    });
 		}
@@ -36,8 +35,8 @@ class InfoUser extends Component {
 			})
 			.then(res => res.json())
 			.then(json => {
-				localStorage.setItem('normal_user',json);
-				console.log(json)
+          		localStorage.setItem('user', JSON.stringify(json));
+
 		    	this.setState({normal_user:json});
 
 			});
@@ -45,9 +44,7 @@ class InfoUser extends Component {
 	}
 
 	render(){
-
-		console.log(this.state.user);
-		return "holi";
+		return "holi"+this.state.normal_user;
 	}
 
 }
