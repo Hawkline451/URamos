@@ -37,7 +37,7 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
 
   return (
     <MenuItem selected={isHighlighted} component="div" divider button>
-      <Link to={'cursos/' + code} style={{ color: '#000000' }}>
+      <Link to={'/cursos/' + code} style={{ color: '#000000' }}>
         <div>
           {parts.map((part, index) => {
             return part.highlight ? (
@@ -103,6 +103,7 @@ const styles = theme => ({
     maxHeight: 500,
     overflowY: 'scroll',
     overflowX: 'hidden',
+    paddingRight: 17,
   },
   suggestion: {
     display: 'block',
@@ -124,7 +125,7 @@ class IntegrationAutosuggest extends React.Component {
   getInfo = () => {
     axios({
       method: 'post',
-      url: 'http://localhost:8000/search/',
+      url: 'http://localhost:3000/search/',
       data: 'value=' + this.state.value,
       responseType: 'json',
     }).then(({ data }) => {

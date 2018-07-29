@@ -1,15 +1,54 @@
 import React, { Component } from 'react';
+import Rate from './Rate';
 import TopTabs from './TopTabs';
 import SectionName from './SectionName';
+import CoursesList from './CoursesList';
+import axios from 'axios';
 
 class Curso extends Component {
-  render() {
-    const { code } = this.props;
+  state = {
+    code: null,
+    name: null,
+    cursos: [],
+    notaCurso: null,
+    commentaries: [],
+  };
 
+  getinfo({ code }) {
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/search/inforamo/',
+      data: 'value=' + code,
+      responseType: 'json',
+    }).then(({ data }) => {
+      const { code, name, cursos, notaCurso } = data;
+
+      this.setState({
+        code,
+        name,
+        cursos,
+        notaCurso,
+      });
+    });
+  }
+
+  componentWillMount() {
+    this.getinfo(this.props.match.params);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.code !== this.props.match.params.code) {
+      this.getinfo(nextProps.match.params);
+    }
+  }
+
+  render() {
     return (
       <div>
-        <TopTabs code='CC3201' />
-        <SectionName code='CC3201' name='Bases de Datos' />
+        <TopTabs code={this.state.code} />
+        <SectionName code={this.state.code} name={this.state.name} />
+        <Rate nota={this.state.notaCurso} />
+        <CoursesList cursos={this.state.cursos} />
       </div>
     );
   }
