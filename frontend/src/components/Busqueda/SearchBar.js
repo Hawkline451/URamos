@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {deepOrange500} from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import {Card, CardHeader} from "material-ui/Card";
+import Card from "material-ui/Card";
 
 import DataTables from "material-ui-datatables";
 
@@ -49,33 +49,52 @@ const TABLE_COLUMNS = [
     },
 ];
 
-const TABLE_COLUMNS_SORT_STYLE = [
+const TABLE_COLUMNS_INIT = [
     {
-        key: 'ramo',
-        label: 'Curso',
-        sortable: true,
-        style: {
-            width: 250,
-        }
+        key: 'dpto',
+        label: 'Departamento'
     },
 ];
 
-const TABLE_COLUMNS_CLASSNAME = [
-    {
-        key: 'ramo',
-        label: 'Curso',
-        className: 'important-column',
-    }, {
-        key: 'nota',
-        label: 'Promedio',
-        className: 'important-column',
-    },
+const TABLE_DATA = [
+    {dpto: 'AA - Área para el Aprendizaje de la Ingeniería y Ciencias A2IC'},
+    {dpto: 'AS - Departamento de Astronomía'},
+    {dpto: 'CC - Departamento de Ciencias de la Computación'},
+    {dpto: 'CI - Departamento de Ingeniería Civil'},
+    {dpto: 'CM - Departamento de Ciencia de los Materiales'},
+    {dpto: 'DR - Área de Deportes, Recreación y Cultura'},
+    {dpto: 'ED - Doctorado en Ingeniería Eléctrica'},
+    {dpto: 'EH - Área de Estudios Humanísticos'},
+    {dpto: 'EI - Área de Idiomas, Escuela de Ingeniería'},
+    {dpto: 'EI - Área de Ingeniería e Innovación'},
+    {dpto: 'EI - Escuela de Ingeniería'},
+    {dpto: 'EL - Departamento de Ingeniería Eléctrica'},
+    {dpto: 'EP - Escuela de Postgrado'},
+    {dpto: 'ES - Escuela de Ingeniería y Ciencias'},
+    {dpto: 'FG - Plataforma'},
+    {dpto: 'FI - Departamento de Física'},
+    {dpto: 'GF - Departamento de Geofísica'},
+    {dpto: 'GL - Departamento de Geología'},
+    {dpto: 'IN - Departamento de Ingeniería Industrial'},
+    {dpto: 'MA - Departamento de Ingeniería Matemática'},
+    {dpto: 'ME - Departamento de Ingeniería Mecánica'},
+    {dpto: 'MI - Departamento de Ingeniería de Minas'},
+    {dpto: 'MT - Doctorado en Ciencias de los Materiales'},
+    {dpto: 'QB - Departamento de Ingeniería Química y Biotecnología'}
 ];
 
-var TABLE_DATA = [];
+/*
+ function setSuggestion(suggestion) {
+ TABLE_DATA = suggestion;
+ }
+ */
 
-function setSuggestion(suggestion) {
-    TABLE_DATA = suggestion;
+function filterData(data) {
+    var newData = [];
+    for (var i = 0; i < data.length - 1; i++) {
+        newData.push(data[i]);
+    }
+    return newData;
 }
 
 class Main extends Component {
@@ -87,10 +106,12 @@ class Main extends Component {
         this.handleNextPageClick = this.handleNextPageClick.bind(this);
 
         this.state = {
-            suggestions: [],
+            columns: TABLE_COLUMNS_INIT,
+            suggestions: TABLE_DATA,
             page: 1,
             value: '',
-            rows: 100,
+            rows: 24,
+            showFooter: false
         };
     }
 
@@ -99,41 +120,37 @@ class Main extends Component {
             value: this.state.value,
             page: this.state.page,
         }).then(({data}) => {
-            var {algo, otro} = data;
-            console.log(otro);
-            const newData = data.map((item) => {
+            var pages = 0;
+            const newDataAux = data.map((item) => {
+                pages = item.page;
                 return {'ramo': item.code + ' - ' + item.name, 'nota': item.note}
             });
+            const newData = filterData(newDataAux);
             this.setState({
-                suggestions: newData
+                suggestions: newData,
+                rows: pages
             });
-            //console.log(this.state.suggestions)
-            //setSuggestion(this.state.suggestions);
         });
-     /*   axios({
-            method: 'post',
-            url: 'http://localhost:8000/search/courses/',
-            data: 'value=' + this.state.value + " page=" + this.state.page,
-            responseType: 'json'
-        }).then(({data}) => {
-            const newData = data.map((item) => {
-                return {'ramo': item.code + ' - ' + item.name, 'nota': item.note}
-            });
-            this.setState({
-                suggestions: newData
-            });
-            //setSuggestion(this.state.suggestions);
-        });*/
     };
 
     handleFilterValueChange(value) {
         this.setState({
             value: value,
+            showFooter: true,
+            rows: 0,
+            columns: TABLE_COLUMNS,
         }, () => {
             if (this.state.value && this.state.value.length > 1) {
                 if (this.state.value.length >= 2) {
                     this.getInfo()
                 }
+            } else if (this.state.value.length >= 0 && this.state.value.length < 2) {
+                this.setState({
+                    suggestions: TABLE_DATA,
+                    showFooter: false,
+                    rows: 24,
+                    columns: TABLE_COLUMNS_INIT,
+                })
             } else if (!this.state.value) {
             }
         });
@@ -141,6 +158,7 @@ class Main extends Component {
 
     handleCellClick(rowIndex, columnIndex, row, column) {
         console.log('rowIndex: ' + rowIndex + ' columnIndex: ' + columnIndex);
+        console.log
     };
 
     handleNextPageClick() {
@@ -182,7 +200,7 @@ class Main extends Component {
                                 height={'auto'}
                                 selectable={false}
                                 showRowHover={true}
-                                columns={TABLE_COLUMNS}
+                                columns={this.state.columns}
                                 data={this.state.suggestions}
                                 page={this.state.page}
                                 rowsPerPage={10}
@@ -190,7 +208,7 @@ class Main extends Component {
                                 showHeaderToolbar={true}
                                 showCheckboxes={false}
                                 enableSelectAll={false}
-                                showFooterToolbar={true}
+                                showFooterToolbar={this.state.showFooter}
                                 headerToolbarMode={'filter'}
                                 onCellClick={this.handleCellClick}
                                 onNextPageClick={this.handleNextPageClick}
