@@ -13,12 +13,6 @@ function Login(props){
 		<LoginBar />
 	);
 
-	const handle_logout = () => {
-		localStorage.removeItem('token');
-		localStorage.removeItem('user');
-		localStorage.removeItem('normal_user');
-	}; 
-
 	const logged_in_nav = (
 		<InfoUser />
 	);
