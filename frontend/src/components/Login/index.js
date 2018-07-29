@@ -11,7 +11,7 @@ function Login(props){
 	);
 
 	const logged_in_nav = (
-		<Chip avatar={<Avatar>{props.get_user.nickname}</Avatar>} label="User Name" />+
+		"holii"+
 		<li onClick={props.handle_logout}>logout</li>
 	);
 
