@@ -4,7 +4,10 @@ import {BrowserRouter as Redirect} from 'react-router-dom';
 class Logout extends Component {
 	
 	componentDidMount(){
-		localStorage.clear();
+		localStorage.removeItem('token');
+		localStorage.removeItem('user');
+		localStorage.removeItem('normal_user');
+		localStorage.setItem('isLogged', false);
 	}
 
 	render(){
