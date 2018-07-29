@@ -11,8 +11,21 @@ import './App.css';
 class App extends Component {
 
   componentDidMount() {
-    var isLogged = localStorage.getItem('normal_user') ? true : false;
-    if (isLogged) {
+    var havent_user = localStorage.getItem('user') === null;
+    if(havent_user){
+      fetch('http://142.93.4.35:3000/user/', {
+        headers: {
+              Authorization: `JWT ${localStorage.getItem('token')}`
+            }
+        })
+        .then(res => res.json())
+        .then(json => {
+          localStorage.setItem('user', json);
+        });
+    }
+
+    var havent_normal_user = localStorage.getItem('normal_user') === null;
+    if(havent_normal_user){
       fetch('http://142.93.4.35:3000/auth/current_user/', {
         headers: {
           Authorization: `JWT ${localStorage.getItem('token')}`

@@ -12,8 +12,8 @@ class InfoUser extends Component {
 	}
 
 	componentDidMount(){
-		var have_user = localStorage.getItem('user') ? true : false;
-		if(!have_user){
+		var havent_user = localStorage.getItem('user') === null;
+		if(havent_user){
 			fetch('http://142.93.4.35:3000/user/', {
 				headers: {
 		        	Authorization: `JWT ${localStorage.getItem('token')}`
@@ -26,8 +26,8 @@ class InfoUser extends Component {
 		    });
 		}
 
-		var have_normal_user = localStorage.getItem('normal_user') ? true : false;
-		if(!have_normal_user){
+		var havent_normal_user = localStorage.getItem('normal_user') === null;
+		if(havent_normal_user){
 			fetch('http://142.93.4.35:3000/auth/current_user/', {
 				headers: {
 					Authorization: `JWT ${localStorage.getItem('token')}`
@@ -36,6 +36,8 @@ class InfoUser extends Component {
 			.then(res => res.json())
 			.then(json => {
 				localStorage.setItem('normal_user',json);
+		    	this.setState({normal_user:json});
+
 			});
 		}
 	}
