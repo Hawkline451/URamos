@@ -11,8 +11,7 @@ import './App.css';
 class App extends Component {
 
   componentDidMount() {
-    var havent_user = localStorage.getItem('user') === null;
-    if(havent_user){
+    if(localStorage.getItem('isLogged')){
       fetch('http://142.93.4.35:3000/user/', {
         headers: {
               Authorization: `JWT ${localStorage.getItem('token')}`
@@ -54,6 +53,7 @@ class App extends Component {
       .then(json => {
         localStorage.setItem('token', json.token);
         localStorage.setItem('normal_user', JSON.stringify(json.user));
+        localStorage.setItem('isLogged', true);
     });
     return <Redirect to='/'/>;
   };

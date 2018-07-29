@@ -44,7 +44,7 @@ class InfoUser extends Component {
 	}
 
 	render(){
-		return "holi"+this.state.normal_user;
+		return "holi"+this.state.normal_user.nickname;
 	}
 
 }
