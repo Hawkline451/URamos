@@ -3,6 +3,7 @@ import {deepOrange500} from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Card from "material-ui/Card";
+import {Redirect} from "react-router-dom";
 
 import DataTables from "material-ui-datatables";
 
@@ -111,14 +112,18 @@ class Main extends Component {
             page: 1,
             value: '',
             rows: 24,
-            showFooter: false
+            showFooter: false,
+            redirect: false,
+            link: '/',
+            byCode: false,
         };
     }
 
-    getInfo = () => {
+    getInfo = (byCode) => {
         axios.post('http://localhost:8000/search/courses/', {
             value: this.state.value,
             page: this.state.page,
+            byCode: byCode,
         }).then(({data}) => {
             var pages = 0;
             const newDataAux = data.map((item) => {
@@ -134,6 +139,7 @@ class Main extends Component {
     };
 
     handleFilterValueChange(value) {
+        console.log(value);
         this.setState({
             value: value,
             showFooter: true,
@@ -142,7 +148,7 @@ class Main extends Component {
         }, () => {
             if (this.state.value && this.state.value.length > 1) {
                 if (this.state.value.length >= 2) {
-                    this.getInfo()
+                    this.getInfo(this.state.byCode)
                 }
             } else if (this.state.value.length >= 0 && this.state.value.length < 2) {
                 this.setState({
@@ -157,8 +163,38 @@ class Main extends Component {
     };
 
     handleCellClick(rowIndex, columnIndex, row, column) {
-        console.log('rowIndex: ' + rowIndex + ' columnIndex: ' + columnIndex);
-        console.log
+        const code = column.split(' - ')[0];
+        if (this.state.suggestions === TABLE_DATA) {
+            // filter by code
+            console.log(code);
+            this.setState({
+                value: code,
+                showFooter: true,
+                rows: 0,
+                columns: TABLE_COLUMNS,
+                byCode: true,
+            }, () => {
+                if (this.state.value && this.state.value.length > 1) {
+                    if (this.state.value.length >= 2) {
+                        this.getInfo(this.state.byCode)
+                    }
+                } else if (this.state.value.length >= 0 && this.state.value.length < 2) {
+                    this.setState({
+                        suggestions: TABLE_DATA,
+                        showFooter: false,
+                        rows: 24,
+                        columns: TABLE_COLUMNS_INIT,
+                    })
+                } else if (!this.state.value) {
+                }
+            });
+        } else {
+            // redirect to subject
+            this.setState({
+                redirect: true,
+                link: "/cursos/" + code
+            });
+        }
     };
 
     handleNextPageClick() {
@@ -167,7 +203,7 @@ class Main extends Component {
         }, () => {
             if (this.state.value && this.state.value.length > 1) {
                 if (this.state.value.length >= 2) {
-                    this.getInfo()
+                    this.getInfo(this.state.byCode)
                 }
             } else if (!this.state.value) {
             }
@@ -181,7 +217,7 @@ class Main extends Component {
             }, () => {
                 if (this.state.value && this.state.value.length > 1) {
                     if (this.state.value.length >= 2) {
-                        this.getInfo()
+                        this.getInfo(this.state.byCode)
                     }
                 } else if (!this.state.value) {
                 }
@@ -190,37 +226,44 @@ class Main extends Component {
     }
 
     render() {
-        return (
-            <MuiThemeProvider muiTheme={muiTheme}>
-                <div style={styles.container}>
-                    <div style={styles.component}>
-                        <Card style={{margin: 12, textAlign: 'left'}}>
-                            <DataTables
-                                title={'Cursos'}
-                                height={'auto'}
-                                selectable={false}
-                                showRowHover={true}
-                                columns={this.state.columns}
-                                data={this.state.suggestions}
-                                page={this.state.page}
-                                rowsPerPage={10}
-                                multiSelectable={false}
-                                showHeaderToolbar={true}
-                                showCheckboxes={false}
-                                enableSelectAll={false}
-                                showFooterToolbar={this.state.showFooter}
-                                headerToolbarMode={'filter'}
-                                onCellClick={this.handleCellClick}
-                                onNextPageClick={this.handleNextPageClick}
-                                onPreviousPageClick={this.handlePreviousPageClick}
-                                onFilterValueChange={this.handleFilterValueChange}
-                                count={this.state.rows}
-                            />
-                        </Card>
+        const {redirect} = this.state;
+
+        if (redirect) {
+            const link = this.state.link;
+            return <Redirect to={ link }/>;
+        } else {
+            return (
+                <MuiThemeProvider muiTheme={muiTheme}>
+                    <div style={styles.container}>
+                        <div style={styles.component}>
+                            <Card style={{margin: 12, textAlign: 'left'}}>
+                                <DataTables
+                                    title={'Cursos'}
+                                    height={'auto'}
+                                    selectable={false}
+                                    showRowHover={true}
+                                    columns={this.state.columns}
+                                    data={this.state.suggestions}
+                                    page={this.state.page}
+                                    rowsPerPage={10}
+                                    multiSelectable={false}
+                                    showHeaderToolbar={true}
+                                    showCheckboxes={false}
+                                    enableSelectAll={false}
+                                    showFooterToolbar={this.state.showFooter}
+                                    headerToolbarMode={'filter'}
+                                    onCellClick={this.handleCellClick}
+                                    onNextPageClick={this.handleNextPageClick}
+                                    onPreviousPageClick={this.handlePreviousPageClick}
+                                    onFilterValueChange={this.handleFilterValueChange}
+                                    count={this.state.rows}
+                                />
+                            </Card>
+                        </div>
                     </div>
-                </div>
-            </MuiThemeProvider>
-        );
+                </MuiThemeProvider>
+            );
+        }
     }
 }
 
