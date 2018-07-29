@@ -12,7 +12,7 @@ class LoginBar extends Component{
 	render(){
 		return (
 			<div ref={el => (this.instance = el)} />
-			);
+		);
 	}
 }
 

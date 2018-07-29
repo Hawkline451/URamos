@@ -38,7 +38,7 @@ class InfoUser extends Component {
 	}
 
 	render(){
-		return "holi"+this.state.user.nickname;
+		return "holi";
 	}
 
 }

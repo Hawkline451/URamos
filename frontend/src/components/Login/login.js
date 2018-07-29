@@ -23,7 +23,7 @@ class Login extends Component {
 	}
 
 	render(){
-    	return <Redirect to='/'/>;
+    	return (<Redirect to='/'/>);
 	}
 
 }
