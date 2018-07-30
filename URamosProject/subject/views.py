@@ -19,14 +19,16 @@ class SearchCourses(View):
     def post(self, request):
         large = 10
         key = json.loads(request.body.decode('utf-8'))
-        if key['byCode']:
-            print(key['value'])
-            subjects = Subject.objects.filter(code__startswith=key['value']).values('code', 'name', 'note')
+        if key['code'] != '':
+            if key['byNameAndCode']:
+                subjects = Subject.objects.filter(code__startswith=key['code'], name__icontains=key['value']).values(
+                    'code', 'name', 'note')
+            else:
+                subjects = Subject.objects.filter(code__startswith=key['code']).values('code', 'name', 'note')
         else:
             subjects = Subject.objects.filter(name__icontains=key['value']).values('code', 'name', 'note')
-            print(subjects)
         total_data = len(subjects)
-        print(total_data)
+
         if key['page'] == '1':
             subjects = subjects[0:large + 1]
         else:

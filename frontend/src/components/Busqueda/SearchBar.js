@@ -115,15 +115,18 @@ class Main extends Component {
             showFooter: false,
             redirect: false,
             link: '/',
-            byCode: false,
+            code: '',
+            byNameAndCode: false,
+            firstCharacter: true,
         };
     }
 
-    getInfo = (byCode) => {
+    getInfo = () => {
         axios.post('http://localhost:8000/search/courses/', {
             value: this.state.value,
             page: this.state.page,
-            byCode: byCode,
+            code: this.state.code,
+            byNameAndCode: this.state.byNameAndCode
         }).then(({data}) => {
             var pages = 0;
             const newDataAux = data.map((item) => {
@@ -139,25 +142,56 @@ class Main extends Component {
     };
 
     handleFilterValueChange(value) {
-        console.log(value);
+        if (value !== this.state.value) {
+            this.setState({
+                page: 1
+            })
+        }
         this.setState({
             value: value,
             showFooter: true,
             rows: 0,
             columns: TABLE_COLUMNS,
         }, () => {
-            if (this.state.value && this.state.value.length > 1) {
-                if (this.state.value.length >= 2) {
-                    this.getInfo(this.state.byCode)
+            if ((this.state.value && this.state.value.length > 1) || (this.state.code !== '' && !this.state.value && this.state.firstCharacter)) {
+                if (this.state.value.length >= 2 || this.state.code !== '') {
+                    if (this.state.code) {
+                        this.setState({
+                            byNameAndCode: true,
+                        }, () => {
+                            this.getInfo();
+                        });
+                    } else {
+                        this.getInfo();
+                    }
                 }
-            } else if (this.state.value.length >= 0 && this.state.value.length < 2) {
+            } else if (this.state.value.length === 1) {
+                if (this.state.code === '') {
+                    this.setState({
+                        suggestions: TABLE_DATA,
+                        showFooter: false,
+                        rows: 24,
+                        columns: TABLE_COLUMNS_INIT,
+                        byNameAndCode: false,
+                    });
+                } else {
+                    this.setState({
+                        byNameAndCode: false,
+                        firstCharacter: false,
+                    }, () => {
+                        this.getInfo();
+                    });
+                }
+            } else {
                 this.setState({
                     suggestions: TABLE_DATA,
                     showFooter: false,
                     rows: 24,
                     columns: TABLE_COLUMNS_INIT,
-                })
-            } else if (!this.state.value) {
+                    byNameAndCode: false,
+                    code: '',
+                    firstCharacter: true
+                });
             }
         });
     };
@@ -166,26 +200,17 @@ class Main extends Component {
         const code = column.split(' - ')[0];
         if (this.state.suggestions === TABLE_DATA) {
             // filter by code
-            console.log(code);
             this.setState({
-                value: code,
                 showFooter: true,
                 rows: 0,
                 columns: TABLE_COLUMNS,
-                byCode: true,
+                code: code,
             }, () => {
-                if (this.state.value && this.state.value.length > 1) {
-                    if (this.state.value.length >= 2) {
-                        this.getInfo(this.state.byCode)
+                if (this.state.code && this.state.code.length > 1) {
+                    if (this.state.code.length >= 2) {
+                        this.getInfo()
                     }
-                } else if (this.state.value.length >= 0 && this.state.value.length < 2) {
-                    this.setState({
-                        suggestions: TABLE_DATA,
-                        showFooter: false,
-                        rows: 24,
-                        columns: TABLE_COLUMNS_INIT,
-                    })
-                } else if (!this.state.value) {
+                } else if (!this.state.code) {
                 }
             });
         } else {
@@ -201,12 +226,21 @@ class Main extends Component {
         this.setState({
             page: this.state.page + 1,
         }, () => {
-            if (this.state.value && this.state.value.length > 1) {
-                if (this.state.value.length >= 2) {
-                    this.getInfo(this.state.byCode)
-                }
-            } else if (!this.state.value) {
-            }
+            /*if (this.state.value && this.state.value.length > 1 || this.state.code !== '') {
+             if (this.state.value.length >= 2) {
+             if (this.state.code) {
+             this.setState({
+             byNameAndCode: true,
+             }, () => {
+             this.getInfo();
+             });
+             } else {
+             this.getInfo()
+             }
+             }
+             } else if (!this.state.value) {
+             }*/
+            this.handleFilterValueChange(this.state.value);
         });
     }
 
@@ -215,12 +249,21 @@ class Main extends Component {
             this.setState({
                 page: this.state.page - 1,
             }, () => {
-                if (this.state.value && this.state.value.length > 1) {
-                    if (this.state.value.length >= 2) {
-                        this.getInfo(this.state.byCode)
-                    }
-                } else if (!this.state.value) {
-                }
+                /*if (this.state.value && this.state.value.length > 1 || this.state.code !== '') {
+                 if (this.state.value.length >= 2) {
+                 if (this.state.code) {
+                 this.setState({
+                 byNameAndCode: true,
+                 }, () => {
+                 this.getInfo();
+                 });
+                 } else {
+                 this.getInfo()
+                 }
+                 }
+                 } else if (!this.state.value) {
+                 }*/
+                this.handleFilterValueChange(this.state.value);
             });
         }
     }
