@@ -27,9 +27,6 @@ class AuthView(View):
 		data = urllib.request.urlopen(url_upasaporte+'/?'+urllib.parse.urlencode(params)).read()
 		data = json.loads(data)
 
-		print(data)
-
-
 		rut = str(data['pers_id'])
 		name = data['alias'].split(' ')
 		first_name = name[0]
