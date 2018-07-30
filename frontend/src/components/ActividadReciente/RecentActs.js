@@ -8,6 +8,11 @@ class RecentActs extends Component {
       <div>
         <ListItem divider>
           <ListItemText
+            style={{
+              primary: {
+                fontSize: 20
+              }
+            }}
             className={this.props.class}
             primary="List item text 3"
             secondary="List item text 3 secondary"

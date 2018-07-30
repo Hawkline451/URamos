@@ -6,7 +6,9 @@ class CursosEvaluacion extends Component {
   render() {
     return (
       <div className='cursosToEval-div'>
-        <Button variant="outlined" href="/evaluacion/formulario" size='large'>
+        <Button variant="outlined" href="/evaluacion/formulario" size='large' style={{
+          fontSize: 16
+        }}>
           Formulario
         </Button>
       </div>
