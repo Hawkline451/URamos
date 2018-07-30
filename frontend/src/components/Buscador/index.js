@@ -125,7 +125,7 @@ class IntegrationAutosuggest extends React.Component {
   getInfo = () => {
     axios({
       method: 'post',
-      url: 'http://localhost:3000/search/',
+      url: 'http://142.93.4.35:3000/search/',
       data: 'value=' + this.state.value,
       responseType: 'json',
     }).then(({ data }) => {
