@@ -11,7 +11,7 @@ class InfoUser extends Component {
 	constructor(props){
 		super(props);
 	    this.state = { 
-	    	user: localStorage.getItem('user'),
+	    	user: {'nickname':''},
 	    	normal_user: localStorage.getItem('normal_user')
 	    };
 
@@ -26,9 +26,9 @@ class InfoUser extends Component {
 	    .then(res => res.json())
 	    .then(json => {
       		localStorage.setItem('user', JSON.stringify(json));
-	    	this.setState({user: JSON.parse(json)});
+	    	this.setState({user: json});
 	    });
-
+	    console.log("holi")
 		fetch('http://142.93.4.35:3000/auth/current_user/', {
 			headers: {
 				Authorization: `JWT ${localStorage.getItem('token')}`
@@ -38,8 +38,7 @@ class InfoUser extends Component {
 		.then(json => {
       		localStorage.setItem('normal_user', JSON.stringify(json));
 
-	    	this.setState({normal_user:JSON.parse(json)});
-
+	    	this.setState({normal_user:json});
 		});
 	}
 
