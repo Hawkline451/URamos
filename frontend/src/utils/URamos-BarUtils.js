@@ -32,7 +32,7 @@ const GetHelperName = (props) => (
     />
     <Route
       exact
-      path="/profesor"
+      path="/profesor/:name"
       component={() => (
         <div className="reference">
           <span>Profesor</span>

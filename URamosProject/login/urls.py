@@ -24,26 +24,14 @@ from rest_framework_simplejwt.views import (
 from rest_framework import views, serializers, status
 from rest_framework.response import Response
 
-from .views import AuthView
+from .views import current_user, UserList, AuthView
 
 from django.views.decorators.csrf import csrf_exempt
 
 
-class MessageSerializer(serializers.Serializer):
-    message = serializers.CharField()
-
-class EchoView(views.APIView):
-    def post(self, request, *args, **kwargs):
-    	serializer = MessageSerializer(data=request.data)
-    	serializer.is_valid(raise_exception=True)
-    	return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 urlpatterns = [
     path('', (csrf_exempt)(AuthView.as_view())),
-    url(r'^/api/$', get_schema_view()),
-    url(r'^/api/init/$', include(
-        'rest_framework.urls', namespace='rest_framework')),
-    url(r'^/api/init/token/obtain/$', TokenObtainPairView.as_view()),
-    url(r'^/api/init/token/refresh/$', TokenRefreshView.as_view()),
-    url('echo/', EchoView.as_view())
+    path('/current_user/', current_user),
+    path('/users/', UserList.as_view())
 ]
