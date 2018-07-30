@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import UramosBar from './components/URamos-Bar';
 import ActividadReciente from './components/ActividadReciente';
-import Busqueda from './components/Buscador';
+import Busqueda from './components/Busqueda';
 import Curso from './components/Cursos';
 import Profesor from './components/Profesores';
 import Evaluacion from './components/Evaluacion';
