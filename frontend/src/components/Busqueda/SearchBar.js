@@ -84,12 +84,6 @@ const TABLE_DATA = [
     {dpto: 'QB - Departamento de Ingeniería Química y Biotecnología'}
 ];
 
-/*
- function setSuggestion(suggestion) {
- TABLE_DATA = suggestion;
- }
- */
-
 function filterData(data) {
     var newData = [];
     for (var i = 0; i < data.length - 1; i++) {
@@ -226,20 +220,6 @@ class Main extends Component {
         this.setState({
             page: this.state.page + 1,
         }, () => {
-            /*if (this.state.value && this.state.value.length > 1 || this.state.code !== '') {
-             if (this.state.value.length >= 2) {
-             if (this.state.code) {
-             this.setState({
-             byNameAndCode: true,
-             }, () => {
-             this.getInfo();
-             });
-             } else {
-             this.getInfo()
-             }
-             }
-             } else if (!this.state.value) {
-             }*/
             this.handleFilterValueChange(this.state.value);
         });
     }
@@ -249,20 +229,6 @@ class Main extends Component {
             this.setState({
                 page: this.state.page - 1,
             }, () => {
-                /*if (this.state.value && this.state.value.length > 1 || this.state.code !== '') {
-                 if (this.state.value.length >= 2) {
-                 if (this.state.code) {
-                 this.setState({
-                 byNameAndCode: true,
-                 }, () => {
-                 this.getInfo();
-                 });
-                 } else {
-                 this.getInfo()
-                 }
-                 }
-                 } else if (!this.state.value) {
-                 }*/
                 this.handleFilterValueChange(this.state.value);
             });
         }
