@@ -1,3 +1,16 @@
 .cursosToEval-div {
   margin-top: 22%;
 }
+
+.comment-text>label {
+  font-size: 17px;
+  margin-bottom: 1%
+}
+
+.comment-text>div {
+  font-size: 16px
+}
+
+.comment-text>p {
+  font-size: 14px
+}

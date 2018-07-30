@@ -48,7 +48,10 @@ class InfoUser extends Component {
 			bsStyle='success'
 			bsSize="large"
 			title= {
-			     <Chip
+				<Chip
+					style={{
+						fontSize: 15
+					}}
 			        avatar={
 			          <Avatar>
 			            <FaceIcon />

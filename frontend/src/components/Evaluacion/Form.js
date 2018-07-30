@@ -63,23 +63,27 @@ class Form extends Component {
   };
 
   handleSubmit = event => {
-    console.log(this.state)
+    console.log(this.state);
     if (localStorage.getItem('isLogged')) {
-      console.log('autenticado')
-      axios.post('http://142.93.4.35:3000/comment/save/',
-        {
-          data: this.state,
-        },
-        {
-          headers: {
-            Authorization: `JWT ${localStorage.getItem('token')}`
-          }
-        }).then(({ data }) => {
-        console.log(data)
-      })
+      console.log('autenticado');
+      axios
+        .post(
+          'http://142.93.4.35:3000/comment/save/',
+          {
+            data: this.state,
+          },
+          {
+            headers: {
+              Authorization: `JWT ${localStorage.getItem('token')}`,
+            },
+          },
+        )
+        .then(({ data }) => {
+          console.log(data);
+        });
     }
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
 
   render() {
     return (
@@ -87,7 +91,7 @@ class Form extends Component {
         <form onSubmit={this.handleSubmit}>
           <Paper
             style={{
-              width: '47%',
+              width: '48.7%',
               display: 'inline-block',
               float: 'left',
               marginBottom: '2%',
@@ -99,6 +103,9 @@ class Form extends Component {
               color="primary"
               variant="headline"
               paragraph={true}
+              style={{
+                fontSize: 25,
+              }}
             >
               Valoracion del ramo
             </Typography>
@@ -108,7 +115,8 @@ class Form extends Component {
               variant="subheading"
               paragraph={true}
               style={{
-                marginBottom: '10%',
+                marginBottom: '9.6%',
+                fontSize: 16,
               }}
             >
               ¿El ramo es interesante? <br />
@@ -132,6 +140,9 @@ class Form extends Component {
             </Ratings>
             <br />
             <br />
+            <br />
+            <br />
+            <br />
             <Divider />
             <br />
             <br />
@@ -140,6 +151,9 @@ class Form extends Component {
               color="primary"
               variant="headline"
               paragraph={true}
+              style={{
+                fontSize: 25,
+              }}
             >
               Exigencia del ramo
             </Typography>
@@ -150,6 +164,7 @@ class Form extends Component {
               paragraph={true}
               style={{
                 marginBottom: '10%',
+                fontSize: 16,
               }}
             >
               ¿Crees que la exigencia del ramo es acorde a la cantidad de
@@ -177,10 +192,11 @@ class Form extends Component {
           </Paper>
           <Paper
             style={{
-              width: '47%',
+              width: '48.7%',
               display: 'inline-block',
               float: 'right',
               marginBottom: '2%',
+              marginRight: '0.7%',
               padding: '10px',
             }}
           >
@@ -189,6 +205,9 @@ class Form extends Component {
               color="primary"
               variant="headline"
               paragraph={true}
+              style={{
+                fontSize: 25,
+              }}
             >
               Compromiso del profesor con los estudiantes
             </Typography>
@@ -199,6 +218,7 @@ class Form extends Component {
               paragraph={true}
               style={{
                 marginBottom: '10%',
+                fontSize: 16,
               }}
             >
               ¿El profesor considera el feedback de los alumnos? <br />
@@ -231,6 +251,9 @@ class Form extends Component {
               color="primary"
               variant="headline"
               paragraph={true}
+              style={{
+                fontSize: 25,
+              }}
             >
               Que tan bien enseña el Docente
             </Typography>
@@ -241,6 +264,7 @@ class Form extends Component {
               paragraph={true}
               style={{
                 marginBottom: '10%',
+                fontSize: 16,
               }}
             >
               ¿Explica de forma comprensible los conceptos de la clase? <br />
@@ -271,7 +295,7 @@ class Form extends Component {
             style={{
               float: 'left',
               display: 'block',
-              width: '98%',
+              width: '99.5%',
               padding: '10px',
             }}
           >
@@ -280,6 +304,9 @@ class Form extends Component {
               color="primary"
               variant="headline"
               paragraph={true}
+              style={{
+                fontSize: 25,
+              }}
             >
               Importancia de asistir a clases
             </Typography>
@@ -290,6 +317,7 @@ class Form extends Component {
               paragraph={true}
               style={{
                 marginBottom: '4%',
+                fontSize: 16,
               }}
             >
               ¿Que tan importante es asistir a clases en este ramo?
@@ -320,6 +348,9 @@ class Form extends Component {
               color="primary"
               variant="headline"
               paragraph={true}
+              style={{
+                fontSize: 25,
+              }}
             >
               Comentario
             </Typography>
@@ -330,6 +361,7 @@ class Form extends Component {
               paragraph={true}
               style={{
                 marginBottom: '0.5%',
+                fontSize: 16,
               }}
             >
               Por favor deja un comentario sobre el ramo, para que los demas
@@ -345,13 +377,14 @@ class Form extends Component {
               fullWidth
               margin="normal"
               onKeyUp={this.handleTextChange('comentario')}
+              className={'comment-text'}
             />
           </Paper>
           <Button
             color="primary"
             fullWidth
-            type='submit'
-            variant='raised'
+            type="submit"
+            variant="raised"
             style={{
               backgroundColor: 'rgb(92,184,92)',
               marginTop: '2%',
@@ -359,9 +392,9 @@ class Form extends Component {
               color: 'white',
               fontSize: '30px',
               letterSpacing: 4,
-            }}        
+            }}
           >
-            Enviar  Evaluacion
+            Enviar Evaluacion
           </Button>
         </form>
       </div>
