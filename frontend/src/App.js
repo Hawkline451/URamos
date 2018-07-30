@@ -8,6 +8,7 @@ import Profesor from './components/Profesores';
 import Evaluacion from './components/Evaluacion';
 import Logout from './components/Login/logout';
 import Login from './components/Login/login';
+import Moderar from './components/Moderador';
 import './App.css';
 
 class App extends Component {
@@ -29,6 +30,7 @@ class App extends Component {
               component={Evaluacion} />
             <Route path="/login/:rut" component = {Login} />
             <Route exact path='/logout/' component={Logout} />
+            <Route exact path="/moderar" component={Moderar} />
           </div>
         </Router>
       </div>

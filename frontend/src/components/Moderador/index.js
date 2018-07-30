@@ -1,37 +1,31 @@
 import React, {Component} from "react";
-import Rate from "./Rate";
 import TopTabs from "./TopTabs";
 import SectionName from "./SectionName";
 import CoursesList from "./CoursesList";
-import CommentList from "./CommetList";
 import axios from "axios";
 
-class Curso extends Component {
+class Moderar extends Component {
     state = {
         code: null,
         name: null,
         cursos: [],
-        notaCurso: null,
-        commentaries: [],
-        comments: [],
     };
 
     getinfo({code}) {
         axios({
             method: 'post',
-            url: 'http://localhost:3000/search/inforamo/',
-            data: 'value=' + code,
+            url: 'http://localhost:3000/moderator/',
+            //data: 'value=' + code,
             responseType: 'json',
         }).then(({data}) => {
-            const {code, name, cursos, notaCurso, comments} = data;
-
-            this.setState({
-                code,
-                name,
-                cursos,
-                notaCurso,
-                comments,
-            });
+            console.log(data);
+            /*
+             this.setState({
+             code,
+             name,
+             cursos,
+             });
+             */
         });
     }
 
@@ -50,12 +44,10 @@ class Curso extends Component {
             <div>
                 <TopTabs code={this.state.code}/>
                 <SectionName code={this.state.code} name={this.state.name}/>
-                <Rate nota={this.state.notaCurso}/>
                 <CoursesList cursos={this.state.cursos}/>
-                <CommentList comment={this.state.comments}/>
             </div>
         );
     }
 }
 
-export default Curso;
+export default Moderar;

@@ -25,6 +25,9 @@ class UramosBar extends Component {
               <Button color="inherit" href={'/busqueda'}>
                 Todos los cursos
               </Button>
+              <Button color="inherit" href={'/moderar'}>
+                Moderar
+              </Button>
             </div>
             <div className="search-frame">
                 <div className="search-bar">
