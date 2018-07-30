@@ -13,7 +13,7 @@ class RecentActList extends Component {
           <RecentActs class="danger" />
           <RecentActs class="warning" />
           <RecentActs class="default" />
-          <RecentActs class="defualt" />
+          <RecentActs class="warning" />
         </List>
       </div>
     );
