@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import '../../static/bootstrap-3.3.7-dist/css/bootstrap.min.css'
+import { MenuItem, DropdownButton } from 'react-bootstrap'; 
+import Avatar from '@material-ui/core/Avatar';
+import FaceIcon from '@material-ui/icons/Face';
+import Chip from '@material-ui/core/Chip';
+
 
 class InfoUser extends Component {
 
@@ -30,7 +36,7 @@ class InfoUser extends Component {
 		})
 		.then(res => res.json())
 		.then(json => {
-      		localStorage.setItem('user', JSON.stringify(json));
+      		localStorage.setItem('normal_user', JSON.stringify(json));
 
 	    	this.setState({normal_user:json});
 
@@ -38,7 +44,27 @@ class InfoUser extends Component {
 	}
 
 	render(){
-		return "holi";
+		return (
+			<DropdownButton
+			bsStyle='success'
+			bsSize="large"
+			title= {
+			     <Chip
+			        avatar={
+			          <Avatar>
+			            <FaceIcon />
+			          </Avatar>
+			        }
+			        label={this.state.normal_user.first_name+" "+this.state.normal_user.last_name}
+     			/>
+
+			}
+			id="drop-session"
+			>	
+				<MenuItem >{this.state.user.nickname}</MenuItem>
+				<MenuItem href="/logout/">Cerrar sesión</MenuItem>
+			</DropdownButton>
+			);
 	}
 
 }
