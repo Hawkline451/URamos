@@ -18,10 +18,11 @@ class Form extends Component {
       notaCompromiso: 0,
       notaAsistencia: 0,
       comentario: '',
-      code: '',
-      teacher: '',
-      anno: 0,
-      section: 0,
+      code: 'CC3102',
+      teacher: 'gonzalo navarro',
+      anno: 2016,
+      semestre: 'Primavera',
+      section: 1,
     };
   }
 
@@ -64,12 +65,17 @@ class Form extends Component {
   handleSubmit = event => {
     console.log(this.state)
     if (localStorage.getItem('isLogged')) {
-      axios.post({
-        url: '/comment/save/',
-        data: {
+      console.log('autenticado')
+      axios.post('http://localhost:3000/comment/save/',
+        {
           data: this.state,
-          token: localStorage.getItem('token'),
-        }
+        },
+        {
+          headers: {
+            Authorization: `JWT ${localStorage.getItem('token')}`
+          }
+        }).then(({ data }) => {
+        console.log(data)
       })
     }
     event.preventDefault()

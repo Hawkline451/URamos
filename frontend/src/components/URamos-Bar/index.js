@@ -10,6 +10,34 @@ import Login from '../Login'
 import './styles.css';
 
 class UramosBar extends Component {
+
+  constructor(props){
+    super(props);
+      this.state = { 
+        user: JSON.parse(localStorage.getItem('user')),
+        normal_user: JSON.parse(localStorage.getItem('normal_user')),
+        moderator_info: ''
+      };
+  }
+
+  componentDidMount(){
+    this.setState({user: JSON.parse(localStorage.getItem('user')),
+      normal_user: JSON.parse(localStorage.getItem('normal_user')),
+        })
+
+    const infMod = (<Button color="inherit" href={'/moderar'}>
+                    Cursos a Moderar
+                  </Button>);
+    
+    if(localStorage.getItem('isLogged') === 'true'){
+      if(this.state.user.isModerator){
+        this.setState({moderator_info:infMod})
+      }
+    }
+    console.log(this.state.moderator_info);
+  }
+
+
   render() {
     return (
       <div className="App-bar-custom">
@@ -21,7 +49,7 @@ class UramosBar extends Component {
             <div className="buttons">
               <Button color="inherit" href={'/evaluacion'}>
                 Evaluar
-              </Button>
+              </Button>{this.state.moderator_info}
               <Button color="inherit" href={'/busqueda'}>
                 Todos los cursos
               </Button>

@@ -172,7 +172,7 @@ class CoursesList extends React.Component {
                     return (
                       <TableRow
                         hover
-                        key={semestre + curso.section}
+                        key={semestre + curso.section + teacher}
                         onClick={event => this.handleClick(teacher)}
                       >
                         <TableCell component="th" scope="row">
