@@ -3,6 +3,7 @@
 .idea/
 node_modules/
 frontend/node_modules/
+ParserCursos.json
 
 ## Gitignore from URamos
 

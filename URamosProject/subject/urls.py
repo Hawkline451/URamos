@@ -15,3 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from .views import Search, InfoRamo
+from teacher.views import InfoProfesor
+from django.views.decorators.csrf import csrf_exempt
+
+
+urlpatterns = [
+    path(r'', (csrf_exempt)(Search.as_view())),
+    path(r'inforamo/', (csrf_exempt)(InfoRamo.as_view())),
+    path(r'infoprofe/', (csrf_exempt)(InfoProfesor.as_view())),
+]

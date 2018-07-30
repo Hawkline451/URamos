@@ -22,8 +22,8 @@ class App extends Component {
 
             <Route exact path="/" component={ActividadReciente} />
             <Route exact path="/busqueda" component={Busqueda} />
-            <Route exact path="/curso" component={Curso} />
-            <Route exact path="/profesor" component={Profesor} />
+            <Route exact path="/cursos/:code" component={Curso} />
+            <Route exact path="/profesor/:name" component={Profesor} />
             <Route exact path="/evaluacion" component={Evaluacion} />
             <Route exact path="/evaluacion/formulario"
               component={Evaluacion} />
