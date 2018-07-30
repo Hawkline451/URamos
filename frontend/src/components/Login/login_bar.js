@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import InfoUser from './info_user';
 
 class LoginBar extends Component{
 
@@ -10,9 +11,7 @@ class LoginBar extends Component{
 	    this.instance.appendChild(s);
 	}
 	render(){
-		return (
-			<div ref={el => (this.instance = el)} />
-			);
+		return (localStorage.getItem('isLogged') === 'true') ? (<InfoUser />): (<div ref={el => (this.instance = el)} />)
 	}
 }
 
