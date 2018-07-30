@@ -1,7 +1,7 @@
 from django.db import models
 from teacher.models import Teacher
 
-# Create your models here.
+
 class Subject(models.Model):
 	code = models.CharField(max_length=16, primary_key=True)
 	department = models.CharField(max_length=64)
@@ -26,3 +26,4 @@ class Course(models.Model):
 	section = models.IntegerField()
 	def __str__(self):
 		return self.subject.name + "-" + str(self.section) + " " + str(self.semester.year)
+

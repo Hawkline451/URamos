@@ -116,7 +116,7 @@ class Main extends Component {
     }
 
     getInfo = () => {
-        axios.post('http://localhost:8000/search/courses/', {
+        axios.post('http://localhost:3000/search/courses/', {
             value: this.state.value,
             page: this.state.page,
             code: this.state.code,
@@ -191,9 +191,9 @@ class Main extends Component {
     };
 
     handleCellClick(rowIndex, columnIndex, row, column) {
-        const code = column.split(' - ')[0];
         if (this.state.suggestions === TABLE_DATA) {
             // filter by code
+            const code = column.split(' - ')[0];
             this.setState({
                 showFooter: true,
                 rows: 0,
@@ -209,6 +209,7 @@ class Main extends Component {
             });
         } else {
             // redirect to subject
+            const code = row.ramo.split(' - ')[0];
             this.setState({
                 redirect: true,
                 link: "/cursos/" + code
