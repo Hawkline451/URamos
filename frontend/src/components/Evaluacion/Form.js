@@ -66,7 +66,7 @@ class Form extends Component {
     console.log(this.state)
     if (localStorage.getItem('isLogged')) {
       console.log('autenticado')
-      axios.post('http://localhost:3000/comment/save/',
+      axios.post('http://142.93.4.35:3000/comment/save/',
         {
           data: this.state,
         },
