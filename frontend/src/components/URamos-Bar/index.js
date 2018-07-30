@@ -77,11 +77,6 @@ class UramosBar extends Component {
                 <div className="search-bar">
                     <IntegrationAutosuggest />
                 </div>
-              <div className="search-button">
-                <Button color="inherit" href={'/busqueda'} className="search">
-                    Buscar
-                </Button>
-              </div>
             </div>
             <div className="right-user-div" align="right">
               <ToolBar>
