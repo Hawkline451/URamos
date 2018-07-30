@@ -21,6 +21,17 @@ class UramosBar extends Component {
   }
 
   componentDidMount(){
+    fetch('http://142.93.4.35:3000/auth/current_user/', {
+      headers: {
+        Authorization: `JWT ${localStorage.getItem('token')}`
+      }
+    })
+    .then(res => res.json())
+    .then(json => {
+          localStorage.setItem('normal_user', JSON.stringify(json));
+
+        this.setState({normal_user:json});
+    });
     this.setState({user: JSON.parse(localStorage.getItem('user')),
       normal_user: JSON.parse(localStorage.getItem('normal_user')),
         })
