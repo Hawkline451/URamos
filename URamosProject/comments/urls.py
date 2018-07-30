@@ -19,5 +19,5 @@ from .views import SaveComment
 from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
-	path('save/', (csrf_exempt)(SaveComment.as_view()))
+	path('save/', SaveComment)
 ]
