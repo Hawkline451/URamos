@@ -12,8 +12,10 @@ class NaturalUser(models.Model):
 	isLocked = models.BooleanField(default=False)
 	isModerator = models.BooleanField(default=False)
 	isTeacher = models.BooleanField(default=False)
+	teacherName = models.TextField(max_length=128, null=True)
 
 	def setNickName(self):
+
 		sounds = ['miau', 'guau', 'cuak cuak', 'muuuuu', 'pio pio', 'beeee',
 			'auuuuh', 'qui qui ri quii', 'oink oink', 'cri cri', 'grrrrr']
 
@@ -21,8 +23,12 @@ class NaturalUser(models.Model):
 			'angelical', 'debil', 'fuerte', 'realista', 'libre', 'coherente',
 			'brillante', 'grande', 'veloz', 'joven', 'perspicaz']
 
-		self.nickname = random.choice(sounds)+" "+random.choice(adjectives)+" "+str(random.randint(10,99))
+		nickname = random.choice(sounds)+" "+random.choice(adjectives)+" "+str(random.randint(10,99))
 
+		while(NaturalUser.objects.filter(nickname=nickname)):
+			nickname = random.choice(sounds)+" "+random.choice(adjectives)+" "+str(random.randint(10,99))
+		
+		self.nickname = nickname		
 	
 	def __str__(self):
 		return self.nickname
