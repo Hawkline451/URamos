@@ -36,7 +36,13 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
   const code = parts[0].text + parts[1].text.split(' - ')[0];
 
   return (
-    <MenuItem selected={isHighlighted} component="div" divider button>
+    <MenuItem
+      selected={isHighlighted}
+      component="div"
+      divider
+      button
+      style={{ fontSize: 15 }}
+    >
       <Link to={'/cursos/' + code} style={{ color: '#000000' }}>
         <div>
           {parts.map((part, index) => {

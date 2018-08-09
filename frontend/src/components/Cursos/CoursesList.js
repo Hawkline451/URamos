@@ -139,21 +139,21 @@ class CoursesList extends React.Component {
     this.setState({
       link: '/profesor/' + teacher,
       redirect: true,
-    })
+    });
   };
 
   render() {
     const { classes } = this.props;
     const { data, rowsPerPage, page } = this.state;
-    const emptyRows = 0
-     // rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    const emptyRows = 0;
+    // rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     const { redirect } = this.state;
 
     console.log(redirect);
 
     if (redirect) {
-      console.log('redirecting')
-      return <Redirect to={this.state.link} />
+      console.log('redirecting');
+      return <Redirect to={this.state.link} />;
     } else {
       return (
         <Paper className={classes.root}>
@@ -175,14 +175,37 @@ class CoursesList extends React.Component {
                         key={semestre + curso.section + teacher}
                         onClick={event => this.handleClick(teacher)}
                       >
-                        <TableCell component="th" scope="row">
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          style={{
+                            fontSize: 16,
+                          }}
+                        >
                           {semestre}
                         </TableCell>
-                        <TableCell>{seccion}</TableCell>
-                        <TableCell style={{ textTransform: 'capitalize' }}>
+                        <TableCell
+                          style={{
+                            fontSize: 16,
+                          }}
+                        >
+                          {seccion}
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            textTransform: 'capitalize',
+                            fontSize: 16,
+                          }}
+                        >
                           {teacher}
                         </TableCell>
-                        <TableCell>{nota}</TableCell>
+                        <TableCell
+                          style={{
+                            fontSize: 16,
+                          }}
+                        >
+                          {nota}
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -208,7 +231,7 @@ class CoursesList extends React.Component {
             </Table>
           </div>
         </Paper>
-      )
+      );
     }
   }
 }

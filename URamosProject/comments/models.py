@@ -17,7 +17,7 @@ class Comment(models.Model):
 	noteCourse = models.IntegerField(default=0)
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)
 	def __str__(self):
-		return self.user.name
+		return self.user.nickname
 
 class InvisibleComment(models.Model):
 	comment = models.ForeignKey(Comment, on_delete=models.CASCADE)

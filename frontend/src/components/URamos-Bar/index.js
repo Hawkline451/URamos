@@ -6,12 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import GetHelperName from '../../utils/URamos-BarUtils';
 import IntegrationAutosuggest from '../Buscador';
-import Login from '../Login'
+import Login from '../Login';
 import './styles.css';
 
 class UramosBar extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
       this.state = { 
         user: JSON.parse(localStorage.getItem('user')),
@@ -57,13 +56,18 @@ class UramosBar extends Component {
     
   }
 
-
   render() {
     return (
       <div className="App-bar-custom">
         <AppBar position="static" color="default">
           <ToolBar className="main-toolbar">
-            <Typography variant="title" color="inherit">
+            <Typography
+              variant="title"
+              color="inherit"
+              style={{
+                fontSize: 26,
+              }}
+            >
               <Link to="/">URamos</Link>
             </Typography>
             <div className="buttons">
@@ -77,15 +81,17 @@ class UramosBar extends Component {
                 <div className="search-bar">
                     <IntegrationAutosuggest />
                 </div>
-              <div className="search-button">
-                <Button color="inherit" href={'/busqueda'} className="search">
-                    Buscar
-                </Button>
-              </div>
             </div>
             <div className="right-user-div" align="right">
               <ToolBar>
-                <Typography variant="title" color="inherit" align="right">
+                <Typography
+                  variant="title"
+                  color="inherit"
+                  align="right"
+                  style={{
+                    fontSize: 26,
+                  }}
+                >
                   <GetHelperName />
                 </Typography>
                 <Login />
