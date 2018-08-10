@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -113,6 +114,8 @@ class CoursesList extends React.Component {
       data: [],
       page: 0,
       rowsPerPage: 5,
+      link: '/',
+      redirect: false,
     };
   }
 
@@ -132,62 +135,77 @@ class CoursesList extends React.Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
+  handleClick = code => {
+    this.setState({
+      link: '/cursos/' + code,
+      redirect: true,
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const { data, rowsPerPage, page } = this.state;
-    const emptyRows = 0
-      //rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    const emptyRows = 0;
+    //rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    const { redirect } = this.state;
 
-    console.log(this.state)
-    
-    return (
-      <Paper className={classes.root}>
-        <div className={classes.tableWrapper}>
-          <Table className={classes.table}>
-            <TableBody>
-              {data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(curso => {
-                  const seccion = 'Seccion ' + curso.section;
-                  const semestre =
-                    curso.semester__year + ' ' + curso.semester__name;
-                  const ramo = curso.subject__code + ' - ' + curso.subject__name
-                  const nota = parseFloat(curso.noteTeacher).toFixed(1);
+    if (redirect) {
+      return <Redirect to={this.state.link} />;
+    } else {
+      return (
+        <Paper className={classes.root}>
+          <div className={classes.tableWrapper}>
+            <Table className={classes.table}>
+              <TableBody>
+                {data
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map(curso => {
+                    const seccion = 'Seccion ' + curso.section;
+                    const semestre =
+                      curso.semester__year + ' ' + curso.semester__name;
+                    const ramo =
+                      curso.subject__code + ' - ' + curso.subject__name;
+                    const nota = parseFloat(curso.noteTeacher).toFixed(1);
 
-                  return (
-                    <TableRow key={semestre + curso.section + ramo}>
-                      <TableCell component="th" scope="row">
-                        {semestre}
-                      </TableCell>
-                      <TableCell>{ramo}</TableCell>
-                      <TableCell>{seccion}</TableCell>
-                      <TableCell>{nota}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 48 * emptyRows }}>
-                  <TableCell colSpan={6} />
+                    return (
+                      <TableRow
+                        hover
+                        key={semestre + curso.section + ramo}
+                        onClick={event => this.handleClick(curso.subject__code)}
+                      >
+                        <TableCell component="th" scope="row">
+                          {semestre}
+                        </TableCell>
+                        <TableCell>{ramo}</TableCell>
+                        <TableCell>{seccion}</TableCell>
+                        <TableCell>{nota}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 48 * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    colSpan={3}
+                    count={data.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={this.handleChangePage}
+                    onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActionsWrapped}
+                  />
                 </TableRow>
-              )}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  colSpan={3}
-                  count={data.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onChangePage={this.handleChangePage}
-                  onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActionsWrapped}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </div>
-      </Paper>
-    );
+              </TableFooter>
+            </Table>
+          </div>
+        </Paper>
+      );
+    }
   }
 }
 

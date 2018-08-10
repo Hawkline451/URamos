@@ -19,7 +19,7 @@ class Curso extends Component {
     getinfo({code}) {
         axios({
             method: 'post',
-            url: 'http://localhost:3000/search/inforamo/',
+            url: 'http://142.93.4.35:3000/search/inforamo/',
             data: 'value=' + code,
             responseType: 'json',
         }).then(({data}) => {
@@ -46,6 +46,8 @@ class Curso extends Component {
     }
 
     render() {
+        console.log("comment");
+        console.log(this.state.comments);
         return (
             <div>
                 <TopTabs code={this.state.code}/>

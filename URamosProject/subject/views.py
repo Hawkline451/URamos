@@ -49,6 +49,7 @@ class InfoRamo(View):
 
         comment = Comment.objects.filter(course__in=courses, isVisible=True)
 
+        print(comment)
         courses = courses.values('semester__name', 'semester__year', 'teacher',
                                  'section', 'noteCourse', 'noteTeacher')
 
