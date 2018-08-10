@@ -149,10 +149,7 @@ class CoursesList extends React.Component {
     // rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     const { redirect } = this.state;
 
-    console.log(redirect);
-
     if (redirect) {
-      console.log('redirecting');
       return <Redirect to={this.state.link} />;
     } else {
       return (
@@ -218,6 +215,10 @@ class CoursesList extends React.Component {
               <TableFooter>
                 <TableRow>
                   <TablePagination
+                    className='tableFooter'
+                    style={{
+                      fontSize: 14
+                    }}
                     colSpan={3}
                     count={data.length}
                     rowsPerPage={rowsPerPage}
