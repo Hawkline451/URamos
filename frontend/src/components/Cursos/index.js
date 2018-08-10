@@ -7,34 +7,33 @@ import CommentList from "./CommetList";
 import axios from "axios";
 
 class Curso extends Component {
-    state = {
-        code: null,
-        name: null,
-        cursos: [],
-        notaCurso: null,
-        commentaries: [],
-        comments: [],
-    };
+  state = {
+    code: null,
+    name: null,
+    cursos: [],
+    notaCurso: null,
+    votosCurso: 0,
+    commentaries: [],
+  };
 
-    getinfo({code}) {
-        axios({
-            method: 'post',
-            url: 'http://142.93.4.35:3000/search/inforamo/',
-            data: 'value=' + code,
-            responseType: 'json',
-        }).then(({data}) => {
-            const {code, name, cursos, notaCurso, comments} = data;
+  getinfo({ code }) {
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/search/inforamo/',
+      data: 'value=' + code,
+      responseType: 'json',
+    }).then(({ data }) => {
+      const { code, name, cursos, notaCurso, votosCurso } = data;
 
-            this.setState({
-                code,
-                name,
-                cursos,
-                notaCurso,
-                comments,
-            });
-        });
-    }
-
+      this.setState({
+        code,
+        name,
+        cursos,
+        notaCurso,
+        votosCurso,
+      });
+    });
+  }
     componentWillMount() {
         this.getinfo(this.props.match.params);
     }
@@ -45,19 +44,16 @@ class Curso extends Component {
         }
     }
 
-    render() {
-        console.log("comment");
-        console.log(this.state.comments);
-        return (
-            <div>
-                <TopTabs code={this.state.code}/>
-                <SectionName code={this.state.code} name={this.state.name}/>
-                <Rate nota={this.state.notaCurso}/>
-                <CoursesList cursos={this.state.cursos}/>
-                <CommentList comment={this.state.comments}/>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <TopTabs code={this.state.code} />
+        <SectionName code={this.state.code} name={this.state.name} />
+        <Rate nota={this.state.notaCurso} votos={this.state.votosCurso}/>
+        <CoursesList cursos={this.state.cursos} />
+      </div>
+    );
+  }
 }
 
 export default Curso;

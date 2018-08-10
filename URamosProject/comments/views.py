@@ -16,8 +16,6 @@ import json
 def SaveComment (request) :
     body = json.loads (request.body) ['data']
 
-    print (body)
-
     notaCurso = (body ['notaValoracion'] + body ['notaExigencia'] + body ['notaAsistencia']) / 3
     notaProfesor = (body ['notaBuenDocente'] + body ['notaCompromiso'] + body ['notaAsistencia']) / 3
 

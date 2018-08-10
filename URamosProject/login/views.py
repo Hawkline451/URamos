@@ -6,6 +6,7 @@ import urllib.request
 import urllib.parse
 
 from naturalUser.models import NaturalUser
+from teacher.models import Teacher
 from django.contrib.auth.models import User
 
 from rest_framework import permissions, status
@@ -35,8 +36,14 @@ class AuthView(View):
 		if not User.objects.filter(username=rut).exists():
 			user = User.objects.create_user(username=rut, password=rut,
 			 first_name=first_name, last_name=last_name)
-			user.save()
-			nu = NaturalUser(user = user, isLocked=False, isModerator=False)
+			user.save()			
+			nu = NaturalUser(user = user, isLocked=False, isModerator=False, isTeacher=False)
+			
+			teacher = Teacher.objects.filter(name=data['alias'])
+			if(teacher):
+				nu.isTeacher = True
+				nu.teacherName = data['alias']
+
 			nu.setNickName()
 			nu.save()
 

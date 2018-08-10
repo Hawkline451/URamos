@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "react": "^16.4.1",
+    "react-autosuggest": "^9.3.4",
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.4.1",
+    "react-ratings-declarative": "^3.4.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^1.1.4",
+    "react-select": "^2.0.0",
     "@material-ui/core": "^1.4.1",
     "@material-ui/icons": "^2.0.0",
     "autosuggest-highlight": "^3.1.1",
@@ -11,15 +19,7 @@
     "material-ui": "^0.20.1",
     "material-ui-datatables": "^0.18.2",
     "material-ui-rating": "^2.0.0",
-    "prop-type": "0.0.1",
-    "react": "^16.4.1",
-    "react-autosuggest": "^9.3.4",
-    "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.4.1",
-    "react-ratings-declarative": "^3.4.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "^1.1.4",
-    "react-select": "^2.0.0"
+    "prop-type": "^0.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

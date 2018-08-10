@@ -41,8 +41,26 @@
 
 .danger>span {
   color: red;
+  font-size: 15px
+}
+
+.danger>p {
+  font-size: 15px
 }
 
 .default>span {
   color:blue;
+  font-size: 15px
+}
+
+.default>p {
+  font-size: 15px
+}
+
+.warning>span {
+  font-size: 15px
+}
+
+.warning>p {
+  font-size: 15px
 }

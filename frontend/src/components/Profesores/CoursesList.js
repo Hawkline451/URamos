@@ -173,12 +173,36 @@ class CoursesList extends React.Component {
                         key={semestre + curso.section + ramo}
                         onClick={event => this.handleClick(curso.subject__code)}
                       >
-                        <TableCell component="th" scope="row">
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          style={{
+                            fontSize: 16,
+                          }}
+                        >
                           {semestre}
                         </TableCell>
-                        <TableCell>{ramo}</TableCell>
-                        <TableCell>{seccion}</TableCell>
-                        <TableCell>{nota}</TableCell>
+                        <TableCell
+                          style={{
+                            fontSize: 16,
+                          }}
+                        >
+                          {ramo}
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            fontSize: 16,
+                          }}
+                        >
+                          {seccion}
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            fontSize: 16,
+                          }}
+                        >
+                          {nota}
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -191,6 +215,10 @@ class CoursesList extends React.Component {
               <TableFooter>
                 <TableRow>
                   <TablePagination
+                    className="tableFooter"
+                    style={{
+                      fontSize: 14,
+                    }}
                     colSpan={3}
                     count={data.length}
                     rowsPerPage={rowsPerPage}

@@ -45,19 +45,14 @@ class InfoRamo(View):
         code = request.POST.get('value')
 
         subject = Subject.objects.get(pk=code)
-        courses = Course.objects.filter(subject=subject)
-
-        comment = Comment.objects.filter(course__in=courses, isVisible=True)
-
-        print(comment)
-        courses = courses.values('semester__name', 'semester__year', 'teacher',
-                                 'section', 'noteCourse', 'noteTeacher')
+        courses = Course.objects.filter(subject=subject).values('semester__name', 'semester__year', 'teacher',
+                                                                'section', 'noteCourse', 'noteTeacher', 'votes')
 
         data['code'] = code
         data['name'] = subject.name
         data['cursos'] = list(courses)
         data['notaCurso'] = subject.noteSubject
-        data['comments'] = list(comment)
+        data['votosCurso'] = subject.votes
         json_data = json.dumps(data, cls=DjangoJSONEncoder)
 
         return HttpResponse(json_data, content_type='application/json')
