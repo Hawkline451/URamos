@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import LoginBar from './login_bar';
 import InfoUser from './info_user';
-import { JWTSTATUS} from '../../actions';
+import { JWTSTATUS, setJWTStatus} from '../../actions';
 
 {/*import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip'; */}
@@ -10,6 +10,11 @@ import Chip from '@material-ui/core/Chip'; */}
 
 
 function Login(props){
+	var haveJWT = props.jwtIsUpdated;
+	if(localStorage.getItem('token')){
+		props.set_jwt_status(JWTSTATUS.JWT_UPDATED);
+		haveJWT = true;
+	}
 	return props.jwtIsUpdated ? (<InfoUser />) : (<LoginBar />);
 }
 
@@ -19,4 +24,8 @@ const mapStateToProps = (state) =>{
 	};
 }
 
-export default connect(mapStateToProps) (Login);
+const mapDispatchToProps = dispatch => ({
+  set_jwt_status: stats => dispatch(setJWTStatus(stats))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps) (Login);
