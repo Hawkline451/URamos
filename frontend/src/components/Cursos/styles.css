@@ -55,3 +55,7 @@
 .tableFooter > div > span {
   font-size: 14px;
 }
+
+.teacher-td:hover {
+  text-decoration: underline;
+}

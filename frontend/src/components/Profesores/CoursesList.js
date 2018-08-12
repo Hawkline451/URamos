@@ -166,13 +166,10 @@ class CoursesList extends React.Component {
                     const ramo =
                       curso.subject__code + ' - ' + curso.subject__name;
                     const nota = parseFloat(curso.noteTeacher).toFixed(1);
+                    const votos = parseInt(curso.votes);
 
                     return (
-                      <TableRow
-                        hover
-                        key={semestre + curso.section + ramo}
-                        onClick={event => this.handleClick(curso.subject__code)}
-                      >
+                      <TableRow hover key={semestre + curso.section + ramo}>
                         <TableCell
                           component="th"
                           scope="row"
@@ -183,8 +180,13 @@ class CoursesList extends React.Component {
                           {semestre}
                         </TableCell>
                         <TableCell
+                          onClick={event =>
+                            this.handleClick(curso.subject__code)
+                          }
+                          className={'ramo-td'}
                           style={{
                             fontSize: 16,
+                            cursor: 'pointer'
                           }}
                         >
                           {ramo}
@@ -201,7 +203,7 @@ class CoursesList extends React.Component {
                             fontSize: 16,
                           }}
                         >
-                          {nota}
+                          {nota} ({votos} votos)
                         </TableCell>
                       </TableRow>
                     );
