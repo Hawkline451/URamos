@@ -24,9 +24,9 @@ class SearchCourses(View):
                 subjects = Subject.objects.filter(code__startswith=key['code'], name__icontains=key['value']).values(
                     'code', 'name', 'note')
             else:
-                subjects = Subject.objects.filter(code__startswith=key['code']).values('code', 'name', 'note')
+                subjects = Subject.objects.filter(code__startswith=key['code']).values('code', 'name', 'noteSubject')
         else:
-            subjects = Subject.objects.filter(name__icontains=key['value']).values('code', 'name', 'note')
+            subjects = Subject.objects.filter(name__icontains=key['value']).values('code', 'name', 'noteSubject')
         total_data = len(subjects)
 
         if key['page'] == '1':

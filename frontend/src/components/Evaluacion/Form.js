@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Ratings from 'react-ratings-declarative';
@@ -79,7 +80,12 @@ class Form extends Component {
           },
         )
         .then(({ data }) => {
-          console.log(data);
+          alert({ data });
+          window.location = '/evaluacion/';
+        })
+        .catch(() => {
+          alert('Algo salio mal');
+          window.location = '/evaluacion/';
         });
     }
     event.preventDefault();
@@ -378,6 +384,9 @@ class Form extends Component {
               margin="normal"
               onKeyUp={this.handleTextChange('comentario')}
               className={'comment-text'}
+              inputProps={{
+                maxLength: 1024,
+              }}
             />
           </Paper>
           <Button

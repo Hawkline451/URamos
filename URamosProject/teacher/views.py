@@ -17,11 +17,12 @@ class InfoProfesor (View) :
 
         prof = Teacher.objects.get (name__contains=name)
         courses = Course.objects.filter (teacher=prof).values ('semester__name', 'semester__year', 'subject__code',
-                                                               'subject__name', 'section', 'noteTeacher')
+                                                               'subject__name', 'section', 'noteTeacher', 'votes')
 
         data ['name'] = prof.name
         data ['nota'] = prof.note
         data ['cursos'] = list (courses)
+        data ['votosProfesor'] = prof.votes
 
         json_data = json.dumps (data, cls=DjangoJSONEncoder)
 
