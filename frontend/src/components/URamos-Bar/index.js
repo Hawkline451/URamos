@@ -8,36 +8,29 @@ import GetHelperName from '../../utils/URamos-BarUtils';
 import IntegrationAutosuggest from '../Buscador';
 import Login from '../Login';
 import './styles.css';
+import { connect } from 'react-redux'
+import { AUTHSTATUS } from '../../actions';
 
-class UramosBar extends Component {
+
+class UramosBarC extends Component {
   constructor(props) {
     super(props);
-      this.state = { 
-        user: JSON.parse(localStorage.getItem('user')),
-        normal_user: JSON.parse(localStorage.getItem('normal_user')),
-        user_info: '',
-        mod_info: ''
-      };
+    this.state = { 
+      user: JSON.parse(localStorage.getItem('user')),
+      normal_user: JSON.parse(localStorage.getItem('normal_user')),
+      user_info: '',
+      mod_info: ''
+    };
   }
 
   componentDidMount(){
-    if(localStorage.getItem('isLogged') === 'true'){
-      fetch('http://142.93.4.35:3000/auth/current_user/', {
-        headers: {
-          Authorization: `JWT ${localStorage.getItem('token')}`
-        }
-      })
-      .then(res => res.json())
-      .then(json => {
-            localStorage.setItem('normal_user', JSON.stringify(json));
-
-          this.setState({normal_user:json});
-      });
-
-      this.setState({user: JSON.parse(localStorage.getItem('user')),
-            normal_user: JSON.parse(localStorage.getItem('normal_user')),
-      });
-
+    console.log(this.props.authStatus);
+    var isLoggedIn = this.props.isLogged;
+    if(localStorage.getItem('user')){
+      isLoggedIn = true;
+    }
+    if(isLoggedIn){
+      console.log("holipiii");
       const infMod = (<Button color="inherit" href={'/moderar'}>
                     Cursos a Moderar
                     </Button>
@@ -50,9 +43,7 @@ class UramosBar extends Component {
       if(this.state.user.isModerator){
         this.setState({mod_info:infMod})
       }
-
-    }
-   
+    }   
     
   }
 
@@ -104,4 +95,12 @@ class UramosBar extends Component {
   }
 }
 
-export default UramosBar;
+const mapStateToProps = (state) =>{
+  console.log("12345555");
+  return{
+    isLogged: state.authStatus === AUTHSTATUS.LOGGED_IN,
+    authStatus: state.authStatus
+  };
+}
+
+export default connect(mapStateToProps)(UramosBarC);

@@ -1,10 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setJWT, JWTSTATUS, setJWTStatus } from '../../actions';
-
-
-
+import { JWTSTATUS, setJWTStatus } from '../../actions';
 
 const Login = (props)=>{
 	fetch('http://142.93.4.35:3000/token-auth/', {

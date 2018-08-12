@@ -6,7 +6,7 @@ import FaceIcon from '@material-ui/icons/Face';
 import Chip from '@material-ui/core/Chip';
 
 import { connect } from 'react-redux';
-import { AUTHSTATUS, loginUser,loginNaturalUser, setAuthStatus } from '../../actions';
+import { AUTHSTATUS, setAuthStatus } from '../../actions';
 
 
 class InfoUser extends Component {
@@ -21,16 +21,15 @@ class InfoUser extends Component {
 	}
 
 	componentDidMount(){
-		var haveData = !this.props.isLoggedd;
+		var haveNotData = !this.props.isLoggedd;
 		if(localStorage.getItem('normal_user') ){
-			this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);
 			this.setState({
 				user: JSON.parse(localStorage.getItem('user')),
 				normal_user: JSON.parse(localStorage.getItem('normal_user'))
 			})
-			haveData = false;
+			haveNotData = false;
 		}
-		if(haveData){
+		if(haveNotData){
 			fetch('http://142.93.4.35:3000/user/', {
 				headers: {
 		        	Authorization: `JWT ${localStorage.getItem('token')}`
@@ -91,9 +90,12 @@ const mapStateToProps = (state) =>{
 	};
 }
 
-const mapDispatchToProps = dispatch => ({
-  set_auth_status: stats => dispatch(setAuthStatus(stats))
-})
+const mapDispatchToProps = dispatch => {
+	return{
+		set_auth_status: stats => dispatch(setAuthStatus(stats))
+	}
+  
+}
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoUser);

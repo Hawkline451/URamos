@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import InfoUser from './info_user';
 
 class LoginBar extends Component{
 
