@@ -18,7 +18,7 @@ class Curso extends Component {
   getinfo({ code }) {
     axios({
       method: 'post',
-      url: 'http://localhost:3000/search/inforamo/',
+      url: 'http://142.93.4.35:3000/search/inforamo/',
       data: 'value=' + code,
       responseType: 'json',
     }).then(({ data }) => {
@@ -49,7 +49,7 @@ class Curso extends Component {
       <div>
         <TopTabs code={this.state.code} />
         <SectionName code={this.state.code} name={this.state.name} />
-        <Rate nota={this.state.notaCurso} votos={this.state.votosCurso}/>
+        <Rate nota={this.state.notaCurso} votos={this.state.votosCurso} />
         <CoursesList cursos={this.state.cursos} />
       </div>
     );
