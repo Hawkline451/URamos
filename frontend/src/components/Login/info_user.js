@@ -28,7 +28,6 @@ class InfoUser extends Component {
       		localStorage.setItem('user', JSON.stringify(json));
 	    	this.setState({user: json});
 	    });
-	    console.log("holi")
 		fetch('http://142.93.4.35:3000/auth/current_user/', {
 			headers: {
 				Authorization: `JWT ${localStorage.getItem('token')}`

@@ -149,10 +149,7 @@ class CoursesList extends React.Component {
     // rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     const { redirect } = this.state;
 
-    console.log(redirect);
-
     if (redirect) {
-      console.log('redirecting');
       return <Redirect to={this.state.link} />;
     } else {
       return (
@@ -168,13 +165,10 @@ class CoursesList extends React.Component {
                       curso.semester__year + ' ' + curso.semester__name;
                     const teacher = curso.teacher.toLowerCase();
                     const nota = parseFloat(curso.noteCourse).toFixed(1);
+                    const votos = parseInt(curso.votes);
 
                     return (
-                      <TableRow
-                        hover
-                        key={semestre + curso.section + teacher}
-                        onClick={event => this.handleClick(teacher)}
-                      >
+                      <TableRow hover key={semestre + curso.section + teacher}>
                         <TableCell
                           component="th"
                           scope="row"
@@ -192,9 +186,12 @@ class CoursesList extends React.Component {
                           {seccion}
                         </TableCell>
                         <TableCell
+                          onClick={event => this.handleClick(teacher)}
+                          className={'teacher-td'}
                           style={{
                             textTransform: 'capitalize',
                             fontSize: 16,
+                            cursor: 'pointer',
                           }}
                         >
                           {teacher}
@@ -204,7 +201,7 @@ class CoursesList extends React.Component {
                             fontSize: 16,
                           }}
                         >
-                          {nota}
+                          {nota} ({votos} votos)
                         </TableCell>
                       </TableRow>
                     );
@@ -218,6 +215,10 @@ class CoursesList extends React.Component {
               <TableFooter>
                 <TableRow>
                   <TablePagination
+                    className="tableFooter"
+                    style={{
+                      fontSize: 14,
+                    }}
                     colSpan={3}
                     count={data.length}
                     rowsPerPage={rowsPerPage}

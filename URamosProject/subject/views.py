@@ -24,9 +24,9 @@ class SearchCourses(View):
                 subjects = Subject.objects.filter(code__startswith=key['code'], name__icontains=key['value']).values(
                     'code', 'name', 'note')
             else:
-                subjects = Subject.objects.filter(code__startswith=key['code']).values('code', 'name', 'note')
+                subjects = Subject.objects.filter(code__startswith=key['code']).values('code', 'name', 'noteSubject')
         else:
-            subjects = Subject.objects.filter(name__icontains=key['value']).values('code', 'name', 'note')
+            subjects = Subject.objects.filter(name__icontains=key['value']).values('code', 'name', 'noteSubject')
         total_data = len(subjects)
 
         if key['page'] == '1':
@@ -45,12 +45,13 @@ class InfoRamo(View):
 
         subject = Subject.objects.get(pk=code)
         courses = Course.objects.filter(subject=subject).values('semester__name', 'semester__year', 'teacher',
-                                                                'section', 'noteCourse', 'noteTeacher')
+                                                                'section', 'noteCourse', 'noteTeacher', 'votes')
 
         data['code'] = code
         data['name'] = subject.name
         data['cursos'] = list(courses)
         data['notaCurso'] = subject.noteSubject
+        data['votosCurso'] = subject.votes
         json_data = json.dumps(data, cls=DjangoJSONEncoder)
 
         return HttpResponse(json_data, content_type='application/json')

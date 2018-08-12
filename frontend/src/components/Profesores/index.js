@@ -15,16 +15,17 @@ class Profesor extends Component {
   getinfo({ name }) {
     axios({
       method: 'post',
-      url: 'http://142.93.4.35:3000/search/infoprofe/',
+      url: 'http://localhost:3000/search/infoprofe/',
       data: 'value=' + name,
       responseType: 'json',
     }).then(({ data }) => {
-      const { name, cursos, nota } = data;
+      const { name, cursos, nota, votosProfesor } = data;
 
       this.setState({
         name: name.toLowerCase(),
         cursos,
         nota,
+        votosProfesor
       });
     });
   }
@@ -44,7 +45,7 @@ class Profesor extends Component {
       <div>
         <TopTabs name={this.state.name} />
         <SectionName name={this.state.name} />
-        <Rate nota={this.state.nota} />
+        <Rate nota={this.state.nota} votos={this.state.votosProfesor}/>
         <CoursesList cursos={this.state.cursos} />
       </div>
     );
