@@ -15,39 +15,43 @@ class InfoUser extends Component {
 		super(props);
 	    this.state = { 
 	    	user: {'nickname':''},
-	    	normal_user: localStorage.getItem('normal_user')
+	    	normal_user: {'first_name':'', 'last_name':''}
 	    };
 
 	}
 
 	componentDidMount(){
-		console.log("info_user")
-		console.log(this.props.isLogged);
-		if(!this.props.isLoggedd){
+		var haveData = !this.props.isLoggedd;
+		if(localStorage.getItem('normal_user') ){
+			this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);
+			this.setState({
+				user: JSON.parse(localStorage.getItem('user')),
+				normal_user: JSON.parse(localStorage.getItem('normal_user'))
+			})
+			haveData = false;
+		}
+		if(haveData){
 			fetch('http://142.93.4.35:3000/user/', {
 				headers: {
-		        	Authorization: `JWT ${this.props.token}`
+		        	Authorization: `JWT ${localStorage.getItem('token')}`
 		        }
 		    })
 		    .then(res => res.json())
 		    .then(json => {
 	      		localStorage.setItem('user', JSON.stringify(json));
-	      		this.props.log_in_natu(JSON.stringify(json));
 		    	this.setState({user: json});
 		    });
-		    console.log("holi")
 			fetch('http://142.93.4.35:3000/auth/current_user/', {
 				headers: {
-					Authorization: `JWT ${this.props.token}`
+					Authorization: `JWT ${localStorage.getItem('token')}`
 				}
 			})
 			.then(res => res.json())
 			.then(json => {
 	      		localStorage.setItem('normal_user', JSON.stringify(json));
-	      		this.props.log_in_user(JSON.stringify(json));
-		    	this.setState({normal_user:json});
+	      		this.setState({normal_user: json});
 			});
-
+			this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);
 		}
 		
 	}
@@ -67,7 +71,7 @@ class InfoUser extends Component {
 			            <FaceIcon />
 			          </Avatar>
 			        }
-			        //label={this.state.normal_user.first_name+" "+this.state.normal_user.last_name}
+			        label={this.state.normal_user.first_name+" "+this.state.normal_user.last_name}
      			/>
 
 			}
@@ -84,14 +88,10 @@ class InfoUser extends Component {
 const mapStateToProps = (state) =>{
 	return{
 		isLogged: state.authStatus === AUTHSTATUS.LOGGED_IN,
-		user: state.user, 
-		token: state.jwt
 	};
 }
 
 const mapDispatchToProps = dispatch => ({
-  log_in_user: (user) => dispatch(loginUser(user)),
-  log_in_natu: (naturalUser) => dispatch(loginNaturalUser(naturalUser)),
   set_auth_status: stats => dispatch(setAuthStatus(stats))
 })
 

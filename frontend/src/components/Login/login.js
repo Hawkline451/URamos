@@ -19,11 +19,8 @@ const Login = (props)=>{
     })
       .then(res => res.json())
       .then(json => {
-        props.dispatch(setJWT(json.token));
-        props.dispatch(setJWTStatus(JWTSTATUS.JWT_UPDATED));
         localStorage.setItem('token', json.token);
-        localStorage.setItem('normal_user', JSON.stringify(json.user));
-        localStorage.setItem('isLogged', true);
+        props.dispatch(setJWTStatus(JWTSTATUS.JWT_UPDATED));
     	});
 
     return <Redirect to='/'/>;
