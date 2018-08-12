@@ -5,6 +5,9 @@ import Avatar from '@material-ui/core/Avatar';
 import FaceIcon from '@material-ui/icons/Face';
 import Chip from '@material-ui/core/Chip';
 
+import { connect } from 'react-redux';
+import { AUTHSTATUS, loginUser,loginNaturalUser, setAuthStatus } from '../../actions';
+
 
 class InfoUser extends Component {
 
@@ -18,28 +21,35 @@ class InfoUser extends Component {
 	}
 
 	componentDidMount(){
-		fetch('http://142.93.4.35:3000/user/', {
-			headers: {
-	        	Authorization: `JWT ${localStorage.getItem('token')}`
-	        }
-	    })
-	    .then(res => res.json())
-	    .then(json => {
-      		localStorage.setItem('user', JSON.stringify(json));
-	    	this.setState({user: json});
-	    });
-	    console.log("holi")
-		fetch('http://142.93.4.35:3000/auth/current_user/', {
-			headers: {
-				Authorization: `JWT ${localStorage.getItem('token')}`
-			}
-		})
-		.then(res => res.json())
-		.then(json => {
-      		localStorage.setItem('normal_user', JSON.stringify(json));
+		console.log("info_user")
+		console.log(this.props.isLogged);
+		if(!this.props.isLoggedd){
+			fetch('http://142.93.4.35:3000/user/', {
+				headers: {
+		        	Authorization: `JWT ${this.props.token}`
+		        }
+		    })
+		    .then(res => res.json())
+		    .then(json => {
+	      		localStorage.setItem('user', JSON.stringify(json));
+	      		this.props.log_in_natu(JSON.stringify(json));
+		    	this.setState({user: json});
+		    });
+		    console.log("holi")
+			fetch('http://142.93.4.35:3000/auth/current_user/', {
+				headers: {
+					Authorization: `JWT ${this.props.token}`
+				}
+			})
+			.then(res => res.json())
+			.then(json => {
+	      		localStorage.setItem('normal_user', JSON.stringify(json));
+	      		this.props.log_in_user(JSON.stringify(json));
+		    	this.setState({normal_user:json});
+			});
 
-	    	this.setState({normal_user:json});
-		});
+		}
+		
 	}
 
 	render(){
@@ -57,13 +67,13 @@ class InfoUser extends Component {
 			            <FaceIcon />
 			          </Avatar>
 			        }
-			        label={this.state.normal_user.first_name+" "+this.state.normal_user.last_name}
+			        //label={this.state.normal_user.first_name+" "+this.state.normal_user.last_name}
      			/>
 
 			}
 			id="drop-session"
 			>	
-				<MenuItem >{this.state.user.nickname}</MenuItem>
+					<MenuItem >{this.state.user.nickname}</MenuItem>
 				<MenuItem href="/logout/">Cerrar sesión</MenuItem>
 			</DropdownButton>
 			);
@@ -71,4 +81,19 @@ class InfoUser extends Component {
 
 }
 
-export default InfoUser;
+const mapStateToProps = (state) =>{
+	return{
+		isLogged: state.authStatus === AUTHSTATUS.LOGGED_IN,
+		user: state.user, 
+		token: state.jwt
+	};
+}
+
+const mapDispatchToProps = dispatch => ({
+  log_in_user: (user) => dispatch(loginUser(user)),
+  log_in_natu: (naturalUser) => dispatch(loginNaturalUser(naturalUser)),
+  set_auth_status: stats => dispatch(setAuthStatus(stats))
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(InfoUser);
