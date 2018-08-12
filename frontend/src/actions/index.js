@@ -10,12 +10,17 @@ export const JWTSTATUS = {
 	JWT_UNDATCHED: 'JWT_UNDATCHED',
 }
 
-export const login = (user, naturalUser) => ({
-	type: 'LOGIN',
+export const loginUser = (user) => ({
+	type: 'LOGIN_USER',
 	user,
-	naturalUser
 	
 });
+
+export const loginNaturalUser = (naturalUser) => ({
+	type: 'LOGIN_NATURAL_USER',
+	naturalUser
+
+})
 
 export const logout = () => ({
 	type: 'LOGOUT'
