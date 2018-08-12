@@ -10,9 +10,13 @@ from comments.models import Comment
 
 class Search(View):
     def post(self, request):
-        key = request.POST.get('value')
-        subjects = Subject.objects.filter(code__startswith=key).values('code', 'name')
+        keys = json.loads(request.body.decode('utf-8'))
+        if keys['typeSearch'] == 'codigo':
+            subjects = Subject.objects.filter(code__startswith=keys['value']).values('code', 'name')
+        else:
+            subjects = Subject.objects.filter(name__startswith=keys['value']).values('code', 'name')
         json_data = json.dumps(list(subjects), cls=DjangoJSONEncoder)
+        print(subjects)
         return HttpResponse(json_data, content_type='application/json')
 
 
