@@ -1,10 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { JWTSTATUS, setJWTStatus } from '../../actions';
 
-
-
-function Login(props){
-	console.log("hola")
+const Login = (props)=>{
 	fetch('http://142.93.4.35:3000/token-auth/', {
       method: 'POST',
       headers: {
@@ -18,12 +17,10 @@ function Login(props){
       .then(res => res.json())
       .then(json => {
         localStorage.setItem('token', json.token);
-        localStorage.setItem('normal_user', JSON.stringify(json.user));
-        localStorage.setItem('isLogged', true);
+        props.dispatch(setJWTStatus(JWTSTATUS.JWT_UPDATED));
     	});
 
     return <Redirect to='/'/>;
-
 }
 
-export default Login;
+export default connect()(Login);
