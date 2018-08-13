@@ -11,44 +11,30 @@ import './styles.css';
 import { connect } from 'react-redux'
 import { AUTHSTATUS } from '../../actions';
 
-
-class UramosBarC extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      user: JSON.parse(localStorage.getItem('user')),
-      normal_user: JSON.parse(localStorage.getItem('normal_user')),
-      user_info: '',
-      mod_info: ''
-    };
-  }
-
-  componentDidMount(){
-    console.log(this.props.authStatus);
-    var isLoggedIn = this.props.isLogged;
-    if(localStorage.getItem('user')){
-      isLoggedIn = true;
-    }
-    if(isLoggedIn){
-      console.log("holipiii");
-      const infMod = (<Button color="inherit" href={'/moderar'}>
-                    Cursos a Moderar
-                    </Button>
-                  );
-      const user = (<Button color="inherit" href={'/evaluacion'}>
-                        Evaluar
+function UramosBar(props){
+  var user = {'isModerator':false}
+  var user_info = '';
+  var mod_info = '';
+  
+  console.log(props.isLogged);
+  console.log( JSON.parse(localStorage.getItem('user')));
+  if(props.isLogged || localStorage.getItem('user')){
+    if(user.isModerator){
+      mod_info  = (<Button color="inherit" href={'/moderar'}>
+                      Cursos a Moderar
                       </Button>
                     );
-      this.setState({user_info:user})
-      if(this.state.user.isModerator){
-        this.setState({mod_info:infMod})
-      }
-    }   
-    
+    }
+    if(user){
+      user_info = (<Button color="inherit" href={'/evaluacion'}>
+                          Evaluar
+                        </Button>
+                      );
+    }
   }
+  
 
-  render() {
-    return (
+   return (
       <div className="App-bar-custom">
         <AppBar position="static" color="default">
           <ToolBar className="main-toolbar">
@@ -62,8 +48,8 @@ class UramosBarC extends Component {
               <Link to="/">URamos</Link>
             </Typography>
             <div className="buttons">
-              {this.state.user_info}
-              {this.state.mod_info}
+              {user_info}
+              {mod_info}
               <Button color="inherit" href={'/busqueda'}>
                 Todos los cursos
               </Button>
@@ -91,16 +77,14 @@ class UramosBarC extends Component {
           </ToolBar>
         </AppBar>
       </div>
-    );
-  }
+    );  
 }
 
+
 const mapStateToProps = (state) =>{
-  console.log("12345555");
   return{
     isLogged: state.authStatus === AUTHSTATUS.LOGGED_IN,
-    authStatus: state.authStatus
   };
 }
 
-export default connect(mapStateToProps)(UramosBarC);
+export default connect(mapStateToProps)(UramosBar);
