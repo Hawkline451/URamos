@@ -17,7 +17,3 @@ ReactDOM.render(
 	</Provider>, 
 	document.getElementById('root'));
 registerServiceWorker();
-
-if (module.hot) {
-  module.hot.accept();
-}
