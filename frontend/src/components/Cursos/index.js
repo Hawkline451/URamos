@@ -3,6 +3,7 @@ import Rate from './Rate';
 import TopTabs from './TopTabs';
 import SectionName from './SectionName';
 import CoursesList from './CoursesList';
+import Comentario from '../Comentario'
 import axios from 'axios';
 
 class Curso extends Component {
@@ -12,17 +13,17 @@ class Curso extends Component {
     cursos: [],
     notaCurso: null,
     votosCurso: 0,
-    commentaries: [],
+    comentarios: [],
   };
 
   getinfo({ code }) {
     axios({
       method: 'post',
-      url: 'http://142.93.4.35:3000/search/inforamo/',
+      url: 'http://localhost:3000/search/inforamo/',
       data: 'value=' + code,
       responseType: 'json',
     }).then(({ data }) => {
-      const { code, name, cursos, notaCurso, votosCurso } = data;
+      const { code, name, cursos, notaCurso, votosCurso, comentarios } = data;
 
       this.setState({
         code,
@@ -30,6 +31,7 @@ class Curso extends Component {
         cursos,
         notaCurso,
         votosCurso,
+        comentarios,
       });
     });
   }
@@ -51,6 +53,7 @@ class Curso extends Component {
         <SectionName code={this.state.code} name={this.state.name} />
         <Rate nota={this.state.notaCurso} votos={this.state.votosCurso} />
         <CoursesList cursos={this.state.cursos} />
+        <Comentario comentarios={this.state.comentarios} />
       </div>
     );
   }

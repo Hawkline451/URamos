@@ -12,12 +12,12 @@ class NaturalUser(models.Model):
 	isLocked = models.BooleanField(default=False)
 	isModerator = models.BooleanField(default=False)
 	isTeacher = models.BooleanField(default=False)
-	teacherName = models.TextField(max_length=128, null=True)
+	teacherName = models.TextField(max_length=128, null=True, blank=True)
 
 	def setNickName(self):
 
 		sounds = ['miau', 'guau', 'cuak cuak', 'muuuuu', 'pio pio', 'beeee',
-			'auuuuh', 'qui qui ri quii', 'oink oink', 'cri cri', 'grrrrr']
+			'auuuuh', 'hooo hoooo hoo', 'oink oink', 'cri cri', 'grrrr']
 
 		adjectives = ['consecuente', 'simple', 'feliz', 'habil', 'amable',
 			'angelical', 'debil', 'fuerte', 'realista', 'libre', 'coherente',

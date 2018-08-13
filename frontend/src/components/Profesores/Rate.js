@@ -14,7 +14,7 @@ class Rate extends Component {
   componentWillReceiveProps({ nota, votos }) {
     this.setState({
       nota: parseFloat(nota).toFixed(1),
-      votos: parseInt(votos),
+      votos: parseInt(votos, 10),
     });
   }
 

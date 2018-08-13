@@ -9,8 +9,49 @@ from teacher.models import Teacher
 from subject.models import Subject, Course
 from naturalUser.models import NaturalUser
 from rest_framework.decorators import api_view
-from .models import Comment
+from .models import Comment, InvisibleComment
 import json
+from django.views.decorators.csrf import csrf_exempt
+
+
+
+@csrf_exempt
+def HideComment (request) :
+    body = json.loads (request.body) ['data']
+
+    comment = Comment.objects.get(pk=body['comentId'])
+
+    inv = InvisibleComment(comment=comment, reasons=body['comentario'])
+    inv.save()
+
+    comment.isVisible = False
+    comment.save()
+
+    return HttpResponse ({'data' : 'El comentario ha sido ocultado con exito'},
+                         content_type='application/json')
+@csrf_exempt
+def UpVoteComment (request) :
+    body = json.loads (request.body) ['data']
+
+    comment = Comment.objects.get(pk=body['commentId'])
+
+    comment.positivePoints += 1
+    comment.save()
+
+    return HttpResponse ({'data' : 'El comentario ha sido ocultado con exito'},
+                         content_type='application/json')
+@csrf_exempt
+def DownVoteComment (request) :
+    body = json.loads (request.body) ['data']
+
+    comment = Comment.objects.get(pk=body['commentId'])
+
+    comment.negativePoints += 1
+    comment.save()
+
+    return HttpResponse ({'data' : 'El comentario ha sido ocultado con exito'},
+                         content_type='application/json')
+
 
 @api_view(['POST'])
 def SaveComment (request) :
@@ -53,4 +94,5 @@ def SaveComment (request) :
                        course=course)
     comment.save()
 
-    return HttpResponse({'data': 'Su evaluacion ha sido procesada con exito <br/><br/> Gracias!'}, content_type='application/json')
+    return HttpResponse ({'data' : 'Su evaluacion ha sido procesada con exito \n\n Gracias!'},
+                         content_type='application/json')

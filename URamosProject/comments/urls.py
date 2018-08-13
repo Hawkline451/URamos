@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import SaveComment
+from .views import SaveComment, HideComment, UpVoteComment, DownVoteComment
 from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
-	path('save/', SaveComment)
+	path ('save/', SaveComment),
+	path ('hide/', HideComment),
+	path ('upVote/', UpVoteComment),
+	path ('downVote/', DownVoteComment),
 ]
