@@ -165,7 +165,7 @@ class CoursesList extends React.Component {
                       curso.semester__year + ' ' + curso.semester__name;
                     const teacher = curso.teacher.toLowerCase();
                     const nota = parseFloat(curso.noteCourse).toFixed(1);
-                    const votos = parseInt(curso.votes);
+                    const votos = parseInt(curso.votes, 10);
 
                     return (
                       <TableRow hover key={semestre + curso.section + teacher}>
