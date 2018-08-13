@@ -3,7 +3,7 @@ import Rate from './Rate';
 import TopTabs from './TopTabs';
 import SectionName from './SectionName';
 import CoursesList from './CoursesList';
-import Comentario from '../Comentario'
+import Comentario from '../Comentario';
 import axios from 'axios';
 
 class Curso extends Component {
@@ -19,7 +19,7 @@ class Curso extends Component {
   getinfo({ code }) {
     axios({
       method: 'post',
-      url: 'http://localhost:3000/search/inforamo/',
+      url: 'http://142.93.4.35:3000/search/inforamo/',
       data: 'value=' + code,
       responseType: 'json',
     }).then(({ data }) => {

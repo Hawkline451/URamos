@@ -18,7 +18,7 @@ class Likes extends Component {
       console.log('autenticado');
       axios
         .post(
-          'http://localhost:3000/comment/upVote/',
+          'http://142.93.4.35:3000/comment/upVote/',
           {
             data: this.state,
           },
@@ -42,7 +42,7 @@ class Likes extends Component {
       console.log('autenticado');
       axios
         .post(
-          'http://localhost:3000/comment/downVote/',
+          'http://142.93.4.35:3000/comment/downVote/',
           {
             data: this.state,
           },
@@ -56,7 +56,7 @@ class Likes extends Component {
           this.setState({
             downVotes: this.state.downVotes + 1,
           });
-          this.forceUpdate()
+          this.forceUpdate();
         });
     }
   };

@@ -34,7 +34,7 @@ class Moderar extends Component {
       console.log('autenticado');
       axios
         .post(
-          'http://localhost:3000/comment/hide/',
+          'http://142.93.4.35:3000/comment/hide/',
           {
             data: this.state,
           },

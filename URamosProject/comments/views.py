@@ -15,7 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
-@csrf_exempt
+@api_view(['POST'])
 def HideComment (request) :
     body = json.loads (request.body) ['data']
 
@@ -29,7 +29,7 @@ def HideComment (request) :
 
     return HttpResponse ({'data' : 'El comentario ha sido ocultado con exito'},
                          content_type='application/json')
-@csrf_exempt
+@api_view(['POST'])
 def UpVoteComment (request) :
     body = json.loads (request.body) ['data']
 
@@ -40,7 +40,7 @@ def UpVoteComment (request) :
 
     return HttpResponse ({'data' : 'El comentario ha sido ocultado con exito'},
                          content_type='application/json')
-@csrf_exempt
+@api_view(['POST'])
 def DownVoteComment (request) :
     body = json.loads (request.body) ['data']
 
