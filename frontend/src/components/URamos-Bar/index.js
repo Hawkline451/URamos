@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import GetHelperName from '../../utils/URamos-BarUtils';
+import SvgIcon from '@material-ui/core/SvgIcon';
 import IntegrationAutosuggest from '../Buscador';
 import Login from '../Login';
 import './styles.css';
@@ -38,16 +36,22 @@ function UramosBar(props){
    return (
       <div className="App-bar-custom">
         <AppBar position="static" color="default">
-          <ToolBar className="main-toolbar">
-            <Typography
-              variant="title"
-              color="inherit"
-              style={{
-                fontSize: 26,
-              }}
-            >
-              <Link to="/">URamos</Link>
-            </Typography>
+          <ToolBar
+            className="main-toolbar"
+            style={{
+              paddingLeft: 0,
+            }}
+          >
+            <Button color="inherit" href={'/'}>
+              <SvgIcon
+                style={{
+                  fontSize: 40,
+                  color: 'white',
+                }}
+              >
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+              </SvgIcon>
+            </Button>
             <div className="buttons">
               {user_info}
               {mod_info}
@@ -56,22 +60,12 @@ function UramosBar(props){
               </Button>
             </div>
             <div className="search-frame">
-                <div className="search-bar">
-                    <IntegrationAutosuggest />
-                </div>
+              <div className="search-bar">
+                <IntegrationAutosuggest />
+              </div>
             </div>
             <div className="right-user-div" align="right">
               <ToolBar>
-                <Typography
-                  variant="title"
-                  color="inherit"
-                  align="right"
-                  style={{
-                    fontSize: 26,
-                  }}
-                >
-                  <GetHelperName />
-                </Typography>
                 <Login />
               </ToolBar>
             </div>

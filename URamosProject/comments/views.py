@@ -53,4 +53,4 @@ def SaveComment (request) :
                        course=course)
     comment.save()
 
-    return HttpResponse({'data':'Done'}, content_type='application/json')
+    return HttpResponse({'data': 'Su evaluacion ha sido procesada con exito <br/><br/> Gracias!'}, content_type='application/json')

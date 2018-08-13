@@ -4,10 +4,6 @@ a {
   text-transform: none;
 }
 
-.buttons {
-  margin-left: 1%;
-}
-
 .buttons>a {
   padding: 26px 16px; 
 }

@@ -11,23 +11,25 @@ class Curso extends Component {
     name: null,
     cursos: [],
     notaCurso: null,
+    votosCurso: 0,
     commentaries: [],
   };
 
   getinfo({ code }) {
     axios({
       method: 'post',
-      url: 'http://142.93.4.35:3000/search/inforamo/',
+      url: 'http://localhost:3000/search/inforamo/',
       data: 'value=' + code,
       responseType: 'json',
     }).then(({ data }) => {
-      const { code, name, cursos, notaCurso } = data;
+      const { code, name, cursos, notaCurso, votosCurso } = data;
 
       this.setState({
         code,
         name,
         cursos,
         notaCurso,
+        votosCurso,
       });
     });
   }
@@ -47,7 +49,7 @@ class Curso extends Component {
       <div>
         <TopTabs code={this.state.code} />
         <SectionName code={this.state.code} name={this.state.name} />
-        <Rate nota={this.state.notaCurso} />
+        <Rate nota={this.state.notaCurso} votos={this.state.votosCurso}/>
         <CoursesList cursos={this.state.cursos} />
       </div>
     );

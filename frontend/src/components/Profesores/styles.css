@@ -55,3 +55,7 @@
 .default>span {
   color:blue;
 }
+
+.ramo-td:hover {
+  text-decoration: underline;
+}

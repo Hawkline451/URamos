@@ -57,7 +57,6 @@ class InfoUser extends Component {
 			});
 			
 		}
-		
 	}
 
 	render(){
