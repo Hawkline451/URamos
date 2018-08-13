@@ -18,7 +18,8 @@ function UramosBar(props){
   
   console.log(props.isLogged);
   console.log( JSON.parse(localStorage.getItem('user')));
-  if(props.isLogged || localStorage.getItem('user')){
+  
+  if(props.isLogged){
     if(user.isModerator){
       mod_info  = (<Button color="inherit" href={'/moderar'}>
                       Cursos a Moderar

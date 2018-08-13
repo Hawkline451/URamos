@@ -22,11 +22,9 @@ class InfoUser extends Component {
 
 	componentDidMount(){
 		this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);
-		console.log("aaaaaaaaaaaaaa");		
 	}
+	
 	componentWillMount(){
-		console.log("login: ")
-		console.log(this.props.isLogged)
 		var haveNotData = !this.props.isLoggedd;
 		if(localStorage.getItem('normal_user') ){
 			this.setState({
