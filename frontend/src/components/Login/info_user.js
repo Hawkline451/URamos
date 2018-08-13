@@ -21,6 +21,12 @@ class InfoUser extends Component {
 	}
 
 	componentDidMount(){
+		this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);
+		console.log("aaaaaaaaaaaaaa");		
+	}
+	componentWillMount(){
+		console.log("login: ")
+		console.log(this.props.isLogged)
 		var haveNotData = !this.props.isLoggedd;
 		if(localStorage.getItem('normal_user') ){
 			this.setState({
@@ -28,8 +34,9 @@ class InfoUser extends Component {
 				normal_user: JSON.parse(localStorage.getItem('normal_user'))
 			})
 			haveNotData = false;
+			this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);
 		}
-		if(haveNotData){
+		if( !this.props.isLoggedd){
 			fetch('http://142.93.4.35:3000/user/', {
 				headers: {
 		        	Authorization: `JWT ${localStorage.getItem('token')}`
@@ -50,12 +57,13 @@ class InfoUser extends Component {
 	      		localStorage.setItem('normal_user', JSON.stringify(json));
 	      		this.setState({normal_user: json});
 			});
-			this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);
+			
 		}
 		
 	}
 
 	render(){
+		
 		return (
 			<DropdownButton
 			bsStyle='success'

@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 
 
 const Logout = (props) => {
-	props.dispatch(setJWTStatus(JWTSTATUS.WITHOUT_JWT));
-	props.dispatch(setAuthStatus(AUTHSTATUS.LOGGED_OUT));
 	localStorage.removeItem('token');
 	localStorage.removeItem('user');
 	localStorage.removeItem('normal_user');
+	props.dispatch(setJWTStatus(JWTSTATUS.WITHOUT_JWT));
+	props.dispatch(setAuthStatus(AUTHSTATUS.LOGGED_OUT));
 	return <Redirect to='/'/>;
 }
 
