@@ -62,8 +62,6 @@ class InfoRamo(View):
         courses = courses.values ('semester__name', 'semester__year', 'teacher',
                                                                 'section', 'noteCourse', 'noteTeacher', 'votes')
 
-        print (commentsList)
-
         data['code'] = code
         data['name'] = subject.name
         data['cursos'] = list(courses)
