@@ -17,23 +17,23 @@ class AnimalAvatar extends Component {
       return <CatAvatar />;
     } else if (name === 'guau') {
       return <DogAvatar />;
-    } else if (name === 'cuak cuak') {
+    } else if (name === 'cuak') {
       return <DuckAvatar />;
     } else if (name === 'muuuuu') {
       return <CowAvatar />;
-    } else if (name === 'pio pio') {
+    } else if (name === 'pio') {
       return <ChickenAvatar />;
     } else if (name === 'beeee') {
       return <SheepAvatar />;
     } else if (name === 'auuuuh') {
       return <WolfAvatar />;
-    } else if (name === 'hooo hoooo hoo') {
+    } else if (name === 'hooo') {
       return <OwlAvatar />;
-    } else if (name === 'oink oink') {
+    } else if (name === 'oink') {
       return <PigAvatar />;
-    } else if (name === 'cri cri') {
+    } else if (name === 'cri') {
       return <CricketAvatar />;
-    } else if (name === 'grrrr') {
+    } else if (name === 'grrrrr') {
       return <BearAvatar />;
     }
   }
