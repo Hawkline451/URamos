@@ -116,7 +116,8 @@ class Main extends Component {
     }
 
     getInfo = () => {
-        axios.post('http://142.93.4.35:3000/search/courses/', {
+        //142.93.4.35
+        axios.post('http://localhost:3000/search/courses/', {
             value: this.state.value,
             page: this.state.page,
             code: this.state.code,
@@ -125,7 +126,7 @@ class Main extends Component {
             var pages = 0;
             const newDataAux = data.map((item) => {
                 pages = item.page;
-                return {'ramo': item.code + ' - ' + item.name, 'nota': item.note}
+                return {'ramo': item.code + ' - ' + item.name, 'nota': parseFloat(item.noteSubject).toFixed(1) + ' (' + item.votes + ' votos)'}
             });
             const newData = filterData(newDataAux);
             this.setState({
@@ -191,29 +192,31 @@ class Main extends Component {
     };
 
     handleCellClick(rowIndex, columnIndex, row, column) {
-        if (this.state.suggestions === TABLE_DATA) {
-            // filter by code
-            const code = column.split(' - ')[0];
-            this.setState({
-                showFooter: true,
-                rows: 0,
-                columns: TABLE_COLUMNS,
-                code: code,
-            }, () => {
-                if (this.state.code && this.state.code.length > 1) {
-                    if (this.state.code.length >= 2) {
-                        this.getInfo()
+        if(columnIndex === 0) {
+            if (this.state.suggestions === TABLE_DATA) {
+                // filter by code
+                const code = column.split(' - ')[0];
+                this.setState({
+                    showFooter: true,
+                    rows: 0,
+                    columns: TABLE_COLUMNS,
+                    code: code,
+                }, () => {
+                    if (this.state.code && this.state.code.length > 1) {
+                        if (this.state.code.length >= 2) {
+                            this.getInfo()
+                        }
+                    } else if (!this.state.code) {
                     }
-                } else if (!this.state.code) {
-                }
-            });
-        } else {
-            // redirect to subject
-            const code = row.ramo.split(' - ')[0];
-            this.setState({
-                redirect: true,
-                link: "/cursos/" + code
-            });
+                });
+            } else {
+                // redirect to subject
+                const code = row.ramo.split(' - ')[0];
+                this.setState({
+                    redirect: true,
+                    link: "/cursos/" + code
+                });
+            }
         }
     };
 
@@ -246,7 +249,10 @@ class Main extends Component {
                 <MuiThemeProvider muiTheme={muiTheme}>
                     <div style={styles.container}>
                         <div style={styles.component}>
-                            <Card style={{margin: 12, textAlign: 'left'}}>
+                            <Card
+                                className={'courses-dt'}
+                                style={{margin: 12, textAlign: 'left'}}
+                            >
                                 <DataTables
                                     title={'Cursos'}
                                     height={'auto'}

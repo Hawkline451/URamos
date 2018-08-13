@@ -1,4 +1,4 @@
-.tabs-div {
+.tabs-curso-div {
   margin-top: 2%;
   width: 95%;
   margin-left: 2%;
@@ -19,22 +19,27 @@
   color: rgba(58, 55, 55, 0.8);
 }
 
-.tabs-div>p {
+.tabs-curso-div>p {
   margin-left: 1.5%;
   font-size: 45px;
   color: rgba(58, 55, 55, 0.8);
   margin-bottom: 1%
 }
 
-.tabs>div>div>span {
+.tabs-curso>div>div>span {
+  background-color: black;
+  width: 400px;
+}
+
+.resumen-eval-tab {
+  max-width: 400px;
+}
+
+.resumen-eval-tab:parent > span {
   background-color: black;
 }
 
-.recent-act-tab:parent > span {
-  background-color: black;
-}
-
-.recent-act-tab>span>span>span {
+.resumen-eval-tab>span>span>span {
   font-size: 25px;
   text-transform: none;
 }
@@ -45,12 +50,4 @@
 
 .default>span {
   color:blue;
-}
-
-.courses-dt>div>div>div>div>table>tbody>tr>td:first-child {
-  cursor: pointer;
-}
-
-.courses-dt>div>div>div>div>table>tbody>tr>td:first-child:hover {
-  text-decoration: underline;
 }

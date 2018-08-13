@@ -5,9 +5,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
 from django.db.models import Count
+from django.utils import timezone
 from teacher.models import Teacher
 from subject.models import Subject, Course
 from naturalUser.models import NaturalUser
+from log.models import Record
 from rest_framework.decorators import api_view
 from .models import Comment, InvisibleComment
 import json
@@ -94,5 +96,11 @@ def SaveComment (request) :
                        course=course)
     comment.save()
 
-    return HttpResponse ({'data' : 'Su evaluacion ha sido procesada con exito \n\n Gracias!'},
-                         content_type='application/json')
+    firstComment = 'Nuevo comentario ' + timezone.now
+    secondComment = 'Usuario ' + naturalUser.nickname + ' realizó un nuevo comentario en ' + subject.code + ' - ' + subject.name
+
+    newRecord = Record(firstComment=firstComment, secondComment=secondComment, typeRecord=0)
+
+    newRecord.save()
+
+    return HttpResponse({'data': 'Su evaluacion ha sido procesada con exito <br/><br/> Gracias!'}, content_type='application/json'

@@ -10,8 +10,11 @@ from comments.models import Comment
 
 class Search(View):
     def post(self, request):
-        key = request.POST.get('value')
-        subjects = Subject.objects.filter(code__startswith=key).values('code', 'name')
+        keys = json.loads(request.body.decode('utf-8'))
+        if keys['typeSearch'] == 'codigo':
+            subjects = Subject.objects.filter(code__startswith=keys['value']).values('code', 'name')
+        else:
+            subjects = Subject.objects.filter(name__startswith=keys['value']).values('code', 'name')
         json_data = json.dumps(list(subjects), cls=DjangoJSONEncoder)
         return HttpResponse(json_data, content_type='application/json')
 
@@ -23,17 +26,18 @@ class SearchCourses(View):
         if key['code'] != '':
             if key['byNameAndCode']:
                 subjects = Subject.objects.filter(code__startswith=key['code'], name__icontains=key['value']).values(
-                    'code', 'name', 'note')
+                    'code', 'name', 'noteSubject', 'votes')
             else:
-                subjects = Subject.objects.filter(code__startswith=key['code']).values('code', 'name', 'noteSubject')
+                subjects = Subject.objects.filter(code__startswith=key['code']).values('code', 'name', 'noteSubject', 'votes')
         else:
-            subjects = Subject.objects.filter(name__icontains=key['value']).values('code', 'name', 'noteSubject')
+            subjects = Subject.objects.filter(name__icontains=key['value']).values('code', 'name', 'noteSubject', 'votes')
         total_data = len(subjects)
-
+        print(subjects)
         if key['page'] == '1':
             subjects = subjects[0:large + 1]
         else:
             subjects = subjects[(key['page'] - 1) * large:key['page'] * large]
+
         subjects.append({'page': total_data})
         json_data = json.dumps(list(subjects), cls=DjangoJSONEncoder)
         return HttpResponse(json_data, content_type='application/json')

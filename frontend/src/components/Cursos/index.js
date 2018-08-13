@@ -35,16 +35,15 @@ class Curso extends Component {
       });
     });
   }
-
-  componentWillMount() {
-    this.getinfo(this.props.match.params);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.code !== this.props.match.params.code) {
-      this.getinfo(nextProps.match.params);
+    componentWillMount() {
+        this.getinfo(this.props.match.params);
     }
-  }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.match.params.code !== this.props.match.params.code) {
+            this.getinfo(nextProps.match.params);
+        }
+    }
 
   render() {
     return (

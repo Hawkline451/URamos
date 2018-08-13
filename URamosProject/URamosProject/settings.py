@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'moderator',
     'naturalUser',
     'teacher',
-
+    'log',
     'login',
 
     'rest_framework',

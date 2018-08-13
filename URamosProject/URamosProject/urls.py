@@ -23,5 +23,7 @@ urlpatterns = [
     path('auth', include('login.urls')), 
     path('token-auth/', obtain_jwt_token),
     path('user/', include('naturalUser.urls')),
+    path('moderator/', include('moderator.urls')),
     path('comment/', include('comments.urls')),
+    path('logging/', include('log.urls')),
 ]

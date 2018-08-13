@@ -12,7 +12,6 @@
     "material-ui-datatables": "^0.18.2",
     "material-ui-rating": "^2.0.0",
     "npm": "^6.3.0",
-    "prop-type": "0.0.1",
     "react": "^16.4.1",
     "react-autosuggest": "^9.3.4",
     "react-bootstrap": "^0.32.1",
