@@ -79,7 +79,14 @@ class Form extends Component {
           },
         )
         .then(({ data }) => {
-          console.log(data);
+          alert(
+            'Su evaluacion ha sido procesada con exito \n\n Gracias!',
+          );
+          window.location = '/evaluacion/';
+        })
+        .catch(() => {
+          alert('Algo salio mal');
+          window.location = '/evaluacion/';
         });
     }
     event.preventDefault();
@@ -378,6 +385,9 @@ class Form extends Component {
               margin="normal"
               onKeyUp={this.handleTextChange('comentario')}
               className={'comment-text'}
+              inputProps={{
+                maxLength: 1024,
+              }}
             />
           </Paper>
           <Button
