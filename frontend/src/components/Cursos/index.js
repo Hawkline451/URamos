@@ -3,8 +3,8 @@ import Rate from "./Rate";
 import TopTabs from "./TopTabs";
 import SectionName from "./SectionName";
 import CoursesList from "./CoursesList";
-import CommentList from "./CommetList";
 import axios from "axios";
+import Graph from '../Graficos/index'
 
 class Curso extends Component {
   state = {
@@ -51,6 +51,7 @@ class Curso extends Component {
         <SectionName code={this.state.code} name={this.state.name} />
         <Rate nota={this.state.notaCurso} votos={this.state.votosCurso} />
         <CoursesList cursos={this.state.cursos} />
+        <Graph code={this.state.code}/>
       </div>
     );
   }

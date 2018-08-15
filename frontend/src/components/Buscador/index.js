@@ -9,6 +9,8 @@ import Paper from "@material-ui/core/Paper";
 import MenuItem from "@material-ui/core/MenuItem";
 import {withStyles} from "@material-ui/core/styles";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
+
 
 let suggestions = [];
 
@@ -35,7 +37,11 @@ function renderSuggestion(suggestion, {query, isHighlighted}) {
     var code = '';
 
     if (parts.length > 1) {
-        code = parts[0].text + parts[1].text.split(' - ')[0];
+        if (parts.length >= 3){
+            code = parts[0].text.split(' - ')[0];
+        } else {
+            code = parts[0].text + parts[1].text.split(' - ')[0];
+        }
     }
 
     return (
@@ -46,7 +52,7 @@ function renderSuggestion(suggestion, {query, isHighlighted}) {
             button
             style={{fontSize: 15}}
         >
-            <Link to={'/cursos/' + code} style={{color: '#000000'}}>
+           <Link to={'/cursos/' + code} style={{color: '#000000'}}>
                 <div>
                     {parts.map((part, index) => {
                         return part.highlight ? (
@@ -205,9 +211,9 @@ class IntegrationAutosuggest extends React.Component {
         var placeholder = '';
 
         if (search === 'codigo') {
-            placeholder = 'Buscar por código';
+            placeholder = 'Buscar curso por código';
         } else {
-            placeholder = 'Buscar por nombre';
+            placeholder = 'Buscar curso por nombre';
         }
         if (this.state.typeSearch !== search) {
             this.updateSearchValue(search);

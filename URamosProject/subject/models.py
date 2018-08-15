@@ -1,6 +1,9 @@
 from django.db import models
 from teacher.models import Teacher
 
+# name = models.CharField(max_length=256, primary_key=True)
+
+# TODOS LOS COURSES QUE TENGA A ESE PROFE (name) Y AL SUBJECT (subject).
 
 class Subject(models.Model):
 	code = models.CharField(max_length=16, primary_key=True)
