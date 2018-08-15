@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Ratings from 'react-ratings-declarative';
@@ -80,7 +79,9 @@ class Form extends Component {
           },
         )
         .then(({ data }) => {
-          alert({ data });
+          alert(
+            'Su evaluacion ha sido procesada con exito \n\n Gracias!',
+          );
           window.location = '/evaluacion/';
         })
         .catch(() => {

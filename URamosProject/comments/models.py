@@ -6,10 +6,11 @@ from subject.models import Course
 
 
 class Comment(models.Model):
-	content = models.TextField(max_length=1024)
-	user =  models.ForeignKey(NaturalUser, on_delete=models.CASCADE)
+	content = models.TextField(max_length=1024, null=True, blank=True)
+	user = models.ForeignKey(NaturalUser, on_delete=models.CASCADE)
 	date = models.DateField(default=timezone.now)
 	isVisible = models.BooleanField(default=True)
+	ranking = models.IntegerField(default=0)
 	positivePoints = models.IntegerField(default=0)
 	negativePoints = models.IntegerField(default=0)
 	isEdited = models.BooleanField(default=False)
@@ -24,7 +25,7 @@ class InvisibleComment(models.Model):
 	reasons = models.TextField(max_length=1024)
 	date = models.DateField(default=timezone.now)
 	def __str__(self):
-		return self.comment.user.name
+		return self.comment.user.nickname
 
 class OldComment(models.Model):
 	content = models.TextField(max_length=1024)
