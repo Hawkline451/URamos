@@ -105,7 +105,7 @@ class Comment extends Component {
                 padding: 10,
                 border: '2px gray solid',
                 borderRadius: 5,
-                width: 1000,
+                width: 1200,
                 wordBreak: 'break-all',
                 wordWrap: 'break-word',
               }}
@@ -136,7 +136,7 @@ class Comment extends Component {
               display: 'inline-block',
               verticalAlign: 'top',
               marginTop: 80,
-              marginLeft: 130,
+              marginLeft: 50,
             }}
           >
             <Moderar
