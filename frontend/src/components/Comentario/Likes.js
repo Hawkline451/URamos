@@ -59,7 +59,7 @@ class Likes extends Component {
 
   render() {
     return (
-      <div style={{ textAlign: 'right', width: 1000 }}>
+      <div style={{ textAlign: 'right', width: 1200 }}>
         <div
           style={{
             float: 'left',
