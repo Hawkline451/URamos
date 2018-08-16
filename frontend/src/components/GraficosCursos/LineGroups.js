@@ -33,7 +33,7 @@ class LineGroups extends Component {
         // 142.93.4.35
         axios({
             method: 'post',
-            url: 'http://localhost:3000/search/searchprof/',
+            url: 'http://142.93.4.35:3000/search/searchprof/',
             data: 'value=' + code,
             responseType: 'json',
         }).then(({data}) => {

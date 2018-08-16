@@ -94,6 +94,7 @@ class SearchProf(View):
         #json_data = json.dumps(list(teachers), cls=DjangoJSONEncoder)
         data = []
 
+        print(teachersAux)
         for teacherA in teachers:
             teacher = Teacher.objects.get(name=teacherA['teacher__name'])
 
@@ -127,7 +128,9 @@ class SearchProf(View):
         maxYear = 0
         minName = None
         maxName = None
+        print(data)
         for dataAux in data:
+            print(dataAux)
             for course in dataAux['courses']:
                 if course['semester__year'] <= minYear:
                     if course['semester__year'] == minYear:
@@ -150,28 +153,24 @@ class SearchProf(View):
 
         xlabel = []
         # print(minName,minYear,maxName,maxYear)
+        if minName != None and maxName != None:
+            # Create list of xLabel
+            minIndexName = names.index(minName)
+            maxIndexName = names.index(maxName)
 
-        # Create list of xLabel
-        minIndexName = names.index(minName)
-        maxIndexName = names.index(maxName)
-
-        for year in range(minYear, maxYear + 1):
-            if year == maxYear:
-                name = str(year) + ' ' + names[minIndexName]
-                xlabel.append(name)
-                if names[maxIndexName] != names[minIndexName]:
-                    minIndexName = (minIndexName + 1) % 3
+            for year in range(minYear, maxYear + 1):
+                if year == maxYear:
                     name = str(year) + ' ' + names[minIndexName]
                     xlabel.append(name)
                     if names[maxIndexName] != names[minIndexName]:
                         minIndexName = (minIndexName + 1) % 3
                         name = str(year) + ' ' + names[minIndexName]
                         xlabel.append(name)
-            else:
-                name = str(year) + ' ' + names[minIndexName]
-                minIndexName = (minIndexName + 1) % 3
-                xlabel.append(name)
-                if not minIndexName == 0:
+                        if names[maxIndexName] != names[minIndexName]:
+                            minIndexName = (minIndexName + 1) % 3
+                            name = str(year) + ' ' + names[minIndexName]
+                            xlabel.append(name)
+                else:
                     name = str(year) + ' ' + names[minIndexName]
                     minIndexName = (minIndexName + 1) % 3
                     xlabel.append(name)
@@ -179,19 +178,18 @@ class SearchProf(View):
                         name = str(year) + ' ' + names[minIndexName]
                         minIndexName = (minIndexName + 1) % 3
                         xlabel.append(name)
+                        if not minIndexName == 0:
+                            name = str(year) + ' ' + names[minIndexName]
+                            minIndexName = (minIndexName + 1) % 3
+                            xlabel.append(name)
 
-        # minYear + minName
-        # maxYear + maxName
-        # dataAux = {'teacher': teacherA['teacher__name'], 'notes': notes, 'courses': courses}
-        # course = {'semester__year': semester['semester__year'], 'semester__name': semester['semester__name'], 'noteTeacher': note}
-
-        for dataAux in data:
-            notesClass = ['NaN'] * len(xlabel)
-            for course in dataAux['courses']:
-                semester = str(course['semester__year']) + ' ' + course['semester__name']
-                indexSemester = xlabel.index(semester)
-                notesClass[indexSemester] = course['noteTeacher']
-            dataAux['notes'] = notesClass
+            for dataAux in data:
+                notesClass = ['NaN'] * len(xlabel)
+                for course in dataAux['courses']:
+                    semester = str(course['semester__year']) + ' ' + course['semester__name']
+                    indexSemester = xlabel.index(semester)
+                    notesClass[indexSemester] = course['noteTeacher']
+                dataAux['notes'] = notesClass
 
         json_dataAux = {}
         json_dataAux['xlabel'] = xlabel
