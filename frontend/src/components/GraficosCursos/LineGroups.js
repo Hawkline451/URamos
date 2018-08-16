@@ -27,7 +27,6 @@ class LineGroups extends Component {
     state = {
         teachers: null,
         code: null,
-        courses: null,
     };
 
     getTeacherAndNotesInfo(code) {
@@ -84,6 +83,8 @@ class LineGroups extends Component {
                     shared: false
                 },
                 legend: {
+                    horizontalAlign: "right",
+                    verticalAlign: "center",
                     cursor: "pointer",
                     itemclick: this.toggleDataSeries
                 },

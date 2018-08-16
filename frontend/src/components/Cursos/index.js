@@ -4,7 +4,7 @@ import TopTabs from './TopTabs';
 import SectionName from './SectionName';
 import CoursesList from './CoursesList';
 import Comentario from '../Comentario';
-import Graph from '../Graficos/index'
+import Graph from '../GraficosCursos/index'
 import axios from 'axios';
 
 class Curso extends Component {

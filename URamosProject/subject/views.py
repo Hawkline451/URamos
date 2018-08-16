@@ -122,6 +122,7 @@ class SearchProf(View):
             dataAux = {'teacher': teacherA['teacher__name'], 'notes': notes, 'courses': courses}
             data.append(dataAux)
 
+        names = ["Verano", "Otoño", "Primavera"]
         minYear = date.today().year
         maxYear = 0
         minName = None
@@ -130,42 +131,54 @@ class SearchProf(View):
             for course in dataAux['courses']:
                 if course['semester__year'] <= minYear:
                     if course['semester__year'] == minYear:
-                        if minName == None or minName > course['semester__name']:
+                        if minName == None:
+                            minName = course['semester__name']
+                        elif names.index(minName) > names.index(course['semester__name']):
                             minName = course['semester__name']
                     else:
                         minYear = course['semester__year']
                         minName = course['semester__name']
                 if course['semester__year'] >= maxYear:
                     if course['semester__year'] == maxYear:
-                        if maxName == None or maxName < course['semester__name']:
+                        if maxName == None:
+                            maxName = course['semester__name']
+                        elif names.index(maxName) < names.index(course['semester__name']):
                             maxName = course['semester__name']
                     else:
                         maxYear = course['semester__year']
                         maxName = course['semester__name']
 
         xlabel = []
-        #print(minName,minYear,maxName,maxYear)
+        # print(minName,minYear,maxName,maxYear)
 
         # Create list of xLabel
-        names = ["Otoño", "Primavera"]
         minIndexName = names.index(minName)
         maxIndexName = names.index(maxName)
 
-        for year in range(minYear,maxYear+1):
+        for year in range(minYear, maxYear + 1):
             if year == maxYear:
                 name = str(year) + ' ' + names[minIndexName]
                 xlabel.append(name)
                 if names[maxIndexName] != names[minIndexName]:
-                    name = str(year) + ' ' + names[not minIndexName]
+                    minIndexName = (minIndexName + 1) % 3
+                    name = str(year) + ' ' + names[minIndexName]
                     xlabel.append(name)
+                    if names[maxIndexName] != names[minIndexName]:
+                        minIndexName = (minIndexName + 1) % 3
+                        name = str(year) + ' ' + names[minIndexName]
+                        xlabel.append(name)
             else:
                 name = str(year) + ' ' + names[minIndexName]
-                minIndexName = not minIndexName
+                minIndexName = (minIndexName + 1) % 3
                 xlabel.append(name)
                 if not minIndexName == 0:
                     name = str(year) + ' ' + names[minIndexName]
-                    minIndexName = not minIndexName
+                    minIndexName = (minIndexName + 1) % 3
                     xlabel.append(name)
+                    if not minIndexName == 0:
+                        name = str(year) + ' ' + names[minIndexName]
+                        minIndexName = (minIndexName + 1) % 3
+                        xlabel.append(name)
 
         # minYear + minName
         # maxYear + maxName
