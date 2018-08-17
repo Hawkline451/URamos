@@ -46,7 +46,7 @@ class UramosBar extends Component {
             this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);            
         }else{
             this.props.set_auth_status(AUTHSTATUS.LOGGED_OUT);
-            this.props.set_jwt_status(AUTHSTATUS.WITHOUT_JWT);
+            this.props.set_jwt_status(JWTSTATUS.WITHOUT_JWT);
         }
     }
 
