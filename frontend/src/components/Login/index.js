@@ -17,12 +17,12 @@ const mapStateToProps = state =>{
 	return{
 		jwtIsUpdated: state.JWTStatus === JWTSTATUS.JWT_UPDATED
 	};
-}
+};
 
 const mapDispatchToProps = dispatch => {
 	return {
 		set_jwt_status: stats => dispatch(setJWTStatus(stats))
 	};  
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps) (Login);

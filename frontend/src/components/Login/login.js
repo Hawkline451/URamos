@@ -21,6 +21,6 @@ const Login = (props)=>{
     	});
 
     return <Redirect to='/'/>;
-}
+};
 
 export default connect()(Login);

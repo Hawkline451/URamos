@@ -9,3 +9,4 @@ class Teacher(models.Model):
 	note = models.FloatField(default=0)
 	def __str__(self):
 		return self.name.lower()
+
