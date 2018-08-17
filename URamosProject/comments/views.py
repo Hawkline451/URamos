@@ -29,7 +29,7 @@ def HideComment (request) :
 
     mod = Moderator.objects.get (user=request.user)
 
-    firstComment = 'Comentario bloqueado ' + timezone.now.strftime('%d/%m/%Y')
+    firstComment = 'Comentario bloqueado ' + timezone.now().strftime('%d/%m/%Y')
     secondComment = mod.name + ' ha bloqueado el comentario de ' + comment.user.nickname + ' en  ' + comment.course.subject.code + ' - ' + comment.course.subject.name
 
     newRecord = Record (firstComment=firstComment, secondComment=secondComment, typeRecord=1)
@@ -108,7 +108,7 @@ def SaveComment (request) :
                        course=course)
     comment.save()
 
-    firstComment = 'Nuevo comentario ' + timezone.now.strftime('%d/%m/%Y')
+    firstComment = 'Nuevo comentario ' + timezone.now().strftime('%d/%m/%Y')
     secondComment = 'Usuario ' + naturalUser.nickname + ' realizó un nuevo comentario en ' + subject.code + ' - ' + subject.name
 
     newRecord = Record(firstComment=firstComment, secondComment=secondComment, typeRecord=0)
