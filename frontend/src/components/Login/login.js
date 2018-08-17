@@ -15,7 +15,6 @@ const Login = (props)=>{
       .then(res => res.json())
       .then(json => {
           localStorage.setItem('user', JSON.stringify(json));
-        this.setState({user: json});
       });
     fetch('http://142.93.4.35:3000/auth/current_user/', {
       headers: {
@@ -25,10 +24,9 @@ const Login = (props)=>{
     .then(res => res.json())
     .then(json => {
           localStorage.setItem('normal_user', JSON.stringify(json));
-          this.setState({normal_user: json});
     });
 
     return <Redirect to='/'/>;
-}
+};
 
 export default connect()(Login);

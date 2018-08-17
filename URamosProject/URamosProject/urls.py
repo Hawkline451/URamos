@@ -26,4 +26,5 @@ urlpatterns = [
     path('moderator/', include('moderator.urls')),
     path('comment/', include('comments.urls')),
     path('logging/', include('log.urls')),
+    path('teacher/', include('teacher.urls'))
 ]

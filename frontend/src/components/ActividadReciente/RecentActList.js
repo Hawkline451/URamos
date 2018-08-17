@@ -13,7 +13,7 @@ class RecentActList extends Component {
         axios({
             method: 'post',
             //142.93.4.35
-            url: 'http://localhost:3000/logging/record/',
+            url: 'http://142.93.4.35:3000/logging/record/',
             responseType: 'json',
         }).then(({data}) => {
             const newData = data.map(item => {
