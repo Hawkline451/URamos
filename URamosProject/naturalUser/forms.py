@@ -21,7 +21,7 @@ class BlockingUserForm (forms.Form) :
                              lockedBy=blockingUser)
         locked.save()
 
-        firstComment = 'Usuario banneado ' + timezone.now.strftime ('%d/%m/%Y')
+        firstComment = 'Usuario banneado ' + timezone.now().strftime ('%d/%m/%Y')
         secondComment = 'Se ha banneado al usuario ' + user.nickname
 
         newRecord = Record (firstComment=firstComment, secondComment=secondComment, typeRecord=2)
