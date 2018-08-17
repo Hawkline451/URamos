@@ -31,6 +31,9 @@ class OldComment(models.Model):
 	content = models.TextField(max_length=1024)
 	date = models.DateField()
 
+	def __str__(self):
+		return str(self.date) + ' - ' + self.content[0:20] + ' ...'
+
 class EditedList(models.Model):
 	comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
 	old_content = models.ForeignKey(OldComment, on_delete=models.CASCADE)

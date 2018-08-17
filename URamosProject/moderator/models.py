@@ -10,6 +10,7 @@ from naturalUser.models import NaturalUser
 class Moderator(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
 	name = models.CharField(max_length=64)
+
 	def __str__(self):
 		return self.name
 
