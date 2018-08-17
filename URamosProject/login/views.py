@@ -57,8 +57,6 @@ class AuthView(View):
 		payload = jwt_payload_handler(user)
 		token = jwt_encode_handler(payload)
 
-		print(token)
-
 		return HttpResponse(str('http://142.93.4.35:8000/login/'+token))
 
 
