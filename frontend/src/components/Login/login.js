@@ -1,26 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { JWTSTATUS, setJWTStatus, AUTHSTATUS, setAuthStatus, setUser, setNormalUser} from '../../actions';
 
+class Login extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      redirect: '/'
+    }
+  }
 
-const Login = (props)=>{
-  var token = props.match.params.jwt
+  componentWillMount(){
+  var token = this.props.match.params.jwt
   localStorage.setItem('token', token)
-  props.set_jwt_status(JWTSTATUS.JWT_UPDATED)
-  var usr=null;
-
-	fetch('http://142.93.4.35:3000/user/', {
-      headers: {
-            Authorization: `JWT ${token}`
-          }
-      })
-      .then(res => res.json())
-      .then(json => {
-          localStorage.setItem('user', JSON.stringify(json));
-          usr = json;
-          props.set_user(json)
-      });
+  this.props.set_jwt_status(JWTSTATUS.JWT_UPDATED)
+  
   
   fetch('http://142.93.4.35:3000/auth/current_user/', {
     headers: {
@@ -30,19 +25,33 @@ const Login = (props)=>{
   .then(res => res.json())
   .then(json => {
         localStorage.setItem('normal_user', JSON.stringify(json));
-        props.set_normal_user(json);
+        this.props.set_normal_user(json);
   });
 
-  props.set_auth_status(AUTHSTATUS.LOGGED_IN);
+  fetch('http://142.93.4.35:3000/user/', {
+      headers: {
+            Authorization: `JWT ${token}`
+          }
+      })
+      .then(res => res.json())
+      .then(json => {
+          localStorage.setItem('user', JSON.stringify(json));
+          this.props.set_user(json)
+          this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);
+          if(json.isTeacher){
+            var ans = '/profesor/'+json.teacherName;
+            this.setState({redirect:ans});
+          }
+      });
 
-  if(usr.isTeacher){
-    var url = "/profesor/"+usr.teacherName.toString();
-    return <Redirect to={url} />;
   }
 
+  render(){
+    return <div><Redirect to={this.state.redirect }/></div>;
+  }
 
-  return <Redirect to='/'/>;
-};
+}
+
 
 const mapDispatchToProps = dispatch => {
   return{
