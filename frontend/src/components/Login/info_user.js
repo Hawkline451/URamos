@@ -4,6 +4,7 @@ import { MenuItem, DropdownButton } from 'react-bootstrap';
 import Avatar from '@material-ui/core/Avatar';
 import FaceIcon from '@material-ui/icons/Face';
 import Chip from '@material-ui/core/Chip';
+import { connect } from 'react-redux'
 
 
 
@@ -18,11 +19,21 @@ class InfoUser extends Component {
 
 	}
 
-	
-	componentWillMount(){
-		this.setState({'user':JSON.parse(localStorage.getItem('user')),
-                            'normal_user':JSON.parse(localStorage.getItem('normal_user'))})
+	componentDidMount(){
+		console.log(this.props)
+		this.setState({
+			user:this.props.user,
+			normal_user:this.props.normalUser
+		})
 	}
+
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			user:nextProps.user,
+			normal_user:nextProps.normalUser
+		})
+	}
+	
 
 	render(){
 		
@@ -53,7 +64,12 @@ class InfoUser extends Component {
 	}
 
 }
+const mapStateToProps = state =>{
+	return{
+		user:state.user,
+		normalUser:state.normalUser
+	};
+};
 
 
-
-export default InfoUser;
+export default connect(mapStateToProps) (InfoUser);
