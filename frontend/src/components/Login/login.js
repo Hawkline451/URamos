@@ -8,6 +8,7 @@ const Login = (props)=>{
   var token = props.match.params.jwt
   localStorage.setItem('token', token)
   props.set_jwt_status(JWTSTATUS.JWT_UPDATED)
+  var usr=null;
 
 	fetch('http://142.93.4.35:3000/user/', {
       headers: {
@@ -17,6 +18,7 @@ const Login = (props)=>{
       .then(res => res.json())
       .then(json => {
           localStorage.setItem('user', JSON.stringify(json));
+          usr = json;
           props.set_user(json)
       });
   
@@ -32,6 +34,12 @@ const Login = (props)=>{
   });
 
   props.set_auth_status(AUTHSTATUS.LOGGED_IN);
+
+  if(usr.isTeacher){
+    var url = "/profesor/"+usr.teacherName.toString();
+    return <Redirect to={url} />;
+  }
+
 
   return <Redirect to='/'/>;
 };
