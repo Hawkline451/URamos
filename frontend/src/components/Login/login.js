@@ -4,21 +4,29 @@ import { connect } from 'react-redux';
 import { JWTSTATUS, setJWTStatus } from '../../actions';
 
 const Login = (props)=>{
-	fetch('http://142.93.4.35:3000/token-auth/', {
-      method: 'POST',
+  token = props.match.params.jwt
+  localStorage.setItem('token', token)
+
+	fetch('http://142.93.4.35:3000/user/', {
       headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        "username" : props.match.params.rut.toString(),
-        "password" : props.match.params.rut.toString()
+            Authorization: `JWT ${token}`
+          }
       })
-    })
       .then(res => res.json())
       .then(json => {
-        localStorage.setItem('token', json.token);
-        props.dispatch(setJWTStatus(JWTSTATUS.JWT_UPDATED));
-    	});
+          localStorage.setItem('user', JSON.stringify(json));
+        this.setState({user: json});
+      });
+    fetch('http://142.93.4.35:3000/auth/current_user/', {
+      headers: {
+        Authorization: `JWT ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(json => {
+          localStorage.setItem('normal_user', JSON.stringify(json));
+          this.setState({normal_user: json});
+    });
 
     return <Redirect to='/'/>;
 }

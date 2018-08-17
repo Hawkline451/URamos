@@ -28,7 +28,7 @@ class App extends Component {
             <Route exact path="/evaluacion" component={Evaluacion} />
             <Route exact path="/evaluacion/formulario"
               component={Evaluacion} />
-            <Route path="/login/:rut" component = {Login} />
+            <Route path="/login/:jwt" component = {Login} />
             <Route exact path='/logout/' component={Logout} />
             <Route exact path="/moderar" component={Moderar} />
           </div>
