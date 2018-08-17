@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import info_user
+from .views import info_user, unlock
 
 urlpatterns = [
-	path('', info_user)
+	path('', info_user),
+	path('unlock/<int:user_id>/', unlock, name='unlock')
 ]

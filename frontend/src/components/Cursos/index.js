@@ -4,6 +4,7 @@ import TopTabs from './TopTabs';
 import SectionName from './SectionName';
 import CoursesList from './CoursesList';
 import Comentario from '../Comentario';
+import Graph from '../GraficosCursos/index'
 import axios from 'axios';
 
 class Curso extends Component {
@@ -52,6 +53,7 @@ class Curso extends Component {
         <SectionName code={this.state.code} name={this.state.name} />
         <Rate nota={this.state.notaCurso} votos={this.state.votosCurso} />
         <CoursesList cursos={this.state.cursos} />
+        <Graph code={this.state.code}/>
         <Comentario comentarios={this.state.comentarios} />
       </div>
     );

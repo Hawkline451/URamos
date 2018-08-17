@@ -19,3 +19,17 @@ export const setJWTStatus = jwt_status => ({
 	type: 'SET_JWT_STATUS',
 	jwt_status
 })
+
+export const setUser = user => ({
+	type: 'SET_USER',
+	user
+})
+
+export const setNormalUser = normalUser => ({
+	type: 'SET_NORMAL_USER',
+	normalUser
+})
+
+export const deleteUsers = () => ({
+	type: 'DELETE_USER'
+})

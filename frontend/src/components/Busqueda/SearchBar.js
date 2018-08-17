@@ -117,7 +117,7 @@ class Main extends Component {
 
     getInfo = () => {
         //142.93.4.35
-        axios.post('http://localhost:3000/search/courses/', {
+        axios.post('http://142.93.4.35:3000/search/courses/', {
             value: this.state.value,
             page: this.state.page,
             code: this.state.code,
