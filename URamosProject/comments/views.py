@@ -36,9 +36,10 @@ def UpVoteComment (request) :
     comment = Comment.objects.get(pk=body['commentId'])
 
     comment.positivePoints += 1
+    comment.ranking += 1
     comment.save()
 
-    return HttpResponse ({'data' : 'El comentario ha sido ocultado con exito'},
+    return HttpResponse ({},
                          content_type='application/json')
 @api_view(['POST'])
 def DownVoteComment (request) :
@@ -47,9 +48,10 @@ def DownVoteComment (request) :
     comment = Comment.objects.get(pk=body['commentId'])
 
     comment.negativePoints += 1
+    comment.ranking -= 1
     comment.save()
 
-    return HttpResponse ({'data' : 'El comentario ha sido ocultado con exito'},
+    return HttpResponse ({},
                          content_type='application/json')
 
 
