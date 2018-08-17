@@ -9,11 +9,9 @@ const user = (state={}, action) => {
 							'isTeacher': action.user.isTeacher
 						});
 		case 'DELETE_USER':
-			state =  {}
+			return  {}
 		default:
 			return state;
-
-
 	}
 }
 
