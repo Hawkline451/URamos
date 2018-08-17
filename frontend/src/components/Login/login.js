@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { JWTSTATUS, setJWTStatus } from '../../actions';
 
 const Login = (props)=>{
-  token = props.match.params.jwt
+  var token = props.match.params.jwt
   localStorage.setItem('token', token)
 
 	fetch('http://142.93.4.35:3000/user/', {
