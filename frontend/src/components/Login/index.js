@@ -2,20 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux'
 import LoginBar from './login_bar';
 import InfoUser from './info_user';
-import { JWTSTATUS, setJWTStatus} from '../../actions';
+import { JWTSTATUS, setJWTStatus, AUTHSTATUS} from '../../actions';
 
 function Login(props){
-	var haveJWT = props.jwtIsUpdated;
-	if(localStorage.getItem('token')){
-		props.set_jwt_status(JWTSTATUS.JWT_UPDATED);
-		haveJWT = true;
-	}
-	return props.jwtIsUpdated ? (<InfoUser />) : (<LoginBar />);
+	return props.isLogged ? (<InfoUser />) : (<LoginBar />);
 }
 
 const mapStateToProps = state =>{
 	return{
-		jwtIsUpdated: state.JWTStatus === JWTSTATUS.JWT_UPDATED
+		isLogged: state.authStatus === AUTHSTATUS.LOGGED_IN
 	};
 };
 

@@ -5,8 +5,6 @@ import Avatar from '@material-ui/core/Avatar';
 import FaceIcon from '@material-ui/icons/Face';
 import Chip from '@material-ui/core/Chip';
 
-import { connect } from 'react-redux';
-import { AUTHSTATUS, setAuthStatus } from '../../actions';
 
 
 class InfoUser extends Component {
@@ -20,43 +18,10 @@ class InfoUser extends Component {
 
 	}
 
-	componentDidMount(){
-		this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);
-	}
 	
 	componentWillMount(){
-		var haveNotData = !this.props.isLoggedd;
-		if(localStorage.getItem('normal_user') ){
-			this.setState({
-				user: JSON.parse(localStorage.getItem('user')),
-				normal_user: JSON.parse(localStorage.getItem('normal_user'))
-			})
-			haveNotData = false;
-			this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);
-		}
-		if( !this.props.isLoggedd){
-			fetch('http://142.93.4.35:3000/user/', {
-				headers: {
-		        	Authorization: `JWT ${localStorage.getItem('token')}`
-		        }
-		    })
-		    .then(res => res.json())
-		    .then(json => {
-	      		localStorage.setItem('user', JSON.stringify(json));
-		    	this.setState({user: json});
-		    });
-			fetch('http://142.93.4.35:3000/auth/current_user/', {
-				headers: {
-					Authorization: `JWT ${localStorage.getItem('token')}`
-				}
-			})
-			.then(res => res.json())
-			.then(json => {
-	      		localStorage.setItem('normal_user', JSON.stringify(json));
-	      		this.setState({normal_user: json});
-			});
-			
-		}
+		this.setState({'user':JSON.parse(localStorage.getItem('user')),
+                            'normal_user':JSON.parse(localStorage.getItem('normal_user'))})
 	}
 
 	render(){
@@ -89,18 +54,6 @@ class InfoUser extends Component {
 
 }
 
-const mapStateToProps = (state) =>{
-	return{
-		isLogged: state.authStatus === AUTHSTATUS.LOGGED_IN,
-	};
-}
-
-const mapDispatchToProps = dispatch => {
-	return{
-		set_auth_status: stats => dispatch(setAuthStatus(stats))
-	}
-  
-}
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoUser);
+export default InfoUser;

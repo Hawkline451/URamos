@@ -7,38 +7,27 @@ import IntegrationAutosuggest from "../Buscador";
 import Login from "../Login";
 import "./styles.css";
 import RadioButtonGroup from "../RadioButtons";
+import { connect } from 'react-redux';
+import { JWTSTATUS, setJWTStatus, AUTHSTATUS, setAuthStatus } from '../../actions';
+
+
 
 class UramosBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: JSON.parse(localStorage.getItem('user')),
-            normal_user: JSON.parse(localStorage.getItem('normal_user')),
+            user: {'isModerator': false},
+            normal_user: '',
             user_info: '',
             mod_info: '',
             search: 'codigo',
         };
     }
 
-    componentDidMount() {
-        if (localStorage.getItem('isLogged') === 'true') {
-            fetch('http://142.93.4.35:3000/auth/current_user/', {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('token')}`,
-                },
-            })
-                .then(res => res.json())
-                .then(json => {
-                    localStorage.setItem('normal_user', JSON.stringify(json));
-
-                    this.setState({normal_user: json});
-                });
-
-            this.setState({
-                user: JSON.parse(localStorage.getItem('user')),
-                normal_user: JSON.parse(localStorage.getItem('normal_user')),
-            });
-
+    componentWillMount(){
+        if(localStorage.getItem('jwt') !== null){
+            this.setState({'user':JSON.parse(localStorage.getItem('user')),
+                            'normal_user':JSON.parse(localStorage.getItem('normal_user'))})
             const infMod = (
                 <Button color="inherit" href={'/moderar'}>
                     Cursos a Moderar
@@ -53,7 +42,15 @@ class UramosBar extends Component {
             if (this.state.user.isModerator) {
                 this.setState({mod_info: infMod});
             }
+
+            this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);            
+        }else{
+            this.props.set_auth_status(AUTHSTATUS.LOGGED_OUT);
+            this.props.set_jwt_status(AUTHSTATUS.WITHOUT_JWT);
         }
+    }
+
+    componentDidMount() {
     }
 
     changeSearchValue(searchValue) {
@@ -116,4 +113,18 @@ class UramosBar extends Component {
     }
 }
 
-export default UramosBar;
+const mapStateToProps = (state) => {
+  return{
+    isLogged: state.authStatus === AUTHSTATUS.LOGGED_IN, 
+    JWTStatus: state.JWTStatus
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return{
+    set_auth_status: stats => dispatch(setAuthStatus(stats)), 
+    set_jwt_status: stats => dispatch(setJWTStatus(stats))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UramosBar);
