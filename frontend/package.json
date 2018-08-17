@@ -12,10 +12,7 @@
     "material-ui-datatables": "^0.18.2",
     "material-ui-rating": "^2.0.0",
     "npm": "^6.4.0",
-<<<<<<< HEAD
-=======
     "prop-type": "0.0.1",
->>>>>>> 240a811966c352d599451502047249f3fc87ab37
     "react": "^16.4.1",
     "react-autosuggest": "^9.3.4",
     "react-bootstrap": "^0.32.1",
@@ -29,7 +26,7 @@
     "redux": "^4.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=8000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
