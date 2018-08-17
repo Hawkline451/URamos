@@ -8,12 +8,14 @@ import urllib.parse
 from naturalUser.models import NaturalUser
 from teacher.models import Teacher
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 from rest_framework import permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
+from rest_framework_jwt.settings import api_settings
 
 
 # Create your views here.
@@ -46,8 +48,18 @@ class AuthView(View):
 
 			nu.setNickName()
 			nu.save()
+			
+		user = authenticate(username=rut, password=rut)
 
-		return HttpResponse(str('http://142.93.4.35:8000/login/'+str(rut)))
+		jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+		jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
+		payload = jwt_payload_handler(user)
+		token = jwt_encode_handler(payload)
+
+		print(token)
+
+		return HttpResponse(str('http://142.93.4.35:8000/login/'+token))
 
 
 @api_view(['GET'])

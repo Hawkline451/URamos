@@ -103,4 +103,4 @@ def SaveComment (request) :
 
     newRecord.save()
 
-    return HttpResponse({'data': 'Su evaluacion ha sido procesada con exito <br/><br/> Gracias!'}, content_type='application/json'
+    return HttpResponse({'data': 'Su evaluacion ha sido procesada con exito <br/><br/> Gracias!'}, content_type='application/json')
