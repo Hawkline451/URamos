@@ -17,7 +17,7 @@ class NaturalUser(models.Model):
 	def setNickName(self):
 
 		sounds = ['miau', 'guau', 'cuak cuak', 'muuuuu', 'pio pio', 'beeee',
-			'auuuuh', 'hooo hoooo hoo', 'oink oink', 'cri cri', 'grrrr']
+			'auuuuh', 'hooo hoooo hoo', 'oink oink', 'cri cri', 'grrrrr']
 
 		adjectives = ['consecuente', 'simple', 'feliz', 'habil', 'amable',
 			'angelical', 'debil', 'fuerte', 'realista', 'libre', 'coherente',

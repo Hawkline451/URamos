@@ -7,9 +7,30 @@ import Likes from './Likes';
 import Moderar from './Moderar';
 
 class Comment extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      comentario: this.props.comentario,
+      upVotes: this.props.comentario.positivePoints,
+      downVotes: this.props.comentario.negativePoints,
+    };
+  }
+
+  handleUpVotes = () => {
+    this.setState({
+      upVotes: this.state.upVotes + 1,
+    });
+  };
+
+  handleDownVotes = () => {
+    this.setState({
+      downVotes: this.state.downVotes + 1,
+    });
+  };
+
   render() {
-    const { comentario } = this.props;
-    console.log(comentario);
+    const { comentario } = this.state;
     return (
       <div>
         <Paper square style={{ textAlign: 'left' }}>
@@ -22,7 +43,7 @@ class Comment extends Component {
               height: '100%',
             }}
           >
-            <AnimalAvatar name={comentario.user__nickname} />
+            <AnimalAvatar name={this.state.comentario.user__nickname} />
             <Typography
               variant="headline"
               style={{
@@ -30,7 +51,7 @@ class Comment extends Component {
                 marginLeft: 0,
               }}
             >
-              {comentario.user__nickname}
+              {this.state.comentario.user__nickname}
             </Typography>
             <Typography
               variant="title"
@@ -39,7 +60,7 @@ class Comment extends Component {
                 color: 'rgba(0, 0, 0, 0.5)',
               }}
             >
-              {comentario.date}
+              {this.state.comentario.date}
             </Typography>
           </div>
           <div
@@ -61,8 +82,8 @@ class Comment extends Component {
             >
               Semestre:{' '}
               <strong>
-                {comentario.course__semester__year}{' '}
-                {comentario.course__semester__name}
+                {this.state.comentario.course__semester__year}{' '}
+                {this.state.comentario.course__semester__name}
               </strong>
             </Typography>
             <Typography
@@ -74,7 +95,9 @@ class Comment extends Component {
               }}
             >
               Profesor:{' '}
-              <strong>{comentario.course__teacher__name.toLowerCase()}</strong>
+              <strong>
+                {this.state.comentario.course__teacher__name.toLowerCase()}
+              </strong>
             </Typography>
             <div
               style={{
@@ -82,12 +105,14 @@ class Comment extends Component {
                 padding: 10,
                 border: '2px gray solid',
                 borderRadius: 5,
-                width: 1000,
+                width: 1200,
                 wordBreak: 'break-all',
                 wordWrap: 'break-word',
               }}
             >
-              <Typography variant="headline">{comentario.content}</Typography>
+              <Typography variant="headline">
+                {this.state.comentario.content}
+              </Typography>
             </div>
             <div
               style={{
@@ -96,11 +121,13 @@ class Comment extends Component {
               }}
             >
               <Likes
-                markTeacher={comentario.noteTeacher}
-                markCourse={comentario.noteCourse}
-                comment={comentario.id}
-                upVotes={comentario.positivePoints}
-                downVotes={comentario.negativePoints}
+                markTeacher={this.state.comentario.noteTeacher}
+                markCourse={this.state.comentario.noteCourse}
+                comment={this.state.comentario.id}
+                upVotes={this.state.upVotes}
+                handleUpVotes={this.handleUpVotes}
+                downVotes={this.state.downVotes}
+                handleDownVotes={this.handleDownVotes}
               />
             </div>
           </div>
@@ -109,19 +136,19 @@ class Comment extends Component {
               display: 'inline-block',
               verticalAlign: 'top',
               marginTop: 80,
-              marginLeft: 130,
+              marginLeft: 50,
             }}
           >
             <Moderar
-              nickname={comentario.user__nickname}
-              profesor={comentario.course__teacher__name.toLowerCase()}
+              nickname={this.state.comentario.user__nickname}
+              profesor={this.state.comentario.course__teacher__name.toLowerCase()}
               curso={
-                comentario.course__semester__name +
+                this.state.comentario.course__semester__name +
                 ' ' +
-                comentario.course__semester__year
+                this.state.comentario.course__semester__year
               }
-              comentario={comentario.id}
-              content={comentario.content}
+              comentario={this.state.comentario.id}
+              content={this.state.comentario.content}
             />
           </div>
         </Paper>

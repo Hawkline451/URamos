@@ -66,6 +66,7 @@ class Moderar extends Component {
           style={{
             backgroundColor: '#ffbb33',
             color: '#FF8800',
+            width: 200
           }}
         >
           <SvgIcon style={{ color: 'black', marginRight: 10 }}>
