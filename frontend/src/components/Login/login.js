@@ -7,7 +7,8 @@ class Login extends Component{
   constructor(props){
     super(props);
     this.state = {
-      redirect: '/'
+      redirect: '/',
+      done: false
     }
   }
 
@@ -40,14 +41,19 @@ class Login extends Component{
           this.props.set_auth_status(AUTHSTATUS.LOGGED_IN);
           if(json.isTeacher){
             var ans = '/profesor/'+json.teacherName;
-            this.setState({redirect:ans});
+            this.setState({redirect:ans, done:true});
           }
       });
 
   }
 
   render(){
-    return <div><Redirect to={this.state.redirect }/></div>;
+    if(this.state.done){
+      return <div><Redirect to={this.state.redirect }/></div>;
+    }else{
+      return <div> </div>;
+    }
+    
   }
 
 }
