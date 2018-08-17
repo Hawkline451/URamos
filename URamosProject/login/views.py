@@ -41,10 +41,10 @@ class AuthView(View):
 			user.save()			
 			nu = NaturalUser(user = user, isLocked=False, isModerator=False, isTeacher=False)
 			
-			teacher = Teacher.objects.filter(name=data['alias'])
+			teacher = Teacher.objects.filter(name=data['alias'].lower())
 			if(teacher):
 				nu.isTeacher = True
-				nu.teacherName = data['alias']
+				nu.teacherName = data['alias'].lower()
 
 			nu.setNickName()
 			nu.save()

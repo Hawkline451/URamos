@@ -6,7 +6,8 @@ const user = (state={}, action) => {
 							'nickname': action.user.nickname,
 							'isLocked': action.user.isTeacher,
 							'isModerator': action.user.isModerator,
-							'isTeacher': action.user.isTeacher
+							'isTeacher': action.user.isTeacher,
+							'teacherName': action.user.teacherName
 						});
 		case 'DELETE_USER':
 			return  {}
