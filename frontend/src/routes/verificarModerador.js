@@ -25,7 +25,7 @@ class VerificarModerador extends Component{
 		if(this.props.isModerator){
 			return (<this.props.comp {...this.props}/>);
 		}else{
-			return (<Redirect to='/'/>)
+			return <Redirect to='/'/>;
 		}
 	}
 }

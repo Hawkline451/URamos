@@ -19,7 +19,7 @@ class VerificarLogin extends Component{
 		if(this.props.isLogged){
 			return (<this.props.comp/>);
 		}else{
-			return (<Redirect to='/'/>)
+			return (<Redirect to='/'/>);
 		}
 	}
 }
