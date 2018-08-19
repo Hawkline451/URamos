@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import LoginBar from './login_bar';
 import InfoUser from './info_user';
-import { JWTSTATUS, setJWTStatus, AUTHSTATUS} from '../../actions';
+import { setJWTStatus, AUTHSTATUS} from '../../actions';
 
 function Login(props){
 	return props.isLogged ? (<InfoUser />) : (<LoginBar />);
