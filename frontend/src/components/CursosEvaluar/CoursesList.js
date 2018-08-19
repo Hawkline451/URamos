@@ -41,8 +41,14 @@ class CoursesList extends Component {
     getInfo = (loadValue) => {
         //142.93.4.35
         axios.post('http://142.93.4.35:3000/user/courses/', {
-            load: loadValue
-        }).then(({data}) => {
+                load: loadValue
+            },
+            {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('token')}`,
+                },
+            }
+        ).then(({data}) => {
             const {evaluate, notEvaluate} = data;
             const dataEvaluate = evaluate.map(course => {
                 return {
