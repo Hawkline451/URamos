@@ -47,7 +47,6 @@ class Curso extends Component {
       <div>
         <TopTabs code={this.state.code} />
         <SectionName code={this.state.code} name={this.state.name} />
-        <CoursesList />
       </div>
     );
   }

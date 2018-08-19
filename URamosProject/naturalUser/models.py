@@ -44,3 +44,6 @@ class LockedUser(models.Model):
 class UserCourses(models.Model):
 	user = models.ForeignKey(NaturalUser, on_delete=models.CASCADE)
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)
+	isEvaluate = models.BooleanField(default=False)
+	def __str__(self):
+		return self.user.usermane + ' ' + self.course.subject.code
