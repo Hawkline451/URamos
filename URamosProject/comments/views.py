@@ -8,7 +8,7 @@ from django.db.models import Count
 from django.utils import timezone
 from teacher.models import Teacher
 from subject.models import Subject, Course
-from naturalUser.models import NaturalUser
+from naturalUser.models import NaturalUser, UserCourses
 from moderator.models import Moderator
 from log.models import Record
 from rest_framework.decorators import api_view
@@ -114,5 +114,9 @@ def SaveComment (request) :
     newRecord = Record(firstComment=firstComment, secondComment=secondComment, typeRecord=0)
 
     newRecord.save()
+
+    userCourse = UserCourses.objects.get(user=naturalUser, course=course)
+    userCourse.isEvaluate = True
+    userCourse.save()
 
     return HttpResponse({'data': 'Su evaluacion ha sido procesada con exito <br/><br/> Gracias!'}, content_type='application/json')

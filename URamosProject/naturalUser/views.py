@@ -2,9 +2,7 @@ import json
 import random
 
 from django.core.serializers.json import DjangoJSONEncoder
-from django.views import View
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
 from django.urls import reverse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -21,6 +19,7 @@ def contain(course, listCourse):
         if course['pk'] == item['course']:
             return True
     return False
+
 
 @api_view(['GET'])
 def info_user(request):
@@ -40,7 +39,6 @@ def LoadCourses(request):
     # naturalUser = NaturalUser.objects.get(user__username='18994829')
 
     listCourses = list(UserCourses.objects.filter(user=naturalUser).values('course'))
-    print(listCourses)
     if not listCourses or reload:
         ## Llamado a la api (parser)
         numberJson = random.randint(0, 5)
@@ -69,18 +67,17 @@ def LoadCourses(request):
                 new_course = Course.objects.filter(subject=subject, semester=semester,
                                                    section=int(course['seccion'])).values('pk')
                 for teacher in new_course:
-                    print(teacher)
-                    if not contain(teacher, listCourses): #para no guardar los existentes cuando hay reload
+                    if not contain(teacher, listCourses):  # para no guardar los existentes cuando hay reload
                         courseUser = Course.objects.get(pk=teacher['pk'])
                         userCourse = UserCourses(user=naturalUser, course=courseUser)
                         userCourse.save()
                         print('save course')
 
-
-
     dataCourses = UserCourses.objects.filter(user=naturalUser).values('course__subject__code', 'course__subject__name',
-                                                               'course__semester__year', 'course__semester__name',
-                                                               'isEvaluate', 'course__teacher__name', 'course__section')
+                                                                      'course__semester__year',
+                                                                      'course__semester__name',
+                                                                      'isEvaluate', 'course__teacher__name',
+                                                                      'course__section')
 
     dataCoursesEvaluate = []
     dataCoursesNotEvaluate = []
@@ -100,15 +97,16 @@ def LoadCourses(request):
 
     return HttpResponse(json_data, content_type='application/json')
 
+
 def unlock(request, user_id):
-	user = NaturalUser.objects.get(pk=user_id)
+    user = NaturalUser.objects.get(pk=user_id)
 
-	user.isLocked = False
-	user.save()
+    user.isLocked = False
+    user.save()
 
-	url = reverse ('admin:{}_{}_change'.format (user._meta.app_label, user._meta.model_name),
-				   args=[user.pk],
-				   current_app='admin',
-				   )
+    url = reverse('admin:{}_{}_change'.format(user._meta.app_label, user._meta.model_name),
+                  args=[user.pk],
+                  current_app='admin',
+                  )
 
-	return HttpResponseRedirect (url)
+    return HttpResponseRedirect(url)

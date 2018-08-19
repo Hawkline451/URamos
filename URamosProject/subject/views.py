@@ -94,7 +94,6 @@ class SearchProf(View):
         #json_data = json.dumps(list(teachers), cls=DjangoJSONEncoder)
         data = []
 
-        print(teachersAux)
         for teacherA in teachers:
             teacher = Teacher.objects.get(name=teacherA['teacher__name'])
 
@@ -128,9 +127,7 @@ class SearchProf(View):
         maxYear = 0
         minName = None
         maxName = None
-        print(data)
         for dataAux in data:
-            print(dataAux)
             for course in dataAux['courses']:
                 if course['semester__year'] <= minYear:
                     if course['semester__year'] == minYear:
@@ -152,7 +149,6 @@ class SearchProf(View):
                         maxName = course['semester__name']
 
         xlabel = []
-        # print(minName,minYear,maxName,maxYear)
         if minName != None and maxName != None:
             # Create list of xLabel
             minIndexName = names.index(minName)
