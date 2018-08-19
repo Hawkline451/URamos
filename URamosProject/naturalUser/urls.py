@@ -20,6 +20,6 @@ from .views import info_user, LoadCourses, unlock
 
 urlpatterns = [
     path('', info_user),
-    path(r'courses/', (csrf_exempt)(LoadCourses.as_view())),
+    path(r'courses/', LoadCourses.as_view()),
     path('unlock/<int:user_id>/', unlock, name='unlock')
 ]
