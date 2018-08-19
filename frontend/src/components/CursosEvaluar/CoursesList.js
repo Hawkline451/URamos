@@ -124,7 +124,7 @@ class CoursesList extends Component {
                         <TableBody>
                             {dataEvaluate.map(item => {
                                 const semester = item.year + ' ' + item.periodo;
-                                const course = item.curso;
+                                const course = item.code + ' - ' + item.name;
                                 const teacher = item.teacher;
                                 return (
                                     <TableRow key={semester + ' ' + course + ' ' + teacher}>

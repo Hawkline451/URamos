@@ -4,23 +4,10 @@ import CoursesList from "../CursosEvaluar/CoursesList";
 import IconReload from "../ButtonReload/index";
 
 class CursosEvaluacion extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            load: false,
-        };
-    }
-
-    changeLoadValue(loadValue) {
-        this.setState({
-            load: loadValue
-        });
-    }
-
     render() {
         return (
             <div>
-                <CoursesList load={this.state.load}/>
+                <CoursesList />
             </div>
         );
     }
