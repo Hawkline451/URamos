@@ -15,7 +15,7 @@ class Likes extends Component {
   handleOnUpVote = event => {
     console.log(this.state);
     if (localStorage.getItem('isLogged')) {
-      console.log('autenticado');
+      const upVotes = this.state.upVotes;
       axios
         .post(
           'http://142.93.4.35:3000/comment/upVote/',
@@ -29,9 +29,8 @@ class Likes extends Component {
           },
         )
         .then(() => {
-          this.setState({
-            upVotes: this.state.upVotes + 1,
-          });
+          console.log('answer');
+          this.props.handleUpVotes();
         });
     }
   };
@@ -53,17 +52,14 @@ class Likes extends Component {
           },
         )
         .then(() => {
-          this.setState({
-            downVotes: this.state.downVotes + 1,
-          });
-          this.forceUpdate();
+          this.props.handleDownVotes();
         });
     }
   };
 
   render() {
     return (
-      <div style={{ textAlign: 'right', width: 1000 }}>
+      <div style={{ textAlign: 'right', width: 1200 }}>
         <div
           style={{
             float: 'left',

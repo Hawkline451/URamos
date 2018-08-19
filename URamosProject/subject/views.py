@@ -56,7 +56,7 @@ class InfoRamo(View):
         courses = Course.objects.filter (subject=subject)
 
         for course in courses :
-            comments = Comment.objects.filter (course=course, isVisible=True, content__isnull=False).order_by ('ranking', 'date')
+            comments = Comment.objects.filter (course=course, isVisible=True).exclude(content__exact='').order_by ('ranking', 'date')
 
             comments = comments.values ('id', 'content', 'user__nickname', 'date', 'positivePoints', 'negativePoints',
                                         'isEdited', 'noteTeacher', 'noteCourse', 'course__subject__code',
