@@ -8,7 +8,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect, Route} from "react-router-dom";
+import FormEvaluacion from "../Evaluacion/FormEvaluacion";
+import IconReload from "../ButtonReload/index";
 
 const styles = theme => ({
     root: {
@@ -27,30 +29,41 @@ class CoursesList extends Component {
         dataNotEvaluate: [],
         redirect: false,
         link: '',
+        sem_name: '',
+        sem_year: '',
+        teacher: '',
+        code: '',
+        name: '',
+        section: 1,
+        load: false
     };
 
     getInfo = (loadValue) => {
         //142.93.4.35
-        axios.post('http://localhost:3000/user/courses/', {
+        axios.post('http://142.93.4.35:3000/user/courses/', {
             load: loadValue
         }).then(({data}) => {
             const {evaluate, notEvaluate} = data;
             const dataEvaluate = evaluate.map(course => {
                 return {
-                    'curso': course.course__subject__code + ' - ' + course.course__subject__name,
+                    'code': course.course__subject__code,
+                    'name': course.course__subject__name,
                     'estado': course.isEvaluate,
                     'year': course.course__semester__year,
                     'periodo': course.course__semester__name,
-                    'teacher': course.course__teacher__name
+                    'teacher': course.course__teacher__name,
+                    'section': course.course__section
                 }
             });
             const dataNotEvaluate = notEvaluate.map(course => {
                 return {
-                    'curso': course.course__subject__code + ' - ' + course.course__subject__name,
+                    'code': course.course__subject__code,
+                    'name': course.course__subject__name,
                     'estado': course.isEvaluate,
                     'year': course.course__semester__year,
                     'periodo': course.course__semester__name,
-                    'teacher': course.course__teacher__name
+                    'teacher': course.course__teacher__name,
+                    'section': course.course__section
                 }
             });
             this.setState({
@@ -69,18 +82,22 @@ class CoursesList extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.load !== this.props.load) {
+        console.log('update');
+        if (prevState.load !== this.state.load) {
             this.getInfo(true)
         }
     }
 
-    handleClick = () => {
-        /* this.setState({
-         link: '/profesor/' + teacher,
-         redirect: true,
-         });
-         */
-        console.log('click')
+    handleClick = (sem_year, sem_name, teacher, code, name, section) => {
+        this.setState({
+            sem_name,
+            sem_year,
+            teacher,
+            code,
+            name,
+            section: section,
+            redirect: true,
+        })
     };
 
     createTableCoursesEvaluate = () => {
@@ -160,7 +177,7 @@ class CoursesList extends Component {
                         <TableBody>
                             {dataNotEvaluate.map(item => {
                                 const semester = item.year + ' ' + item.periodo;
-                                const course = item.curso;
+                                const course = item.code + ' - ' + item.name;
                                 const teacher = item.teacher;
                                 return (
                                     <TableRow hover key={semester + ' ' + course + ' ' + teacher}>
@@ -168,13 +185,13 @@ class CoursesList extends Component {
                                             {semester}
                                         </TableCell>
                                         <TableCell component="th" scope="row">
-                                            {item.curso}
+                                            {course}
                                         </TableCell>
                                         <TableCell>
-                                            {item.teacher}
+                                            {teacher}
                                         </TableCell>
                                         <TableCell
-                                            onClick={event => this.handleClick()}
+                                            onClick={event => this.handleClick(item.year, item.periodo, teacher, item.code, item.name, item.section)}
                                             className={'cursos'}
                                             style={{
                                                 cursor: 'pointer',
@@ -207,15 +224,29 @@ class CoursesList extends Component {
         }
     };
 
+    changeLoadValue(loadValue) {
+        this.setState({
+            load: loadValue
+        });
+    }
 
     render() {
         const {redirect} = this.state;
 
         if (redirect) {
-            return <Redirect to={this.state.link}/>;
+            return (<Route exact path="/evaluacion" component={() => <FormEvaluacion
+                code={this.state.code}
+                teacher={this.state.teacher}
+                anno={this.state.sem_year}
+                semester={this.state.sem_name}
+                name={this.state.name}
+                section={this.state.section}
+            />}
+            />);
         } else {
             return (
                 <div>
+                    <IconReload changeLoad={this.changeLoadValue.bind(this)}/>
                     <h1>Cursos por Evaluar</h1>
                     {this.createTableCoursesNotEvaluate()}
                     <h1>Cursos Evaluados</h1>

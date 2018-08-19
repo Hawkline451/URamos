@@ -20,7 +20,6 @@ class CursosEvaluacion extends Component {
     render() {
         return (
             <div>
-                <IconReload changeLoad={this.changeLoadValue.bind(this)}/>
                 <CoursesList load={this.state.load}/>
             </div>
         );

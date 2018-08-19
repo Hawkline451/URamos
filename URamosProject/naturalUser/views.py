@@ -28,14 +28,14 @@ def info_user(request):
 
 class LoadCourses(View):
     def post(self, request):
-        # user = request.user
-        # naturalUser = NaturalUser.objects.get(user=user)
-        # rut = naturalUser.username # se usara para consultar a la api
         reload = json.loads(request.body.decode('utf-8'))['load']
         print(reload)
 
         ##### por ahora #####
-        naturalUser = NaturalUser.objects.get(user__username='18994829')
+        user = request.user
+        naturalUser = NaturalUser.objects.get(user=user)
+        # rut = naturalUser.username # se usara para consultar a la api
+        # naturalUser = NaturalUser.objects.get(user__username='18994829')
 
         listCourses = list(UserCourses.objects.filter(user=naturalUser).values('course'))
         print(listCourses)
@@ -78,7 +78,7 @@ class LoadCourses(View):
 
         dataCourses = UserCourses.objects.filter(user=naturalUser).values('course__subject__code', 'course__subject__name',
                                                                    'course__semester__year', 'course__semester__name',
-                                                                   'isEvaluate', 'course__teacher__name')
+                                                                   'isEvaluate', 'course__teacher__name', 'course__section')
 
         dataCoursesEvaluate = []
         dataCoursesNotEvaluate = []

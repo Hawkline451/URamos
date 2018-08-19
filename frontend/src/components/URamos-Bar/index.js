@@ -85,9 +85,6 @@ class UramosBar extends Component {
                         <div className="buttons">
                             {this.state.user_info}
                             {this.state.mod_info}
-                            <Button color="inherit" href={'/evaluacion'}>
-                                Evaluar
-                            </Button>
                             <Button color="inherit" href={'/busqueda'}>
                                 Todos los cursos
                             </Button>
