@@ -14,6 +14,12 @@ from .serializers import NaturalUserSerializer
 
 # Create your views here.
 
+def contain(course, listCourse):
+    for item in listCourse:
+        if course['pk'] == item['course']:
+            return True
+    return False
+
 @api_view(['GET'])
 def info_user(request):
     serializer = NaturalUserSerializer(NaturalUser.objects.get(user=request.user))
@@ -25,14 +31,18 @@ class LoadCourses(View):
         # user = request.user
         # naturalUser = NaturalUser.objects.get(user=user)
         # rut = naturalUser.username # se usara para consultar a la api
+        reload = json.loads(request.body.decode('utf-8'))['load']
+        print(reload)
 
         ##### por ahora #####
         naturalUser = NaturalUser.objects.get(user__username='18994829')
 
-        listCourses = list(UserCourses.objects.filter(user=naturalUser).values('course', 'isEvaluate'))
-        if not listCourses:
+        listCourses = list(UserCourses.objects.filter(user=naturalUser).values('course'))
+        print(listCourses)
+        if not listCourses or reload:
             ## Llamado a la api (parser)
             numberJson = random.randint(0, 5)
+            print(numberJson)
             if numberJson % 2 == 0:
                 json_file = 'cursosTest1.json'
             else:
@@ -47,7 +57,6 @@ class LoadCourses(View):
                     'id_estado_final'] == '14':
                     # curso apto para evaluar => guardar en base de datos
                     subject = Subject.objects.get(code=course['codigo'])
-                    print(subject)
                     if (course['periodo'] == 1):
                         periodo = 'Otoño'
                     elif (course['periodo'] == 2):
@@ -55,19 +64,36 @@ class LoadCourses(View):
                     else:
                         periodo = 'Verano'
                     semester = Semester.objects.get(year=course['ano'], name=periodo)
-                    print(semester)
                     new_course = Course.objects.filter(subject=subject, semester=semester,
-                                                       section=int(course['seccion']))  # .values('teacher__name')
-                    # teacher = Teacher.objects.get(name=teacher_name)
-                    print(new_course)
+                                                       section=int(course['seccion'])).values('pk')
                     for teacher in new_course:
-                        userCourse = UserCourses(user=naturalUser, course=teacher)
-                        userCourse.save()
-                        print('save course')
+                        print(teacher)
+                        if not contain(teacher, listCourses): #para no guardar los existentes cuando hay reload
+                            courseUser = Course.objects.get(pk=teacher['pk'])
+                            userCourse = UserCourses(user=naturalUser, course=courseUser)
+                            userCourse.save()
+                            print('save course')
 
-        data = UserCourses.objects.filter(user=naturalUser).values('course__subject__code', 'course__subject__name',
-                                                                'course__semester__year', 'course__semester__name',
-                                                                'isEvaluate')
-        json_data = json.dumps(list(data), cls=DjangoJSONEncoder)
+
+
+        dataCourses = UserCourses.objects.filter(user=naturalUser).values('course__subject__code', 'course__subject__name',
+                                                                   'course__semester__year', 'course__semester__name',
+                                                                   'isEvaluate', 'course__teacher__name')
+
+        dataCoursesEvaluate = []
+        dataCoursesNotEvaluate = []
+        for course in dataCourses:
+            if not course['isEvaluate']:
+                course['isEvaluate'] = 'Por Evaluar'
+                dataCoursesNotEvaluate.append(course)
+            else:
+                course['isEvaluate'] = 'Evaluado'
+                dataCoursesEvaluate.append(course)
+
+        data = {}
+        data['evaluate'] = list(dataCoursesEvaluate)
+        data['notEvaluate'] = list(dataCoursesNotEvaluate)
+
+        json_data = json.dumps(data, cls=DjangoJSONEncoder)
 
         return HttpResponse(json_data, content_type='application/json')

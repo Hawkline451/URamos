@@ -46,4 +46,4 @@ class UserCourses(models.Model):
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)
 	isEvaluate = models.BooleanField(default=False)
 	def __str__(self):
-		return self.user.usermane + ' ' + self.course.subject.code
+		return self.user.user.username + ' ' + self.course.subject.code

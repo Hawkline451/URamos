@@ -1,16 +1,30 @@
-import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import './styles.css';
-import CoursesList from "../CursosEvaluar/CoursesList2";
+import React, {Component} from "react";
+import "./styles.css";
+import CoursesList from "../CursosEvaluar/CoursesList";
+import IconReload from "../ButtonReload/index";
 
 class CursosEvaluacion extends Component {
-  render() {
-    return (
-      <div className='cursosToEval-div'>
-        <CoursesList />
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            load: false,
+        };
+    }
+
+    changeLoadValue(loadValue) {
+        this.setState({
+            load: loadValue
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <IconReload changeLoad={this.changeLoadValue.bind(this)}/>
+                <CoursesList load={this.state.load}/>
+            </div>
+        );
+    }
 }
 
 export default CursosEvaluacion;
