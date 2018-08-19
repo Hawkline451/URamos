@@ -2,8 +2,10 @@ import json
 import random
 
 from django.core.serializers.json import DjangoJSONEncoder
-from django.http import HttpResponse
 from django.views import View
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
+from django.urls import reverse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from subject.models import Subject, Semester, Course
@@ -97,3 +99,16 @@ class LoadCourses(View):
         json_data = json.dumps(data, cls=DjangoJSONEncoder)
 
         return HttpResponse(json_data, content_type='application/json')
+
+def unlock(request, user_id):
+	user = NaturalUser.objects.get(pk=user_id)
+
+	user.isLocked = False
+	user.save()
+
+	url = reverse ('admin:{}_{}_change'.format (user._meta.app_label, user._meta.model_name),
+				   args=[user.pk],
+				   current_app='admin',
+				   )
+
+	return HttpResponseRedirect (url)

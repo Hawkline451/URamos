@@ -26,6 +26,7 @@ class TopTabs extends Component {
             disableRipple
             label={'Resumen Evaluacion ' + name}
             style={{
+              textTransform: 'capitalize',
               width: 550,
               maxWidth: 550,
             }}

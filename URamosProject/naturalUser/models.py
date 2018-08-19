@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.signals import pre_save
 from django.utils import timezone
 from django.contrib.auth.models import User
 
@@ -9,10 +10,10 @@ import random
 class NaturalUser(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
 	nickname = models.TextField(max_length=128)
-	isLocked = models.BooleanField(default=False)
-	isModerator = models.BooleanField(default=False)
-	isTeacher = models.BooleanField(default=False)
-	teacherName = models.TextField(max_length=128, null=True, blank=True)
+	isLocked = models.BooleanField(default=False, verbose_name='Bloqueado')
+	isModerator = models.BooleanField(default=False, verbose_name='Moderador')
+	isTeacher = models.BooleanField(default=False, verbose_name='Profesor')
+	teacherName = models.TextField(max_length=128, null=True, blank=True, verbose_name='Nombre profesor')
 
 	def setNickName(self):
 
@@ -34,10 +35,10 @@ class NaturalUser(models.Model):
 		return self.nickname
 
 class LockedUser(models.Model):
-	lockedUser =  models.ForeignKey(NaturalUser, on_delete=models.CASCADE)
-	reasons = models.TextField(max_length=256)
-	date = models.DateField(default=timezone.now)
-	lockedBy = models.ForeignKey(User, on_delete=models.CASCADE)
+	lockedUser =  models.ForeignKey(NaturalUser, on_delete=models.CASCADE, verbose_name='Usuario')
+	reasons = models.TextField(max_length=256, verbose_name='Motivo')
+	date = models.DateField(default=timezone.now, verbose_name='Fecha')
+	lockedBy = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Bloqueado por')
 	def __str__(self):
 		return self.lockedUser.nickname
 

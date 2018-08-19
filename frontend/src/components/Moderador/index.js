@@ -5,6 +5,10 @@ import CoursesList from "./CoursesList";
 import axios from "axios";
 
 class Moderar extends Component {
+    constructor(props){
+        super(props);
+    }
+
     state = {
         code: null,
         name: null,

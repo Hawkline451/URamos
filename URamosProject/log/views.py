@@ -11,5 +11,4 @@ class LogSearch(View):
         lengthList = 20
         logList = Record.objects.all().order_by('-date')[:lengthList].values('firstComment', 'secondComment', 'typeRecord')
         json_data = json.dumps(list(logList), cls=DjangoJSONEncoder)
-        print(logList)
         return HttpResponse(json_data, content_type='application/json')

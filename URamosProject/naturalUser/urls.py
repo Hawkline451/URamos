@@ -16,9 +16,10 @@ Including another URLconf
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 
-from .views import info_user, LoadCourses
+from .views import info_user, LoadCourses, unlock
 
 urlpatterns = [
     path('', info_user),
     path(r'courses/', (csrf_exempt)(LoadCourses.as_view()))
+    path('unlock/<int:user_id>/', unlock, name='unlock')
 ]
