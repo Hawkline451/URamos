@@ -8,7 +8,8 @@ from django.db.models import Count
 from django.utils import timezone
 from teacher.models import Teacher
 from subject.models import Subject, Course
-from naturalUser.models import NaturalUser
+from naturalUser.models import NaturalUser, UserCourses
+from moderator.models import Moderator
 from log.models import Record
 from rest_framework.decorators import api_view
 from .models import Comment, InvisibleComment
@@ -25,6 +26,15 @@ def HideComment (request) :
 
     inv = InvisibleComment(comment=comment, reasons=body['comentario'])
     inv.save()
+
+    mod = Moderator.objects.get (user=request.user)
+
+    firstComment = 'Comentario bloqueado ' + timezone.now().strftime('%d/%m/%Y')
+    secondComment = mod.name + ' ha bloqueado el comentario de ' + comment.user.nickname + ' en  ' + comment.course.subject.code + ' - ' + comment.course.subject.name
+
+    newRecord = Record (firstComment=firstComment, secondComment=secondComment, typeRecord=1)
+    newRecord.save()
+
 
     comment.isVisible = False
     comment.save()
@@ -98,11 +108,15 @@ def SaveComment (request) :
                        course=course)
     comment.save()
 
-    firstComment = 'Nuevo comentario ' + timezone.now
+    firstComment = 'Nuevo comentario ' + timezone.now().strftime('%d/%m/%Y')
     secondComment = 'Usuario ' + naturalUser.nickname + ' realizó un nuevo comentario en ' + subject.code + ' - ' + subject.name
 
     newRecord = Record(firstComment=firstComment, secondComment=secondComment, typeRecord=0)
 
     newRecord.save()
+
+    userCourse = UserCourses.objects.get(user=naturalUser, course=course)
+    userCourse.isEvaluate = True
+    userCourse.save()
 
     return HttpResponse({'data': 'Su evaluacion ha sido procesada con exito <br/><br/> Gracias!'}, content_type='application/json')

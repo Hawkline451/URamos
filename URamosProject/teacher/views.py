@@ -33,7 +33,6 @@ class SearchCourses(View):
     def post(self, request):
         data = []
         name = request.POST.get('value')
-        print(name)
         teacher = Teacher.objects.get(name=name)
         subjectsAux = Course.objects.filter(teacher=teacher).values('subject__code', 'subject__name')
 
@@ -101,7 +100,6 @@ class SearchCourses(View):
                         maxName = course['semester__name']
 
         xlabel = []
-        # print(minName,minYear,maxName,maxYear)
 
         # Create list of xLabel
         minIndexName = names.index(minName)

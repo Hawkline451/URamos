@@ -22,9 +22,8 @@ class App extends Component {
         <Router>
           <div>
             <URamosBar/>
-
             <Route exact path="/" component={ActividadReciente} />
-            <Route exact path="/busqueda" component={Busqueda} />r
+            <Route exact path="/busqueda" component={Busqueda} />
             <Route exact path="/cursos/:code" component={Curso} />
             <Route exact path="/profesor/:name" component={Profesor} />
             <Route exact path="/evaluacion" 
@@ -34,7 +33,7 @@ class App extends Component {
               component={Evaluacion} />
             <Route path="/login/:jwt" component = {Login} />
             <Route exact path='/logout/' component={Logout} />
-            <Route exact path="/moderar"
+            <Route exact path='/moderar'
               component = {(props) => <VerificarModerator {...props} comp={Moderar} /> }
               />
           </div>

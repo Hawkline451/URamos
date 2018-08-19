@@ -1,5 +1,8 @@
 from django import forms
+from django.utils import timezone
+
 from .models import NaturalUser, LockedUser
+from log.models import Record
 from django.contrib.auth.models import User
 
 
@@ -17,6 +20,12 @@ class BlockingUserForm (forms.Form) :
         locked = LockedUser (lockedUser=user, reasons=self.cleaned_data ['reasons'], date=self.cleaned_data ['date'],
                              lockedBy=blockingUser)
         locked.save()
+
+        firstComment = 'Usuario banneado ' + timezone.now().strftime ('%d/%m/%Y')
+        secondComment = 'Se ha banneado al usuario ' + user.nickname
+
+        newRecord = Record (firstComment=firstComment, secondComment=secondComment, typeRecord=2)
+        newRecord.save ()
 
         user.isLocked = True
         user.save()

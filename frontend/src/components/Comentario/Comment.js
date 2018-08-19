@@ -30,7 +30,6 @@ class Comment extends Component {
   };
 
   render() {
-    const { comentario } = this.state;
     return (
       <div>
         <Paper square style={{ textAlign: 'left' }}>

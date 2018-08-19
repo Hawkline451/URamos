@@ -82,17 +82,6 @@ class URamosBar extends Component {
                 this.setState({'user':JSON.parse(localStorage.getItem('user')),
                                 'normal_user':JSON.parse(localStorage.getItem('normal_user'))})
 
-                const infMod = (
-                    <Button color="inherit" href={'/moderar'}>
-                        Cursos a Moderar
-                    </Button>
-                );
-                const user = (
-                    <Button color="inherit" href={'/evaluacion'}>
-                        Evaluar
-                    </Button>
-                );
-
                 this.props.set_jwt_status(JWTSTATUS.JWT_UPDATED)
                 this.props.set_auth_status(AUTHSTATUS.LOGGED_IN)
                 this.props.set_normal_user(JSON.parse(localStorage.getItem('normal_user')))
