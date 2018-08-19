@@ -9,6 +9,8 @@ import Evaluacion from './components/Evaluacion';
 import Logout from './components/Login/logout';
 import Login from './components/Login/login';
 import Moderar from './components/Moderador';
+import VerificarLogin from './routes/verificarLogin';
+import VerificarModerator from './routes/verificarModerador';
 import './App.css';
 
 class App extends Component {
@@ -22,15 +24,19 @@ class App extends Component {
             <URamosBar/>
 
             <Route exact path="/" component={ActividadReciente} />
-            <Route exact path="/busqueda" component={Busqueda} />
+            <Route exact path="/busqueda" component={Busqueda} />r
             <Route exact path="/cursos/:code" component={Curso} />
             <Route exact path="/profesor/:name" component={Profesor} />
-            <Route exact path="/evaluacion" component={Evaluacion} />
+            <Route exact path="/evaluacion" 
+              component = {() => <VerificarLogin comp={Evaluacion} />} 
+            />
             <Route exact path="/evaluacion/formulario"
               component={Evaluacion} />
             <Route path="/login/:jwt" component = {Login} />
             <Route exact path='/logout/' component={Logout} />
-            <Route exact path="/moderar" component={Moderar} />
+            <Route exact path="/moderar"
+              component = {(props) => <VerificarModerator {...props} comp={Moderar} /> }
+              />
           </div>
         </Router>
       </div>
