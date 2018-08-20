@@ -50,3 +50,11 @@
 .cursos:hover {
   text-decoration: underline;
 }
+
+.fila > th {
+  font-size: 16px;
+}
+
+.fila > td {
+  font-size: 16px;
+}
