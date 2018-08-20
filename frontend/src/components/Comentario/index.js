@@ -7,12 +7,14 @@ class Comentarios extends Component {
 
     this.state = {
       comentarios: [],
+      isMod: false
     };
   }
 
-  componentWillReceiveProps({ comentarios }) {
+  componentWillReceiveProps({ comentarios }, isMod) {
     this.setState({
       comentarios: comentarios,
+      isMod: isMod
     });
   }
 
@@ -24,7 +26,7 @@ class Comentarios extends Component {
     } else {
       return (
         <div style={{ marginBottom: 50 }}>
-          <CommentsList comentarios={this.state.comentarios} />
+          <CommentsList comentarios={this.state.comentarios} isMod={this.state.isMod}/>
         </div>
       );
     }

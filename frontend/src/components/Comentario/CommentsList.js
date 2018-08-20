@@ -8,12 +8,14 @@ class CommentsList extends Component {
 
     this.state = {
       comentarios: this.props.comentarios,
+      isMod: false
     };
   }
 
-  componentWillReceiveProps({ comentarios }) {
+  componentWillReceiveProps({ comentarios }, isMod) {
     this.setState({
       comentarios: comentarios,
+      isMod: isMod
     });
   }
 
@@ -30,7 +32,7 @@ class CommentsList extends Component {
           }}
         >
           {this.state.comentarios.map((comentario, index) => {
-            return <Comment key={index} comentario={comentario} />;
+            return <Comment key={index} comentario={comentario} isMod={this.state.isMod} />;
           })}
         </Paper>
       </div>

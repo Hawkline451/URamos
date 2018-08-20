@@ -15,6 +15,7 @@ class Curso extends Component {
     notaCurso: null,
     votosCurso: 0,
     comentarios: [],
+    isMod: false,
   };
 
   getinfo({ code }) {
@@ -35,7 +36,20 @@ class Curso extends Component {
         comentarios,
       });
     });
+
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/moderator/moderatorCourse',
+      data: 'value='+code,
+      responseType: 'json'
+    }).then(({data})=> {
+      this.setState({
+        isMod: data.isModerator
+      })
+    });
   }
+
+
     componentWillMount() {
         this.getinfo(this.props.match.params);
     }
@@ -54,7 +68,7 @@ class Curso extends Component {
         <Rate nota={this.state.notaCurso} votos={this.state.votosCurso} />
         <CoursesList cursos={this.state.cursos} />
         <Graph code={this.state.code}/>
-        <Comentario comentarios={this.state.comentarios} />
+        <Comentario comentarios={this.state.comentarios} isMod={this.state.isMod} />
       </div>
     );
   }
