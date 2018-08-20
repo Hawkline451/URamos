@@ -30,7 +30,6 @@ def info_user(request):
 @api_view(['POST'])
 def LoadCourses(request):
     reload = json.loads(request.body.decode('utf-8'))['load']
-    print(reload)
 
     ##### por ahora #####
     user = request.user

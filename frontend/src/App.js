@@ -33,8 +33,8 @@ class App extends Component {
               component={Evaluacion} />
             <Route path="/login/:jwt" component = {Login} />
             <Route exact path='/logout/' component={Logout} />
-            <Route exact path='/moderar'
-              component = {(props) => <VerificarModerator {...props} comp={Moderar} /> }
+            <Route exact path="/moderar"
+              component = {Moderar}
               />
           </div>
         </Router>
