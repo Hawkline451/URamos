@@ -96,11 +96,11 @@ class CoursesList extends Component {
 
     handleClick = (sem_year, sem_name, teacher, code, name, section) => {
         this.setState({
-            sem_name,
-            sem_year,
-            teacher,
-            code,
-            name,
+            sem_name: sem_name,
+            sem_year: sem_year,
+            teacher: teacher,
+            code: code,
+            name: name,
             section: section,
             redirect: true,
         })
