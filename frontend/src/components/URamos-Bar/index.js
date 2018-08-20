@@ -39,7 +39,9 @@ class URamosBar extends Component {
                     Evaluar
                 </Button>
             );
-            this.setState({user_info: user});
+            if(!nextProps.user.isLocked){
+                this.setState({user_info: user});
+            }            
             if (nextProps.user.isModerator) {
                 this.setState({mod_info: infMod});
             }
@@ -72,7 +74,9 @@ class URamosBar extends Component {
                     Evaluar
                 </Button>
             );
-            this.setState({user_info: user});
+             if(!this.props.user.isLocked){
+                this.setState({user_info: user});
+            } 
             if (this.props.user.isModerator) {
                 this.setState({mod_info: infMod});
             }
