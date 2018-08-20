@@ -7,10 +7,8 @@ import IntegrationAutosuggest from "../Buscador";
 import Login from "../Login";
 import "./styles.css";
 import RadioButtonGroup from "../RadioButtons";
-import { connect } from 'react-redux';
-import { JWTSTATUS, setJWTStatus, AUTHSTATUS, setAuthStatus, setUser, setNormalUser} from '../../actions';
-
-
+import {connect} from "react-redux";
+import {AUTHSTATUS, JWTSTATUS, setAuthStatus, setJWTStatus, setNormalUser, setUser} from "../../actions";
 
 
 class URamosBar extends Component {
@@ -24,11 +22,13 @@ class URamosBar extends Component {
             search: 'codigo',
         };
     }
-     componentWillReceiveProps(nextProps){
-        if(nextProps.isLogged){
-            this.setState({'user':nextProps.user,
-                            'normal_user':nextProps.normalUser
-                        })
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isLogged) {
+            this.setState({
+                'user': nextProps.user,
+                'normal_user': nextProps.normalUser
+            })
             const infMod = (
                 <Button color="inherit" href={'/moderar'}>
                     Cursos a Moderar
@@ -44,23 +44,24 @@ class URamosBar extends Component {
                 this.setState({mod_info: infMod});
             }
 
-        }else{
+        } else {
             this.setState({
-                    'user':{'isModerator':false},
-                    normal_user:'',
-                    user_info:'',
-                    mod_info:''
-                })
+                'user': {'isModerator': false},
+                normal_user: '',
+                user_info: '',
+                mod_info: ''
+            })
         }
 
-        
-     }
 
-    componentWillMount(){
-        if(this.props.isLogged){
-            this.setState({'user':this.props.user,
-                            'normal_user':this.this.props.normal_user
-                        })
+    }
+
+    componentWillMount() {
+        if (this.props.isLogged) {
+            this.setState({
+                'user': this.props.user,
+                'normal_user': this.this.props.normal_user
+            });
             const infMod = (
                 <Button color="inherit" href={'/moderar'}>
                     Cursos a Moderar
@@ -77,21 +78,23 @@ class URamosBar extends Component {
             }
 
 
-        }else{
-            if(localStorage.getItem('token') !== null){
-                this.setState({'user':JSON.parse(localStorage.getItem('user')),
-                                'normal_user':JSON.parse(localStorage.getItem('normal_user'))})
+        } else {
+            if (localStorage.getItem('token') !== null) {
+                this.setState({
+                    'user': JSON.parse(localStorage.getItem('user')),
+                    'normal_user': JSON.parse(localStorage.getItem('normal_user'))
+                })
 
                 this.props.set_jwt_status(JWTSTATUS.JWT_UPDATED)
                 this.props.set_auth_status(AUTHSTATUS.LOGGED_IN)
                 this.props.set_normal_user(JSON.parse(localStorage.getItem('normal_user')))
                 this.props.set_user(JSON.parse(localStorage.getItem('user')))
-            }else{
+            } else {
                 this.setState({
-                    'user':{'isModerator':false},
-                    normal_user:'',
-                    user_info:'',
-                    mod_info:''
+                    'user': {'isModerator': false},
+                    normal_user: '',
+                    user_info: '',
+                    mod_info: ''
                 })
             }
         }
@@ -156,21 +159,21 @@ class URamosBar extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return{
-    isLogged: state.authStatus === AUTHSTATUS.LOGGED_IN, 
-    JWTStatus: state.JWTStatus,
-    user: state.user,
-    normalUser: state.normalUser
-  }
+    return {
+        isLogged: state.authStatus === AUTHSTATUS.LOGGED_IN,
+        JWTStatus: state.JWTStatus,
+        user: state.user,
+        normalUser: state.normalUser
+    }
 }
 
 const mapDispatchToProps = dispatch => {
-  return{
-    set_jwt_status: stats => dispatch(setJWTStatus(stats)),
-    set_auth_status: stats => dispatch(setAuthStatus(stats)),
-    set_user: user => dispatch(setUser(user)),
-    set_normal_user: normalUser => dispatch(setNormalUser(normalUser))
-  }
+    return {
+        set_jwt_status: stats => dispatch(setJWTStatus(stats)),
+        set_auth_status: stats => dispatch(setAuthStatus(stats)),
+        set_user: user => dispatch(setUser(user)),
+        set_normal_user: normalUser => dispatch(setNormalUser(normalUser))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(URamosBar);
