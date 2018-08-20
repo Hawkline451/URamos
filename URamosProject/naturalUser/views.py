@@ -81,7 +81,7 @@ def LoadCourses(request):
     dataCoursesNotEvaluate = []
     for course in dataCourses:
         if not course['isEvaluate']:
-            course['isEvaluate'] = 'Por Evaluar'
+            course['isEvaluate'] = 'Evaluar'
             dataCoursesNotEvaluate.append(course)
         else:
             course['isEvaluate'] = 'Evaluado'

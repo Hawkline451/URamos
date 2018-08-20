@@ -75,7 +75,7 @@ class CoursesList extends Component {
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
                         <TableHead>
-                            <TableRow>
+                            <TableRow className={'fila'}>
                                 <TableCell>Departamento</TableCell>
                                 <TableCell>Curso</TableCell>
                             </TableRow>
@@ -85,7 +85,7 @@ class CoursesList extends Component {
                                 const course = item.code + ' - ' + item.name;
                                 const department = item.department;
                                 return (
-                                    <TableRow hover key={course}>
+                                    <TableRow hover key={course}className={'fila'}>
                                         <TableCell>
                                             {department}
                                         </TableCell>
@@ -110,7 +110,7 @@ class CoursesList extends Component {
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
                         <TableHead>
-                            <TableRow>
+                            <TableRow className={'fila'}>
                                 <TableCell/>
                                 <TableCell/>
                                 <TableCell>No hay cursos para Moderar</TableCell>

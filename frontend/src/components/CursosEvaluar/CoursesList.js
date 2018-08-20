@@ -115,7 +115,7 @@ class CoursesList extends Component {
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
                         <TableHead>
-                            <TableRow>
+                            <TableRow className={'fila'}>
                                 <TableCell> Semestre </TableCell>
                                 <TableCell> Curso </TableCell>
                                 <TableCell> Profesor </TableCell>
@@ -128,7 +128,7 @@ class CoursesList extends Component {
                                 const course = item.code + ' - ' + item.name;
                                 const teacher = item.teacher;
                                 return (
-                                    <TableRow key={semester + ' ' + course + ' ' + teacher}>
+                                    <TableRow key={semester + ' ' + course + ' ' + teacher} className={'fila'}>
                                         <TableCell>
                                             {semester}
                                         </TableCell>
@@ -153,7 +153,7 @@ class CoursesList extends Component {
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
                         <TableHead>
-                            <TableRow>
+                            <TableRow className={'fila'}>
                                 <TableCell/>
                                 <TableCell/>
                                 <TableCell>No hay cursos evaluados</TableCell>
@@ -174,7 +174,7 @@ class CoursesList extends Component {
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
                         <TableHead>
-                            <TableRow>
+                            <TableRow className={'fila'}>
                                 <TableCell>Semestre</TableCell>
                                 <TableCell>Curso</TableCell>
                                 <TableCell> Profesor </TableCell>
@@ -187,7 +187,7 @@ class CoursesList extends Component {
                                 const course = item.code + ' - ' + item.name;
                                 const teacher = item.teacher;
                                 return (
-                                    <TableRow hover key={semester + ' ' + course + ' ' + teacher}>
+                                    <TableRow hover key={semester + ' ' + course + ' ' + teacher} className={'fila'}>
                                         <TableCell>
                                             {semester}
                                         </TableCell>
@@ -218,7 +218,7 @@ class CoursesList extends Component {
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
                         <TableHead>
-                            <TableRow>
+                            <TableRow className={'fila'}>
                                 <TableCell/>
                                 <TableCell/>
                                 <TableCell>No hay cursos por evaluar</TableCell>
