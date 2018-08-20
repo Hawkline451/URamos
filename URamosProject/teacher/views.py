@@ -63,9 +63,12 @@ class SearchCourses(View):
                     Course.objects.filter(subject=subject, teacher=teacher, semester__name=semester['semester__name'],
                                           semester__year=semester['semester__year']).values('noteTeacher'))
                 note = 0.0
+                count = 0
                 for course in coursesAux:
-                    note += course['noteTeacher']
-                note = note / len(coursesAux)
+                    if (course['noteTeacher'] != 0):
+                        note += course['noteTeacher']
+                        count += 1
+                note = note / count
                 course = {'semester__year': semester['semester__year'], 'semester__name': semester['semester__name'],
                           'noteTeacher': note}
                 courses.append(course)
