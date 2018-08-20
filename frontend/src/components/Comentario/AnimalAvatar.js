@@ -39,7 +39,6 @@ class AnimalAvatar extends Component {
   }
 
   render() {
-    console.log(this.props.name.split(' ')[0]);
     return (
       <div style={{ marginLeft: '25%' }}>
         {this.getAvatar(this.props.name.split(' ')[0])}

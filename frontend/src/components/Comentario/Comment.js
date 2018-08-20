@@ -9,8 +9,6 @@ import Moderar from './Moderar';
 class Comment extends Component {
   constructor(props) {
     super(props);
-    console.log("COMMENT")
-    console.log(props)
     this.state = {
       comentario: this.props.comentario,
       upVotes: this.props.comentario.positivePoints,
@@ -18,6 +16,8 @@ class Comment extends Component {
       isMod: this.props.isMod
     };
   }
+
+
 
   handleUpVotes = () => {
     this.setState({
@@ -32,8 +32,6 @@ class Comment extends Component {
   };
 
   render() { 
-    console.log("finalll")
-    console.log(this.state.isMod);
     var mod = '';
     if(this.state.isMod){
 
