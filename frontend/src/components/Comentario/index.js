@@ -6,7 +6,6 @@ class Comentarios extends Component {
     super(props);
     this.state = {
       comentarios: [],
-      isMod: false
     };
   }
 
@@ -25,7 +24,7 @@ class Comentarios extends Component {
     } else {
       return (
         <div style={{ marginBottom: 50 }}>
-          <CommentsList comentarios={this.state.comentarios} isMod={this.state.isMod}/>
+          <CommentsList comentarios={this.state.comentarios} {...this.props} />
         </div>
       );
     }

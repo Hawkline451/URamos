@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Comment from './Comment';
+import axios from 'axios';
 
 class CommentsList extends Component {
   constructor(props) {
@@ -8,22 +9,41 @@ class CommentsList extends Component {
 
     this.state = {
       comentarios: this.props.comentarios,
-      isMod: this.props.isMod
+      isMod: false,
+      isReade: false
     };
   }
 
+  componentWillMount(){
+    console.log("que sucede")
+    console.log(this.props.match.params.code)
+    axios({
+      method: 'post',
+      url: 'http://142.93.4.35:3000/moderator/moderatorCourse',
+      data: 'value='+this.props.match.params.code,
+      responseType: 'json',
+      headers: {
+        Authorization: `JWT ${localStorage.getItem('token')}`,
+      },
+    }).then(({data})=> {
+      console.log(data)
+      this.setState({
+        isMod: data.isModerator,
+        isReady: true
+      });
+    });
+    
+  }
+
   componentWillReceiveProps(props) {
-    console.log("coments")
-    console.log(props)
     this.setState({
       comentarios: props.comentarios,
-      isMod: props.isMod
     });
   }
 
   render() {
-    return (
-      <div>
+      if(this.state.isReady){
+      return (<div>
         <Paper
           style={{
             width: '93.5%',
@@ -37,8 +57,10 @@ class CommentsList extends Component {
             return <Comment key={index} comentario={comentario} isMod={this.state.isMod} />;
           })}
         </Paper>
-      </div>
-    );
+      </div>);
+      }else{
+        return (<div></div>);
+      }
   }
 }
 

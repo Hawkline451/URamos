@@ -15,7 +15,6 @@ class Curso extends Component {
     notaCurso: null,
     votosCurso: 0,
     comentarios: [],
-    isMod: false,
   };
 
   getinfo({ code }) {
@@ -37,21 +36,7 @@ class Curso extends Component {
       });
     });
 
-    axios({
-      method: 'post',
-      url: 'http://142.93.4.35:3000/moderator/moderatorCourse',
-      data: 'value='+code,
-      responseType: 'json',
-      headers: {
-        Authorization: `JWT ${localStorage.getItem('token')}`,
-      },
-    }).then(({data})=> {
-      console.log("consulta");
-      console.log(data.isModerator);
-      this.setState({
-        isMod: data.isModerator
-      });
-    });
+    
   }
 
 
@@ -73,7 +58,7 @@ class Curso extends Component {
         <Rate nota={this.state.notaCurso} votos={this.state.votosCurso} />
         <CoursesList cursos={this.state.cursos} />
         <Graph code={this.state.code}/>
-        <Comentario comentarios={this.state.comentarios} isMod={this.state.isMod} />
+        <Comentario comentarios={this.state.comentarios} {...this.props} />
       </div>
     );
   }
