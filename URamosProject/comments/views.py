@@ -83,15 +83,10 @@ def SaveComment(request):
     semestre = body['semester']
     seccion = body['section']
 
-    print(semestre)
-    print(year)
-
     subject = Subject.objects.get(pk=codigo)
     profesor = Teacher.objects.get(name__contains=teacher)
     course = Course.objects.get(subject=subject, semester__year=year, semester__name=semestre,
                                    section=seccion, teacher=profesor)
-
-    print(course)
 
     subject.noteSubject = (subject.noteSubject * subject.votes + notaCurso) / (subject.votes + 1)
     subject.votes += 1
