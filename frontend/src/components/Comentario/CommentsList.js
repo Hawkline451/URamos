@@ -15,7 +15,8 @@ class CommentsList extends Component {
   }
 
   componentWillMount(){
-    axios({
+    if(localStorage.getItem('token')){
+      axios({
       method: 'post',
       url: 'http://142.93.4.35:3000/moderator/moderatorCourse',
       data: 'value='+this.props.match.params.code,
@@ -24,12 +25,18 @@ class CommentsList extends Component {
         Authorization: `JWT ${localStorage.getItem('token')}`,
       },
     }).then(({data})=> {
-      console.log(data)
       this.setState({
         isMod: data.isModerator,
         isReady: true
       });
     });
+  }else{
+    this.setState({
+      isMod:false,
+      isReady:true
+    })
+  }
+    
     
   }
 
