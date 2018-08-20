@@ -43,7 +43,12 @@ class Login extends Component{
             var ans = '/profesor/'+json.teacherName;
             this.setState({redirect:ans, done:true});
           }else{
-            this.setState({redirect:'/evaluacion', done:true});
+            if(json.isLocked){
+              this.setState({redirect:'/', done:true});
+            }else{
+              this.setState({redirect:'/evaluacion', done:true}); 
+            }
+            
           }
       });
 
