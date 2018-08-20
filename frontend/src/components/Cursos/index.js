@@ -43,9 +43,9 @@ class Curso extends Component {
       data: 'value='+code,
       responseType: 'json',
       headers: 
-        {
+      {
           Authorization: `JWT ${localStorage.getItem('token')}`,
-        },
+      }
     }).then(({data})=> {
       this.setState({
         isMod: data.isModerator
