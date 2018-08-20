@@ -15,8 +15,6 @@ class CommentsList extends Component {
   }
 
   componentWillMount(){
-    console.log("que sucede")
-    console.log(this.props.match.params.code)
     axios({
       method: 'post',
       url: 'http://142.93.4.35:3000/moderator/moderatorCourse',
@@ -59,22 +57,7 @@ class CommentsList extends Component {
         </Paper>
       </div>);
       }else{
-        return (
-           return (<div>
-        <Paper
-          style={{
-            width: '93.5%',
-            marginTop: '2%',
-            marginLeft: '3.5%',
-            backgroundColor: 'rgba(0, 0, 0, 0.1)',
-            padding: 15
-          }}
-        >
-          {this.state.comentarios.map((comentario, index) => {
-            return <Comment key={index} comentario={comentario} isMod={this.state.isMod} />;
-          })}
-        </Paper>
-      </div>););
+        return (<div></div>);
       }
   }
 }
