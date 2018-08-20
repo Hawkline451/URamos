@@ -16,8 +16,9 @@ Including another URLconf
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 
-from .views import Subjects
+from .views import Subjects, ModerateCourses
 
 urlpatterns = [
     path(r'', (csrf_exempt)(Subjects.as_view())),
+    path(r'courses/', (csrf_exempt)(ModerateCourses)),
 ]
