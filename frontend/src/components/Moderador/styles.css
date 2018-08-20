@@ -46,3 +46,7 @@
 .default>span {
   color:blue;
 }
+
+.cursos:hover {
+  text-decoration: underline;
+}

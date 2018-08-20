@@ -11,6 +11,7 @@ import axios from "axios";
 import {Link, Redirect, Route} from "react-router-dom";
 import FormEvaluacion from "../Evaluacion/FormEvaluacion";
 import IconReload from "../ButtonReload/index";
+import './styles.css'
 
 const styles = theme => ({
     root: {
