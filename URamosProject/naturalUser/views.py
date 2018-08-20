@@ -35,13 +35,12 @@ def LoadCourses(request):
     user = request.user
     naturalUser = NaturalUser.objects.get(user=user)
     # rut = naturalUser.username # se usara para consultar a la api
-    # naturalUser = NaturalUser.objects.get(user__username='18994829')
+    #naturalUser = NaturalUser.objects.get(user__username='18994829')
 
     listCourses = list(UserCourses.objects.filter(user=naturalUser).values('course'))
     if not listCourses or reload:
         ## Llamado a la api (parser)
         numberJson = random.randint(0, 5)
-        print(numberJson)
         if numberJson % 2 == 0:
             json_file = 'cursosTest1.json'
         else:

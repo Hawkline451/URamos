@@ -65,6 +65,7 @@ class Form extends Component {
 
     handleSubmit = event => {
         if (localStorage.getItem('isLogged')) {
+            console.log('loggeado');
             axios
                 .post(
                     'http://142.93.4.35:3000/comment/save/',
