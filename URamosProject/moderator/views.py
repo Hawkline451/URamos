@@ -24,8 +24,8 @@ class SubjectsView(View):
 
 @api_view(['POST'])
 def isModeratorCourse(request):
-    
-    if Moderator.objects.filter(user=request.user)exists():
+
+    if Moderator.objects.filter(user=request.user).exists():
 
         mod = Moderator.objects.get(user=request.user);
         subject = Subject.objects.get(pk=request.POST.get('value'))
