@@ -39,7 +39,7 @@ class Curso extends Component {
 
     axios({
       method: 'post',
-      url: 'http://localhost:3000/moderator/moderatorCourse',
+      url: 'http://142.93.4.35:3000/moderator/moderatorCourse',
       data: 'value='+code,
       responseType: 'json'
     }).then(({data})=> {
