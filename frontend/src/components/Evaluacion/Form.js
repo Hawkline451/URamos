@@ -21,7 +21,7 @@ class Form extends Component {
             code: '',
             teacher: '',
             anno: 0,
-            semestre: '',
+            semester: '',
             section: 1,
             name: '',
         };
@@ -92,6 +92,7 @@ class Form extends Component {
 
     componentWillMount() {
         const {code, teacher, anno, semester, name, section} = this.props;
+        console.log(semester);
         this.setState({
             code: code,
             teacher: teacher,
@@ -106,7 +107,7 @@ class Form extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <h4>Curso: {this.state.code} - {this.state.name}. Profesor: {this.state.teacher} </h4>
+                    <h4>Curso: {this.state.code} - {this.state.name} - {this.state.semester}. Profesor: {this.state.teacher} </h4>
                     <Paper
                         style={{
                             width: '48.7%',
