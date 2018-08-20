@@ -16,10 +16,10 @@ Including another URLconf
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 
-from .views import Subjects, isModeratorCourse, ModerateCourses
+from .views import SubjectsView, isModeratorCourse, ModerateCourses
 
 urlpatterns = [
-    path(r'', (csrf_exempt)(Subjects.as_view())),
+    path(r'', (csrf_exempt)(SubjectsView.as_view())),
     path('moderatorCourse', isModeratorCourse),
     path(r'courses/', ModerateCourses),
 ]

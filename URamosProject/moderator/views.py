@@ -14,7 +14,7 @@ from rest_framework.decorators import api_view
 
 
 
-class Subjects(View):
+class SubjectsView(View):
     def post(self, request):
         moderator = Moderator.objects.get(user=request.user)
         moderatorSubjects = ModeratorSubjects.objects.filter(moderator=moderator).values('subject')
