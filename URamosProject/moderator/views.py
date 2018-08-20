@@ -24,8 +24,6 @@ class Subjects(View):
 
 @api_view(['POST'])
 def isModeratorCourse(request):
-	body = json.loads(request.body)['data']
-
 	mod = Moderator.objects.get(user=request.user);
 	subject = Subjects.objects.get(pk=request.POST.get('value'))
 
