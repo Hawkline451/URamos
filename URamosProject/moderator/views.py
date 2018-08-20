@@ -7,6 +7,10 @@ from django.http import HttpResponse
 from django.views import View
 
 from .models import ModeratorSubjects, Moderator
+from subject.models import Subject
+from rest_framework.decorators import api_view
+
+
 
 
 class Subjects(View):
@@ -15,3 +19,18 @@ class Subjects(View):
         moderatorSubjects = ModeratorSubjects.objects.filter(moderator=moderator).values('subject')
         json_data = json.dumps(list(moderatorSubjects), cls=DjangoJSONEncoder)
         return HttpResponse(json_data, content_type='application/json')
+
+
+@api_view(['POST'])
+def isModeratorCourse(request):
+	body = json.loads(request.body)['data']
+
+	mod = Moderator.objects.get(user=request.user);
+	subject = Subjects.objects.get(pk=request.POST.get('value'))
+
+	ans = False
+	if ModeratorSubjects.objects.filter(subject=subject, moderator=mod).exists():
+		ans = True
+
+	return HttpResponse({'isModerator':ans}, content_type='application/json')
+

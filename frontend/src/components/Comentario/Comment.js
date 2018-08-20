@@ -14,6 +14,7 @@ class Comment extends Component {
       comentario: this.props.comentario,
       upVotes: this.props.comentario.positivePoints,
       downVotes: this.props.comentario.negativePoints,
+      isMod: this.props.isMod
     };
   }
 
@@ -30,6 +31,29 @@ class Comment extends Component {
   };
 
   render() {
+    var mod = '';
+    if(this.state.isMod){
+
+            mod = (<div
+            style={{
+              display: 'inline-block',
+              verticalAlign: 'top',
+              marginTop: 80,
+              marginLeft: 50,
+            }} >
+            <Moderar
+              nickname={this.state.comentario.user__nickname}
+              profesor={this.state.comentario.course__teacher__name.toLowerCase()}
+              curso={
+                this.state.comentario.course__semester__name +
+                ' ' +
+                this.state.comentario.course__semester__year
+              }
+              comentario={this.state.comentario.id}
+              content={this.state.comentario.content}
+            />
+          </div>)
+        }
     return (
       <div>
         <Paper square style={{ textAlign: 'left' }}>
@@ -130,26 +154,7 @@ class Comment extends Component {
               />
             </div>
           </div>
-          <div
-            style={{
-              display: 'inline-block',
-              verticalAlign: 'top',
-              marginTop: 80,
-              marginLeft: 50,
-            }}
-          >
-            <Moderar
-              nickname={this.state.comentario.user__nickname}
-              profesor={this.state.comentario.course__teacher__name.toLowerCase()}
-              curso={
-                this.state.comentario.course__semester__name +
-                ' ' +
-                this.state.comentario.course__semester__year
-              }
-              comentario={this.state.comentario.id}
-              content={this.state.comentario.content}
-            />
-          </div>
+          {mod}
         </Paper>
       </div>
     );
