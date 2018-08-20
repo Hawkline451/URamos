@@ -80,16 +80,16 @@ def SaveComment(request):
     codigo = body['code']
     teacher = body['teacher']
     year = body['anno']
-    semetre = body['semestre']
+    semestre = body['semestre']
     seccion = body['section']
 
-    print(seccion)
-    print(teacher)
+    print(semestre)
+    print(year)
 
     subject = Subject.objects.get(pk=codigo)
     profesor = Teacher.objects.get(name__contains=teacher)
-    course = Course.objects.filter(subject=subject, semester__year=year, semester__name__contains=semetre,
-                                section=seccion, teacher=profesor)
+    course = Course.objects.filter(subject=subject, semester__year=year, semester__name=semestre,
+                                   section=seccion, teacher=profesor)
 
     print(course)
 

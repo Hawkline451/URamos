@@ -64,31 +64,29 @@ class Form extends Component {
     };
 
     handleSubmit = event => {
-        if (localStorage.getItem('isLogged')) {
-            console.log('loggeado');
-            axios
-                .post(
-                    'http://142.93.4.35:3000/comment/save/',
-                    {
-                        data: this.state,
+        console.log('loggeado');
+        axios
+            .post(
+                'http://142.93.4.35:3000/comment/save/',
+                {
+                    data: this.state,
+                },
+                {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem('token')}`,
                     },
-                    {
-                        headers: {
-                            Authorization: `JWT ${localStorage.getItem('token')}`,
-                        },
-                    },
-                )
-                .then(({data}) => {
-                    alert(
-                        'Su evaluacion ha sido procesada con exito \n\n Gracias!',
-                    );
-                    window.location = '/evaluacion/';
-                })
-                .catch(() => {
-                    alert('Algo salio mal');
-                    window.location = '/evaluacion/';
-                });
-        }
+                },
+            )
+            .then(({data}) => {
+                alert(
+                    'Su evaluacion ha sido procesada con exito \n\n Gracias!',
+                );
+                window.location = '/evaluacion/';
+            })
+            .catch(() => {
+                alert('Algo salio mal');
+                window.location = '/evaluacion/';
+            });
         event.preventDefault();
     };
 
