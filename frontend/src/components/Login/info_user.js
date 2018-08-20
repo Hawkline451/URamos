@@ -4,6 +4,8 @@ import { MenuItem, DropdownButton } from 'react-bootstrap';
 import Avatar from '@material-ui/core/Avatar';
 import FaceIcon from '@material-ui/icons/Face';
 import Chip from '@material-ui/core/Chip';
+import { connect } from 'react-redux'
+
 
 
 class InfoUser extends Component {
@@ -12,37 +14,29 @@ class InfoUser extends Component {
 		super(props);
 	    this.state = { 
 	    	user: {'nickname':''},
-	    	normal_user: localStorage.getItem('normal_user')
+	    	normal_user: {'first_name':'', 'last_name':''}
 	    };
 
 	}
 
 	componentDidMount(){
-		fetch('http://142.93.4.35:3000/user/', {
-			headers: {
-	        	Authorization: `JWT ${localStorage.getItem('token')}`
-	        }
-	    })
-	    .then(res => res.json())
-	    .then(json => {
-      		localStorage.setItem('user', JSON.stringify(json));
-	    	this.setState({user: json});
-	    });
-	    console.log("holi")
-		fetch('http://142.93.4.35:3000/auth/current_user/', {
-			headers: {
-				Authorization: `JWT ${localStorage.getItem('token')}`
-			}
+		console.log(this.props)
+		this.setState({
+			user:this.props.user,
+			normal_user:this.props.normalUser
 		})
-		.then(res => res.json())
-		.then(json => {
-      		localStorage.setItem('normal_user', JSON.stringify(json));
-
-	    	this.setState({normal_user:json});
-		});
 	}
 
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			user:nextProps.user,
+			normal_user:nextProps.normalUser
+		})
+	}
+	
+
 	render(){
+		
 		return (
 			<DropdownButton
 			bsStyle='success'
@@ -63,12 +57,19 @@ class InfoUser extends Component {
 			}
 			id="drop-session"
 			>	
-				<MenuItem >{this.state.user.nickname}</MenuItem>
+					<MenuItem >{this.state.user.nickname}</MenuItem>
 				<MenuItem href="/logout/">Cerrar sesión</MenuItem>
 			</DropdownButton>
 			);
 	}
 
 }
+const mapStateToProps = state =>{
+	return{
+		user:state.user,
+		normalUser:state.normalUser
+	};
+};
 
-export default InfoUser;
+
+export default connect(mapStateToProps) (InfoUser);

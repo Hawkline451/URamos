@@ -6,4 +6,4 @@ class NaturalUserSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = NaturalUser
-		fields = ('nickname','isLocked','isModerator', 'isTeacher')
+		fields = ('nickname','isLocked','isModerator', 'isTeacher', 'teacherName')

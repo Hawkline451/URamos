@@ -31,15 +31,15 @@
   width: 400px;
 }
 
-.resumen-eval-tab {
+.resumen-eval-curso-tab {
   max-width: 400px;
 }
 
-.resumen-eval-tab:parent > span {
+.resumen-eval-curso-tab:parent > span {
   background-color: black;
 }
 
-.resumen-eval-tab>span>span>span {
+.resumen-eval-curso-tab>span>span>span {
   font-size: 25px;
   text-transform: none;
 }
@@ -50,4 +50,12 @@
 
 .default>span {
   color:blue;
+}
+
+.tableFooter > div > span {
+  font-size: 14px;
+}
+
+.teacher-td:hover {
+  text-decoration: underline;
 }

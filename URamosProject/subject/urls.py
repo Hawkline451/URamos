@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import Search, SearchCourses, InfoRamo
+from .views import Search, SearchCourses, InfoRamo, SearchProf
 from teacher.views import InfoProfesor
 from django.views.decorators.csrf import csrf_exempt
 
@@ -24,4 +24,5 @@ urlpatterns = [
     path(r'courses/', (csrf_exempt)(SearchCourses.as_view())),
     path(r'inforamo/', (csrf_exempt)(InfoRamo.as_view())),
     path(r'infoprofe/', (csrf_exempt)(InfoProfesor.as_view())),
+    path(r'searchprof/', (csrf_exempt)(SearchProf.as_view())),
 ]

@@ -46,3 +46,11 @@
 .default>span {
   color:blue;
 }
+
+.courses-dt>div>div>div>div>table>tbody>tr>td:first-child {
+  cursor: pointer;
+}
+
+.courses-dt>div>div>div>div>table>tbody>tr>td:first-child:hover {
+  text-decoration: underline;
+}

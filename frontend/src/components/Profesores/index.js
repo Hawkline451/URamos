@@ -3,11 +3,13 @@ import Rate from './Rate';
 import TopTabs from './TopTabs';
 import SectionName from './SectionName';
 import CoursesList from './CoursesList';
+import Graph from '../GraficosProfe/index'
 import axios from 'axios';
 
 class Profesor extends Component {
   state = {
     name: null,
+    realName: null,
     cursos: [],
     nota: 0,
   };
@@ -19,12 +21,14 @@ class Profesor extends Component {
       data: 'value=' + name,
       responseType: 'json',
     }).then(({ data }) => {
-      const { name, cursos, nota } = data;
+      const { name, cursos, nota, votosProfesor } = data;
 
       this.setState({
         name: name.toLowerCase(),
+        realName: name,
         cursos,
         nota,
+        votosProfesor,
       });
     });
   }
@@ -44,8 +48,9 @@ class Profesor extends Component {
       <div>
         <TopTabs name={this.state.name} />
         <SectionName name={this.state.name} />
-        <Rate nota={this.state.nota} />
+        <Rate nota={this.state.nota} votos={this.state.votosProfesor} />
         <CoursesList cursos={this.state.cursos} />
+        <Graph name={this.state.realName}/>
       </div>
     );
   }
