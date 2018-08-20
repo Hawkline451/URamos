@@ -117,6 +117,8 @@ class SearchProf(View):
                     if(course['noteTeacher'] != 0):
                         note += course['noteTeacher']
                         count += 1
+                if count == 0:
+                    count = 1
                 note = note / count
                 course = {'semester__year': semester['semester__year'], 'semester__name': semester['semester__name'],
                           'noteTeacher': note}
