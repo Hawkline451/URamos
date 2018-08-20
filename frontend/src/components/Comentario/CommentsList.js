@@ -59,7 +59,22 @@ class CommentsList extends Component {
         </Paper>
       </div>);
       }else{
-        return (<div></div>);
+        return (
+           return (<div>
+        <Paper
+          style={{
+            width: '93.5%',
+            marginTop: '2%',
+            marginLeft: '3.5%',
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+            padding: 15
+          }}
+        >
+          {this.state.comentarios.map((comentario, index) => {
+            return <Comment key={index} comentario={comentario} isMod={this.state.isMod} />;
+          })}
+        </Paper>
+      </div>););
       }
   }
 }
