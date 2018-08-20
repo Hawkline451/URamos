@@ -22,7 +22,6 @@ class App extends Component {
         <Router>
           <div>
             <URamosBar/>
-
             <Route exact path="/" component={ActividadReciente} />
             <Route exact path="/busqueda" component={Busqueda} />
             <Route exact path="/cursos/:code" component={Curso} />
