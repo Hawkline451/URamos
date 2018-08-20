@@ -24,15 +24,22 @@ class SubjectsView(View):
 
 @api_view(['POST'])
 def isModeratorCourse(request):
-    mod = Moderator.objects.get(user=request.user);
-    subject = Subject.objects.get(pk=request.POST.get('value'))
+    
+    if Moderator.objects.filter(user=request.user)exists():
 
-    ans = False
-    if ModeratorSubjects.objects.filter(subject=subject, moderator=mod).exists():
-        ans = True
+        mod = Moderator.objects.get(user=request.user);
+        subject = Subject.objects.get(pk=request.POST.get('value'))
 
-    json_data = json.dumps({'isModerator':ans}, cls =DjangoJSONEncoder)  
-    return HttpResponse(json_data, content_type='application/json')
+        ans = False
+        if ModeratorSubjects.objects.filter(subject=subject, moderator=mod).exists():
+            ans = True
+
+        json_data = json.dumps({'isModerator':ans}, cls =DjangoJSONEncoder)  
+        return HttpResponse(json_data, content_type='application/json')
+
+    else:
+        json_data = json.dumps({'isModerator':False}, cls =DjangoJSONEncoder)  
+        return HttpResponse(json_data, content_type='application/json')
 
 @api_view(['POST'])
 def ModerateCourses(request):
