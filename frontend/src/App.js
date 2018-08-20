@@ -27,7 +27,7 @@ class App extends Component {
             <Route exact path="/cursos/:code" component={Curso} />
             <Route exact path="/profesor/:name" component={Profesor} />
             <Route exact path="/evaluacion" 
-              component = {() => <VerificarLogin comp={Evaluacion} />} 
+              component = {() => <VerificarLogin comp={Evaluacion} />}
             />
             <Route exact path="/evaluacion/formulario"
               component={Evaluacion} />
