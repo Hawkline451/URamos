@@ -8,14 +8,16 @@ class CommentsList extends Component {
 
     this.state = {
       comentarios: this.props.comentarios,
-      isMod: false
+      isMod: this.props.isMod
     };
   }
 
-  componentWillReceiveProps({ comentarios }, isMod) {
+  componentWillReceiveProps(props) {
+    console.log("coments")
+    console.log(props)
     this.setState({
-      comentarios: comentarios,
-      isMod: isMod
+      comentarios: props.comentarios,
+      isMod: props.isMod
     });
   }
 

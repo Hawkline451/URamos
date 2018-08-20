@@ -42,14 +42,15 @@ class Curso extends Component {
       url: 'http://142.93.4.35:3000/moderator/moderatorCourse',
       data: 'value='+code,
       responseType: 'json',
-      headers: 
-      {
-          Authorization: `JWT ${localStorage.getItem('token')}`,
-      }
+      headers: {
+        Authorization: `JWT ${localStorage.getItem('token')}`,
+      },
     }).then(({data})=> {
+      console.log("consulta");
+      console.log(data.isModerator);
       this.setState({
         isMod: data.isModerator
-      })
+      });
     });
   }
 

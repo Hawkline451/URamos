@@ -4,23 +4,22 @@ import CommentsList from './CommentsList';
 class Comentarios extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       comentarios: [],
       isMod: false
     };
   }
 
-  componentWillReceiveProps({ comentarios }, isMod) {
+  componentWillReceiveProps(props) {
+    console.log("comentario:")
+    console.log(props)
     this.setState({
-      comentarios: comentarios,
-      isMod: isMod
+      comentarios: props.comentarios,
+      isMod: props.isMod
     });
   }
 
   render() {
-    console.log(this.state.comentarios);
-    console.log(this.state.comentarios.length === 0);
     if (this.state.comentarios.length === 0) {
       return <div />;
     } else {
