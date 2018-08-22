@@ -1,6 +1,6 @@
 from super_inlines.admin import SuperInlineModelAdmin, SuperModelAdmin
 from django.contrib import admin
-from .models import Comment, InvisibleComment, OldComment, EditedList
+from .models import Comment, InvisibleComment, OldComment, EditedList, UserComments
 
 class CommentEditedInline(SuperInlineModelAdmin, admin.TabularInline):
     model = EditedList
@@ -35,3 +35,4 @@ class CommentAdmin(SuperModelAdmin):
     inlines = (InvisibleCommentsInline, CommentEditedInline)
 
 admin.site.register(OldComment)
+admin.site.register(UserComments)

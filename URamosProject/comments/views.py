@@ -6,12 +6,12 @@ from django.http import HttpResponse
 from django.utils import timezone
 from log.models import Record
 from moderator.models import Moderator
-from naturalUser.models import NaturalUser, UserCourses, UserComments
+from naturalUser.models import NaturalUser, UserCourses
 from rest_framework.decorators import api_view
 from subject.models import Subject, Course
 from teacher.models import Teacher
 
-from .models import Comment, InvisibleComment
+from .models import Comment, InvisibleComment, UserComments
 
 
 @api_view(['POST'])
