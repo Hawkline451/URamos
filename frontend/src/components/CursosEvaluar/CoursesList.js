@@ -11,7 +11,7 @@ import axios from "axios";
 import {Link, Redirect, Route} from "react-router-dom";
 import FormEvaluacion from "../Evaluacion/FormEvaluacion";
 import IconReload from "../ButtonReload/index";
-import './styles.css'
+import "./styles.css";
 
 const styles = theme => ({
     root: {
@@ -36,7 +36,8 @@ class CoursesList extends Component {
         code: '',
         name: '',
         section: 1,
-        load: false
+        load: false,
+        redirectCourse: false
     };
 
     getInfo = (loadValue) => {
@@ -107,6 +108,13 @@ class CoursesList extends Component {
         })
     };
 
+    handleClickCourse = (code) => {
+        this.setState({
+            link: '/cursos/' + code,
+            redirectCourse: true,
+        })
+    };
+
     createTableCoursesEvaluate = () => {
         const {classes} = this.props;
         const {dataEvaluate} = this.state;
@@ -128,11 +136,17 @@ class CoursesList extends Component {
                                 const course = item.code + ' - ' + item.name;
                                 const teacher = item.teacher;
                                 return (
-                                    <TableRow key={semester + ' ' + course + ' ' + teacher} className={'fila'}>
+                                    <TableRow hover key={semester + ' ' + course + ' ' + teacher} className={'fila'}>
                                         <TableCell>
                                             {semester}
                                         </TableCell>
-                                        <TableCell component="th" scope="row">
+                                        <TableCell component="th" scope="row"
+                                                   onClick={event => this.handleClickCourse(item.code)}
+                                                   className={'cursos'}
+                                                   style={{
+                                                       cursor: 'pointer',
+                                                   }}
+                                        >
                                             {course}
                                         </TableCell>
                                         <TableCell>
@@ -238,7 +252,7 @@ class CoursesList extends Component {
     }
 
     render() {
-        const {redirect} = this.state;
+        const {redirect, redirectCourse} = this.state;
 
         if (redirect) {
             return (<Route exact path="/evaluacion" component={() => <FormEvaluacion
@@ -250,6 +264,9 @@ class CoursesList extends Component {
                 section={this.state.section}
             />}
             />);
+        } else if (redirectCourse) {
+            const link = this.state.link;
+            return <Redirect to={ link }/>;
         } else {
             return (
                 <div>
