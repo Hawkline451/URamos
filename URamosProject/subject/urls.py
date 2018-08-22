@@ -21,8 +21,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path(r'', (csrf_exempt)(Search.as_view())),
-    path(r'courses/', (csrf_exempt)(SearchCourses.as_view())),
-    path(r'inforamo/', (csrf_exempt)(InfoRamo.as_view())),
-    path(r'infoprofe/', (csrf_exempt)(InfoProfesor.as_view())),
-    path(r'searchprof/', (csrf_exempt)(SearchProf.as_view())),
+    path(r'courses/', SearchCourses),
+    path(r'inforamo/', InfoRamo),
+    path(r'infoprofe/', InfoProfesor),
+    path(r'searchprof/', SearchProf),
 ]
