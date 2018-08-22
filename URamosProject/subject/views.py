@@ -1,16 +1,14 @@
 import json
+from datetime import date
 
-from comments.models import Comment, UserComments
+from comments.models import Comment
 from django.core.serializers.json import DjangoJSONEncoder
-from rest_framework.decorators import api_view
 from django.http import HttpResponse
 from django.views import View
+from teacher.models import Teacher
+from naturalUser.models import UserComments
 
 from .models import Subject, Course
-from teacher.models import Teacher
-from comments.models import Comment
-
-from datetime import date
 
 
 class Search(View):
@@ -24,68 +22,6 @@ class Search(View):
         return HttpResponse(json_data, content_type='application/json')
 
 
-@api_view(['POST'])
-def SearchCourses(request):
-    large = 10
-    key = json.loads(request.body.decode('utf-8'))
-    if key['code'] != '':
-        if key['byNameAndCode']:
-            subjects = Subject.objects.filter(code__startswith=key['code'], name__icontains=key['value']).values(
-                'code', 'name', 'noteSubject', 'votes')
-        else:
-            subjects = Subject.objects.filter(code__startswith=key['code']).values('code', 'name', 'noteSubject',
-                                                                                   'votes')
-    else:
-        subjects = Subject.objects.filter(name__icontains=key['value']).values('code', 'name', 'noteSubject',
-                                                                               'votes')
-    total_data = len(subjects)
-
-    if key['page'] == '1':
-        subjects = subjects[0:large + 1]
-    else:
-        subjects = subjects[(key['page'] - 1) * large:key['page'] * large]
-
-    subjects.append({'page': total_data})
-    json_data = json.dumps(list(subjects), cls=DjangoJSONEncoder)
-    return HttpResponse(json_data, content_type='application/json')
-
-
-@api_view(['POST'])
-def InfoRamo(request):
-    data = {}
-    commentsList = list()
-    code = request.POST.get('value')
-
-    subject = Subject.objects.get(pk=code)
-    courses = Course.objects.filter(subject=subject)
-
-    for course in courses:
-        comments = Comment.objects.filter(course=course, isVisible=True).exclude(content__exact='').order_by(
-            'ranking', 'date')
-
-        comments = comments.values('id', 'content', 'user__nickname', 'date', 'positivePoints', 'negativePoints',
-                                   'isEdited', 'noteTeacher', 'noteCourse', 'course__subject__code',
-                                   'course__subject__name', 'course__semester__name', 'course__semester__year',
-                                   'course__teacher__name', 'course__section')
-        for comment in comments:
-            user_comment = UserComments.objects.get(user=request.user, comment_id=comment['id'])
-            comment['voted'] = user_comment.isVote
-            comment['date'] = comment['date'].strftime('%d - %m - %Y')
-            commentsList.append(comment)
-
-    courses = courses.values('semester__name', 'semester__year', 'teacher',
-                             'section', 'noteCourse', 'noteTeacher', 'votes')
-
-    data['code'] = code
-    data['name'] = subject.name
-    data['cursos'] = list(courses)
-    data['notaCurso'] = subject.noteSubject
-    data['votosCurso'] = subject.votes
-    data['comentarios'] = commentsList
-    json_data = json.dumps(data, cls=DjangoJSONEncoder)
-
-    return HttpResponse(json_data, content_type='application/json')
-
 class SearchCourses(View):
     def post(self, request):
         large = 10
@@ -95,9 +31,11 @@ class SearchCourses(View):
                 subjects = Subject.objects.filter(code__startswith=key['code'], name__icontains=key['value']).values(
                     'code', 'name', 'noteSubject', 'votes')
             else:
-                subjects = Subject.objects.filter(code__startswith=key['code']).values('code', 'name', 'noteSubject', 'votes')
+                subjects = Subject.objects.filter(code__startswith=key['code']).values('code', 'name', 'noteSubject',
+                                                                                       'votes')
         else:
-            subjects = Subject.objects.filter(name__icontains=key['value']).values('code', 'name', 'noteSubject', 'votes')
+            subjects = Subject.objects.filter(name__icontains=key['value']).values('code', 'name', 'noteSubject',
+                                                                                   'votes')
         total_data = len(subjects)
 
         if key['page'] == '1':
@@ -113,25 +51,28 @@ class SearchCourses(View):
 class InfoRamo(View):
     def post(self, request):
         data = {}
-        commentsList = list ()
+        commentsList = list()
         code = request.POST.get('value')
 
         subject = Subject.objects.get(pk=code)
-        courses = Course.objects.filter (subject=subject)
+        courses = Course.objects.filter(subject=subject)
 
-        for course in courses :
-            comments = Comment.objects.filter (course=course, isVisible=True).exclude(content__exact='').order_by ('ranking', 'date')
+        for course in courses:
+            comments = Comment.objects.filter(course=course, isVisible=True).exclude(content__exact='').order_by(
+                'ranking', 'date')
 
-            comments = comments.values ('id', 'content', 'user__nickname', 'date', 'positivePoints', 'negativePoints',
-                                        'isEdited', 'noteTeacher', 'noteCourse', 'course__subject__code',
-                                        'course__subject__name', 'course__semester__name', 'course__semester__year',
-                                        'course__teacher__name', 'course__section')
+            comments = comments.values('id', 'content', 'user__nickname', 'date', 'positivePoints', 'negativePoints',
+                                       'isEdited', 'noteTeacher', 'noteCourse', 'course__subject__code',
+                                       'course__subject__name', 'course__semester__name', 'course__semester__year',
+                                       'course__teacher__name', 'course__section')
             for comment in comments:
+                user_comment = UserComments.objects.get(user=request.user, comment_id=comment['id'])
+                comment['voted'] = user_comment.isVote
                 comment['date'] = comment['date'].strftime('%d - %m - %Y')
                 commentsList.append(comment)
 
-        courses = courses.values ('semester__name', 'semester__year', 'teacher',
-                                                                'section', 'noteCourse', 'noteTeacher', 'votes')
+        courses = courses.values('semester__name', 'semester__year', 'teacher',
+                                 'section', 'noteCourse', 'noteTeacher', 'votes')
 
         data['code'] = code
         data['name'] = subject.name
@@ -143,8 +84,9 @@ class InfoRamo(View):
 
         return HttpResponse(json_data, content_type='application/json')
 
+
 class SearchProf(View):
-    def post(self,request):
+    def post(self, request):
         code = request.POST.get('value')
 
         subject = Subject.objects.get(pk=code)
@@ -155,13 +97,14 @@ class SearchProf(View):
             if teacher not in teachers:
                 teachers.append(teacher)
 
-        #json_data = json.dumps(list(teachers), cls=DjangoJSONEncoder)
+        # json_data = json.dumps(list(teachers), cls=DjangoJSONEncoder)
         data = []
 
         for teacherA in teachers:
             teacher = Teacher.objects.get(name=teacherA['teacher__name'])
 
-            semesterAux = Course.objects.filter(subject=subject, teacher=teacher).values('semester__name', 'semester__year')
+            semesterAux = Course.objects.filter(subject=subject, teacher=teacher).values('semester__name',
+                                                                                         'semester__year')
             semesters = []
 
             for semester in semesterAux:
@@ -178,7 +121,7 @@ class SearchProf(View):
                 note = 0.0
                 count = 0
                 for course in coursesAux:
-                    if(course['noteTeacher'] != 0):
+                    if (course['noteTeacher'] != 0):
                         note += course['noteTeacher']
                         count += 1
                 if count == 0:
@@ -207,7 +150,6 @@ class SearchProf(View):
                     else:
                         minYear = course['semester__year']
                         minName = course['semester__name']
-
                 if course['semester__year'] >= maxYear:
                     if course['semester__year'] == maxYear:
                         if maxName == None:
