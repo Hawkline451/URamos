@@ -37,3 +37,12 @@ class OldComment(models.Model):
 class EditedList(models.Model):
 	comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
 	old_content = models.ForeignKey(OldComment, on_delete=models.CASCADE)
+
+
+class UserComments(models.Model):
+	user = models.ForeignKey(NaturalUser, on_delete=models.CASCADE)
+	comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+	isVote = models.BooleanField(default=False)
+
+	def __str__(self):
+		return self.user.user.username + ' ' + self.comment.course.subject.code
