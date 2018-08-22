@@ -65,8 +65,12 @@ class InfoRamo(View):
                                        'course__subject__name', 'course__semester__name', 'course__semester__year',
                                        'course__teacher__name', 'course__section')
             for comment in comments:
-                user_comment = UserComments.objects.get(user=request.user, comment_id=comment['id'])
-                comment['voted'] = user_comment.isVote
+                if request.user.is_authenticated:
+                    user_comment = UserComments.objects.get(user=request.user, comment_id=comment['id'])
+                    comment['voted'] = user_comment.isVote
+                else:
+                    comment['voted'] = True
+
                 comment['date'] = comment['date'].strftime('%d - %m - %Y')
                 commentsList.append(comment)
 
