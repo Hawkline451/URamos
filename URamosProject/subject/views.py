@@ -1,12 +1,11 @@
 import json
 from datetime import date
 
-from comments.models import Comment
+from comments.models import Comment, UserComments
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.views import View
 from teacher.models import Teacher
-from naturalUser.models import UserComments
 
 from .models import Subject, Course
 
