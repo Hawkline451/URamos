@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.utils import timezone
 from log.models import Record
 from moderator.models import Moderator
-from naturalUser.models import NaturalUser, UserCourses
+from naturalUser.models import NaturalUser, UserCourses, UserComments
 from rest_framework.decorators import api_view
 from subject.models import Subject, Course
 from teacher.models import Teacher
@@ -117,6 +117,13 @@ def SaveComment(request):
     userCourse = UserCourses.objects.get(user=naturalUser, course=course)
     userCourse.isEvaluate = True
     userCourse.save()
+
+    users = NaturalUser.objects.all()
+    for user in users:
+        user_comments = UserComments(comment=comment, user=user)
+        if user == request.user:
+            user_comments.isVote = True
+        user_comments.save()
 
     return HttpResponse({'data': 'Su evaluacion ha sido procesada con exito <br/><br/> Gracias!'},
                         content_type='application/json')
