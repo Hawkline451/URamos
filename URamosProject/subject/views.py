@@ -71,7 +71,7 @@ class InfoRamo(View):
                                        'course__subject__name', 'course__semester__name', 'course__semester__year',
                                        'course__teacher__name', 'course__section')
             for comment in comments:
-                if request.user.is_authenticated:
+                if user:
                     user_comment = UserComments.objects.get(user=user, comment_id=comment['id'])
                     comment['voted'] = user_comment.isVote
                     print('autenticated')
