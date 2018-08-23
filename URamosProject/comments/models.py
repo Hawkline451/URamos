@@ -45,4 +45,4 @@ class UserComments(models.Model):
 	isVote = models.BooleanField(default=False)
 
 	def __str__(self):
-		return self.user.user.username + ' ' + self.comment.course.subject.code + ' ' + self.isVote
+		return self.user.user.username + ' ' + self.comment.course.subject.code + ' ' + str(self.isVote)
