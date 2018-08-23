@@ -48,6 +48,10 @@ def UpVoteComment(request):
     comment.ranking += 1
     comment.save()
 
+    user_comments = UserComments.objects.get(comment=comment, user=request.user)
+    user_comments.isVote = True
+    user_comments.save()
+
     return HttpResponse({},
                         content_type='application/json')
 
@@ -61,6 +65,10 @@ def DownVoteComment(request):
     comment.negativePoints += 1
     comment.ranking -= 1
     comment.save()
+
+    user_comments = UserComments.objects.get (comment=comment, user=request.user)
+    user_comments.isVote = True
+    user_comments.save()
 
     return HttpResponse({},
                         content_type='application/json')

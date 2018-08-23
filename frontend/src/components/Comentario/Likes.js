@@ -13,7 +13,7 @@ class Likes extends Component {
   };
 
   handleOnUpVote = event => {
-    console.log(this.state);
+    console.log(this.props.voted);
     if (localStorage.getItem('user')) {
       axios
         .post(

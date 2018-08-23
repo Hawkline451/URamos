@@ -144,15 +144,16 @@ class Comment extends Component {
                 marginBottom: 10,
               }}
             >
-                <Likes
-                  markTeacher={this.state.comentario.noteTeacher}
-                  markCourse={this.state.comentario.noteCourse}
-                  comment={this.state.comentario.id}
-                  upVotes={this.state.upVotes}
-                  handleUpVotes={this.handleUpVotes}
-                  downVotes={this.state.downVotes}
-                  handleDownVotes={this.handleDownVotes}
-                />
+              <Likes
+                markTeacher={this.state.comentario.noteTeacher}
+                markCourse={this.state.comentario.noteCourse}
+                comment={this.state.comentario.id}
+                upVotes={this.state.upVotes}
+                handleUpVotes={this.handleUpVotes}
+                downVotes={this.state.downVotes}
+                handleDownVotes={this.handleDownVotes}
+                voted={this.state.comentario.voted}
+              />
             </div>
           </div>
           {mod}
