@@ -13,11 +13,9 @@ class Comment extends Component {
       comentario: this.props.comentario,
       upVotes: this.props.comentario.positivePoints,
       downVotes: this.props.comentario.negativePoints,
-      isMod: this.props.isMod
+      isMod: this.props.isMod,
     };
   }
-
-
 
   handleUpVotes = () => {
     this.setState({
@@ -31,30 +29,32 @@ class Comment extends Component {
     });
   };
 
-  render() { 
+  render() {
     var mod = '';
-    if(this.state.isMod){
-
-            mod = (<div
-            style={{
-              display: 'inline-block',
-              verticalAlign: 'top',
-              marginTop: 80,
-              marginLeft: 50,
-            }} >
-            <Moderar
-              nickname={this.state.comentario.user__nickname}
-              profesor={this.state.comentario.course__teacher__name.toLowerCase()}
-              curso={
-                this.state.comentario.course__semester__name +
-                ' ' +
-                this.state.comentario.course__semester__year
-              }
-              comentario={this.state.comentario.id}
-              content={this.state.comentario.content}
-            />
-          </div>)
-        }
+    if (this.state.isMod) {
+      mod = (
+        <div
+          style={{
+            display: 'inline-block',
+            verticalAlign: 'top',
+            marginTop: 80,
+            marginLeft: 50,
+          }}
+        >
+          <Moderar
+            nickname={this.state.comentario.user__nickname}
+            profesor={this.state.comentario.course__teacher__name.toLowerCase()}
+            curso={
+              this.state.comentario.course__semester__name +
+              ' ' +
+              this.state.comentario.course__semester__year
+            }
+            comentario={this.state.comentario.id}
+            content={this.state.comentario.content}
+          />
+        </div>
+      );
+    }
     return (
       <div>
         <Paper square style={{ textAlign: 'left' }}>
@@ -144,15 +144,25 @@ class Comment extends Component {
                 marginBottom: 10,
               }}
             >
-              <Likes
-                markTeacher={this.state.comentario.noteTeacher}
-                markCourse={this.state.comentario.noteCourse}
-                comment={this.state.comentario.id}
-                upVotes={this.state.upVotes}
-                handleUpVotes={this.handleUpVotes}
-                downVotes={this.state.downVotes}
-                handleDownVotes={this.handleDownVotes}
-              />
+              {this.this.state.comentario.voted === 'True' ? (
+                <Likes
+                  markTeacher={this.state.comentario.noteTeacher}
+                  markCourse={this.state.comentario.noteCourse}
+                  comment={this.state.comentario.id}
+                  upVotes={this.state.upVotes}
+                  downVotes={this.state.downVotes}
+                />
+              ) : (
+                <Likes
+                  markTeacher={this.state.comentario.noteTeacher}
+                  markCourse={this.state.comentario.noteCourse}
+                  comment={this.state.comentario.id}
+                  upVotes={this.state.upVotes}
+                  handleUpVotes={this.handleUpVotes}
+                  downVotes={this.state.downVotes}
+                  handleDownVotes={this.handleDownVotes}
+                />
+              )}
             </div>
           </div>
           {mod}

@@ -28,7 +28,11 @@ class Likes extends Component {
           },
         )
         .then(() => {
-          this.props.handleUpVotes();
+          try {
+            this.props.handleUpVotes();
+          } catch(err) {
+            
+          }
         });
     }
   };
@@ -49,7 +53,12 @@ class Likes extends Component {
           },
         )
         .then(() => {
-          this.props.handleDownVotes();
+          try {
+            this.props.handleDownVotes();
+          } catch (err) {
+            
+          }
+          
         });
     }
   };
