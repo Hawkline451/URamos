@@ -14,3 +14,9 @@
 .comment-text>p {
   font-size: 14px
 }
+
+.required:after {
+    color: #e32;
+    content: ' *';
+    display:inline;
+}
