@@ -54,9 +54,10 @@ class InfoRamo(View):
         commentsList = list()
         key = json.loads (request.body.decode ('utf-8'))
         code = key['value']
-        user = NaturalUser.objects.get(nickname=key['user'])
-
-        print(user)
+        try:
+            user = NaturalUser.objects.get(nickname=key['user'])
+        except:
+            pass
 
         subject = Subject.objects.get(pk=code)
         courses = Course.objects.filter(subject=subject)
@@ -71,7 +72,7 @@ class InfoRamo(View):
                                        'course__teacher__name', 'course__section')
             for comment in comments:
                 if request.user.is_authenticated:
-                    user_comment = UserComments.objects.get(user=request.user, comment_id=comment['id'])
+                    user_comment = UserComments.objects.get(user=user, comment_id=comment['id'])
                     comment['voted'] = user_comment.isVote
                 else:
                     comment['voted'] = True
