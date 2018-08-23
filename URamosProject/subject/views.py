@@ -74,8 +74,11 @@ class InfoRamo(View):
                 if request.user.is_authenticated:
                     user_comment = UserComments.objects.get(user=user, comment_id=comment['id'])
                     comment['voted'] = user_comment.isVote
+                    print('autenticated')
                 else:
                     comment['voted'] = True
+
+                print ('aquiiii!!!!  -- ' + comment['voted'])
 
                 comment['date'] = comment['date'].strftime('%d - %m - %Y')
                 commentsList.append(comment)
