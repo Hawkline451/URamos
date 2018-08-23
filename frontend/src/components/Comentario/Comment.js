@@ -144,7 +144,7 @@ class Comment extends Component {
                 marginBottom: 10,
               }}
             >
-              {this.this.state.comentario.voted === 'True' ? (
+              {this.state.comentario.voted === 'True' ? (
                 <Likes
                   markTeacher={this.state.comentario.noteTeacher}
                   markCourse={this.state.comentario.noteCourse}
