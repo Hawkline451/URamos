@@ -57,7 +57,7 @@ class InfoRamo(View):
         try:
             user = NaturalUser.objects.get(nickname=key['user'])
         except:
-            pass
+            user = None
 
         subject = Subject.objects.get(pk=code)
         courses = Course.objects.filter(subject=subject)
