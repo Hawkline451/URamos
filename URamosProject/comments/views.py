@@ -133,7 +133,7 @@ def SaveComment(request):
     users = NaturalUser.objects.all()
     for user in users:
         user_comments = UserComments(comment=comment, user=user)
-        if user == request.user:
+        if user == naturalUser:
             user_comments.isVote = True
         user_comments.save()
 
