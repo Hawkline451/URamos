@@ -48,7 +48,9 @@ def UpVoteComment(request):
     comment.ranking += 1
     comment.save()
 
-    user_comments = UserComments.objects.get(comment=comment, user=request.user)
+    natUser = NaturalUser.objects.get(user=request.user)
+
+    user_comments = UserComments.objects.get (comment=comment, user=natUser)
     user_comments.isVote = True
     user_comments.save()
 
@@ -66,7 +68,9 @@ def DownVoteComment(request):
     comment.ranking -= 1
     comment.save()
 
-    user_comments = UserComments.objects.get (comment=comment, user=request.user)
+    natUser = NaturalUser.objects.get(user=request.user)
+
+    user_comments = UserComments.objects.get (comment=comment, user=natUser)
     user_comments.isVote = True
     user_comments.save()
 
