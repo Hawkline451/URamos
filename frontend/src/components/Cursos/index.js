@@ -23,11 +23,9 @@ class Curso extends Component {
       name = localStorage.getItem('user').nickname
     } 
 
-    axios({
-      method: 'post',
-      url: 'http://142.93.4.35:3000/search/inforamo/',
-      data: {'value' : code, 'user' : name},
-      responseType: 'json',
+    axios.post('http://142.93.4.35:3000/search/inforamo/', {
+      value : code,
+      user : name
     }).then(({ data }) => {
       const { code, name, cursos, notaCurso, votosCurso, comentarios } = data;
 
