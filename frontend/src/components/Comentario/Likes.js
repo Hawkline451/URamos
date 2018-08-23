@@ -97,11 +97,11 @@ class Likes extends Component {
           >
             <div
               onClick={this.handleOnUpVote}
+              className={this.props.handClass}
               style={{
                 backgroundColor: 'rgba(0, 0, 0, 0.15)',
                 borderRight: '1px black solid',
                 display: 'inline-block',
-                cursor: 'pointer',
               }}
             >
               <Avatar
@@ -134,11 +134,11 @@ class Likes extends Component {
           >
             <div
               onClick={this.handleOnDownpVote}
+              className={this.props.handClass}
               style={{
                 backgroundColor: 'rgba(0, 0, 0, 0.15)',
                 borderRight: '1px black solid',
                 display: 'inline-block',
-                cursor: 'pointer',
               }}
             >
               <Avatar

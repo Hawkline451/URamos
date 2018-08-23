@@ -6,6 +6,8 @@ import AnimalAvatar from './AnimalAvatar';
 import Likes from './Likes';
 import Moderar from './Moderar';
 
+import '../Cursos/styles.css';
+
 class Comment extends Component {
   constructor(props) {
     super(props);
@@ -14,21 +16,24 @@ class Comment extends Component {
       upVotes: this.props.comentario.positivePoints,
       downVotes: this.props.comentario.negativePoints,
       isMod: this.props.isMod,
-      voted: this.props.comentario.voted
+      voted: this.props.comentario.voted,
+      handClass: ''
     };
   }
 
   handleUpVotes = () => {
     this.setState({
       upVotes: this.state.upVotes + 1,
-      voted: true
+      voted: true,
+      handClass = 'voted'
     });
   };
 
   handleDownVotes = () => {
     this.setState({
       downVotes: this.state.downVotes + 1,
-      voted: true
+      voted: true,
+      handClass = 'voted'
     });
   };
 
@@ -156,6 +161,7 @@ class Comment extends Component {
                 downVotes={this.state.downVotes}
                 handleDownVotes={this.handleDownVotes}
                 voted={this.state.voted}
+                handClass={this.state.handClass}
               />
             </div>
           </div>
