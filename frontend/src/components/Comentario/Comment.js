@@ -25,7 +25,7 @@ class Comment extends Component {
     this.setState({
       upVotes: this.state.upVotes + 1,
       voted: true,
-      handClass = 'voted'
+      handClass: 'voted'
     });
   };
 
