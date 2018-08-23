@@ -33,7 +33,7 @@ class Comment extends Component {
     this.setState({
       downVotes: this.state.downVotes + 1,
       voted: true,
-      handClass = 'voted'
+      handClass: 'voted'
     });
   };
 
