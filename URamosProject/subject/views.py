@@ -53,7 +53,7 @@ class InfoRamo(View):
         commentsList = list()
         key = json.loads (request.body.decode ('utf-8'))
         code = key['value']
-        print(key['user'])
+        print(key)
 
         subject = Subject.objects.get(pk=code)
         courses = Course.objects.filter(subject=subject)
