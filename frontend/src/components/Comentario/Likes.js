@@ -14,7 +14,7 @@ class Likes extends Component {
 
   handleOnUpVote = event => {
     console.log(this.state);
-    if (localStorage.getItem('isLogged')) {
+    if (localStorage.getItem('user')) {
       axios
         .post(
           'http://142.93.4.35:3000/comment/upVote/',
@@ -39,7 +39,7 @@ class Likes extends Component {
 
   handleOnDownpVote = event => {
     console.log(this.state);
-    if (localStorage.getItem('isLogged')) {
+    if (localStorage.getItem('user')) {
       axios
         .post(
           'http://142.93.4.35:3000/comment/downVote/',
