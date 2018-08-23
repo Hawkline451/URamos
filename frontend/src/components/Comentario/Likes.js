@@ -14,7 +14,7 @@ class Likes extends Component {
 
   handleOnUpVote = event => {
     console.log(this.props.voted);
-    if (localStorage.getItem('user')) {
+    if (localStorage.getItem('user') && !this.props.votes) {
       axios
         .post(
           'http://142.93.4.35:3000/comment/upVote/',
@@ -30,16 +30,14 @@ class Likes extends Component {
         .then(() => {
           try {
             this.props.handleUpVotes();
-          } catch(err) {
-            
-          }
+          } catch (err) {}
         });
     }
   };
 
   handleOnDownpVote = event => {
     console.log(this.state);
-    if (localStorage.getItem('user')) {
+    if (localStorage.getItem('user') && !this.props.votes) {
       axios
         .post(
           'http://142.93.4.35:3000/comment/downVote/',
@@ -55,10 +53,7 @@ class Likes extends Component {
         .then(() => {
           try {
             this.props.handleDownVotes();
-          } catch (err) {
-            
-          }
-          
+          } catch (err) {}
         });
     }
   };
