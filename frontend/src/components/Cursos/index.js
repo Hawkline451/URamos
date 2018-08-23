@@ -18,7 +18,7 @@ class Curso extends Component {
   };
 
   getinfo({ code }) {
-    const name = ''
+    let name = ''
     if (localStorage.getItem('user')) {
       name = localStorage.getItem('user').nickname
     } 
