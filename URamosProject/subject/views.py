@@ -51,7 +51,9 @@ class InfoRamo(View):
     def post(self, request):
         data = {}
         commentsList = list()
-        code = request.POST.get('value')
+        key = json.loads (request.body.decode ('utf-8'))
+        code = key['value']
+        print(key['user'])
 
         subject = Subject.objects.get(pk=code)
         courses = Course.objects.filter(subject=subject)

@@ -18,10 +18,15 @@ class Curso extends Component {
   };
 
   getinfo({ code }) {
+    const name
+    if (localStorage.getItem('user')) {
+      name = localStorage.getItem('user').nickname
+    } 
+
     axios({
       method: 'post',
       url: 'http://142.93.4.35:3000/search/inforamo/',
-      data: 'value=' + code,
+      data: {'value' : code, 'user' : name},
       responseType: 'json',
     }).then(({ data }) => {
       const { code, name, cursos, notaCurso, votosCurso, comentarios } = data;
