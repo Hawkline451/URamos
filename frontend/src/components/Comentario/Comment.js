@@ -17,7 +17,7 @@ class Comment extends Component {
       downVotes: this.props.comentario.negativePoints,
       isMod: this.props.isMod,
       voted: this.props.comentario.voted,
-      handClass: ''
+      handClass: 'voted'
     };
   }
 
@@ -25,7 +25,7 @@ class Comment extends Component {
     this.setState({
       upVotes: this.state.upVotes + 1,
       voted: true,
-      handClass: 'voted'
+      handClass: ''
     });
   };
 
@@ -33,7 +33,7 @@ class Comment extends Component {
     this.setState({
       downVotes: this.state.downVotes + 1,
       voted: true,
-      handClass: 'voted'
+      handClass: ''
     });
   };
 
