@@ -7,6 +7,7 @@ import urllib.parse
 
 from naturalUser.models import NaturalUser
 from teacher.models import Teacher
+from comments.models import Comment, UserComments
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
@@ -48,7 +49,12 @@ class AuthView(View):
 
 			nu.setNickName()
 			nu.save()
-			
+
+			comments = Comment.objects.all()
+			for comment in comments:
+				user_comments = UserComments(comment=comment, user=nu)
+				user_comments.save()
+
 		user = authenticate(username=rut, password=rut)
 
 		jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
