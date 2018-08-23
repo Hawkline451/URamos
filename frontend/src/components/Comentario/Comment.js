@@ -14,18 +14,21 @@ class Comment extends Component {
       upVotes: this.props.comentario.positivePoints,
       downVotes: this.props.comentario.negativePoints,
       isMod: this.props.isMod,
+      voted: this.props.comentario.voted
     };
   }
 
   handleUpVotes = () => {
     this.setState({
       upVotes: this.state.upVotes + 1,
+      voted: true
     });
   };
 
   handleDownVotes = () => {
     this.setState({
       downVotes: this.state.downVotes + 1,
+      voted: true
     });
   };
 
@@ -152,7 +155,7 @@ class Comment extends Component {
                 handleUpVotes={this.handleUpVotes}
                 downVotes={this.state.downVotes}
                 handleDownVotes={this.handleDownVotes}
-                voted={this.state.comentario.voted}
+                voted={this.state.voted}
               />
             </div>
           </div>
