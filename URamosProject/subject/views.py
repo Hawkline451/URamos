@@ -78,7 +78,7 @@ class InfoRamo(View):
                 else:
                     comment['voted'] = True
 
-                print ('aquiiii!!!!  -- ' + comment['voted'])
+                print ('aquiiii!!!!  -- ' + str(comment['voted']))
 
                 comment['date'] = comment['date'].strftime('%d - %m - %Y')
                 commentsList.append(comment)
