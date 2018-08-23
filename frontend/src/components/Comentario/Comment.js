@@ -144,15 +144,6 @@ class Comment extends Component {
                 marginBottom: 10,
               }}
             >
-              {this.state.comentario.voted === 'True' ? (
-                <Likes
-                  markTeacher={this.state.comentario.noteTeacher}
-                  markCourse={this.state.comentario.noteCourse}
-                  comment={this.state.comentario.id}
-                  upVotes={this.state.upVotes}
-                  downVotes={this.state.downVotes}
-                />
-              ) : (
                 <Likes
                   markTeacher={this.state.comentario.noteTeacher}
                   markCourse={this.state.comentario.noteCourse}
@@ -162,7 +153,6 @@ class Comment extends Component {
                   downVotes={this.state.downVotes}
                   handleDownVotes={this.handleDownVotes}
                 />
-              )}
             </div>
           </div>
           {mod}
