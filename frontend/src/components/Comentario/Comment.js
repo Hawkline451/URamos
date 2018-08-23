@@ -11,13 +11,21 @@ import '../Cursos/styles.css';
 class Comment extends Component {
   constructor(props) {
     super(props);
+
+    var voted
+    if (this.props.comentario.voted) {
+      voted = ''
+    } else {
+      voted = 'voted'
+    }
+
     this.state = {
       comentario: this.props.comentario,
       upVotes: this.props.comentario.positivePoints,
       downVotes: this.props.comentario.negativePoints,
       isMod: this.props.isMod,
       voted: this.props.comentario.voted,
-      handClass: 'voted'
+      handClass: voted
     };
   }
 
