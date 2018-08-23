@@ -20,7 +20,7 @@ class Curso extends Component {
   getinfo({ code }) {
     let name = ''
     if (localStorage.getItem('user')) {
-      name = localStorage.getItem('user').split(':')[1].split(',')[0]
+      name = localStorage.getItem('user').split(':')[1].split(',')[0].split('"')[1]
     } 
 
     axios.post('http://142.93.4.35:3000/search/inforamo/', {

@@ -6,6 +6,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.views import View
 from teacher.models import Teacher
+from naturalUser.models import NaturalUser
 
 from .models import Subject, Course
 
@@ -53,7 +54,9 @@ class InfoRamo(View):
         commentsList = list()
         key = json.loads (request.body.decode ('utf-8'))
         code = key['value']
-        print(key)
+        user = NaturalUser.objects.get(nickname=key['user'])
+
+        print(user)
 
         subject = Subject.objects.get(pk=code)
         courses = Course.objects.filter(subject=subject)
