@@ -130,5 +130,12 @@ def SaveComment(request):
     userCourse.isEvaluate = True
     userCourse.save()
 
+    users = NaturalUser.objects.all()
+    for user in users:
+        user_comments = UserComments(comment=comment, user=user)
+        if user == request.user:
+            user_comments.isVote = True
+        user_comments.save()
+
     return HttpResponse({'data': 'Su evaluacion ha sido procesada con exito <br/><br/> Gracias!'},
                         content_type='application/json')
