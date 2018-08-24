@@ -118,7 +118,6 @@ class CommentList extends React.Component {
   }
 
   componentWillReceiveProps({ comment }) {
-    console.log(comment);
     this.setState({
       data: comment.sort((a, b) => (a.date > b.date ? -1 : 1)),
     });

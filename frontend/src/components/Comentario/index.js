@@ -10,8 +10,6 @@ class Comentarios extends Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log("comentario:")
-    console.log(props)
     this.setState({
       comentarios: props.comentarios,
       isMod: props.isMod

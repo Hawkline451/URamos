@@ -29,9 +29,7 @@ class Moderar extends Component {
   };
 
   handleSubmit = event => {
-    console.log(this.state);
     if (localStorage.getItem('isLogged')) {
-      console.log('autenticado');
       axios
         .post(
           'http://142.93.4.35:3000/comment/hide/',

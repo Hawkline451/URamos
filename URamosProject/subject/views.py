@@ -20,9 +20,8 @@ class Search(View):
         if keys['typeSearch'] == 'codigo':
             subjects = Subject.objects.filter(code__startswith=keys['value']).values('code', 'name')
         else:
-            print(keys['typeSearch'])
             subjects = Subject.objects.filter(name__contains=keys['value']).values('code', 'name')
-            print(len(subjects))
+
         json_data = json.dumps(list(subjects), cls=DjangoJSONEncoder)
         return HttpResponse(json_data, content_type='application/json')
 
@@ -79,11 +78,8 @@ class InfoRamo(View):
                 if user:
                     user_comment = UserComments.objects.get(user=user, comment_id=comment['id'])
                     comment['voted'] = user_comment.isVote
-                    print('autenticated')
                 else:
                     comment['voted'] = True
-
-                print ('aquiiii!!!!  -- ' + str(comment['voted']))
 
                 comment['date'] = comment['date'].strftime('%d - %m - %Y')
                 commentsList.append(comment)

@@ -54,7 +54,6 @@ class LineGroups extends Component {
 
     componentWillMount() {
         const {name} = this.props;
-        console.log(name);
         this.getTeacherAndNotesInfo(name);
     }
 
