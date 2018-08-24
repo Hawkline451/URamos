@@ -10,7 +10,8 @@ class CommentsList extends Component {
         this.state = {
             comentarios: this.props.comentarios,
             isMod: false,
-            isReade: false
+            isReade: false,
+            isLocked: false,
         };
     }
 
@@ -27,13 +28,15 @@ class CommentsList extends Component {
             }).then(({data}) => {
                 this.setState({
                     isMod: data.isModerator,
-                    isReady: true
+                    isReady: true,
+                    isLocked: data.isLocked,
                 });
             });
         } else {
             this.setState({
                 isMod: false,
-                isReady: true
+                isReady: true,
+                isLocked: false
             })
         }
 
@@ -59,7 +62,7 @@ class CommentsList extends Component {
                     }}
                 >
                     {this.state.comentarios.map((comentario, index) => {
-                        return <Comment key={index} comentario={comentario} isMod={this.state.isMod}/>;
+                        return <Comment key={index} comentario={comentario} isMod={this.state.isMod} isLocked={this.state.isLocked}/>;
                     })}
                 </Paper>
             </div>);
