@@ -99,9 +99,13 @@ function getSuggestions(value, typeSearch) {
                 keep =
                     suggestion.label.toLowerCase().slice(0, inputLength) === inputValue;
             } else {
+                console.log(inputValue);
+                console.log(inputLength);
                 const suggestionAux = suggestion.label.split(' - ')[1];
+                console.log(suggestionAux);
                 keep =
                     suggestionAux.toLowerCase().slice(0, inputLength) === inputValue;
+                console.log(keep);
             }
 
             return keep;
