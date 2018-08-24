@@ -24,7 +24,7 @@ class TopTabs extends Component {
             value="resumen eval"
             className="resumen-eval-curso-tab"
             disableRipple
-            label={'Resumen Evaluacion ' + code}
+            label={'Resumen Evaluación ' + code}
             style={{ width: 400, maxWidth: 400 }}
           />
         </Tabs>

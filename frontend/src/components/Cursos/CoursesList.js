@@ -160,7 +160,7 @@ class CoursesList extends React.Component {
                 {data
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(curso => {
-                    const seccion = 'Seccion ' + curso.section;
+                    const seccion = 'Sección ' + curso.section;
                     const semestre =
                       curso.semester__year + ' ' + curso.semester__name;
                     const teacher = curso.teacher.toLowerCase();

@@ -35,13 +35,12 @@ def LoadCourses(request):
     user = request.user
     naturalUser = NaturalUser.objects.get(user=user)
     # rut = naturalUser.username # se usara para consultar a la api
-    # naturalUser = NaturalUser.objects.get(user__username='18994829')
+    #naturalUser = NaturalUser.objects.get(user__username='18994829')
 
     listCourses = list(UserCourses.objects.filter(user=naturalUser).values('course'))
     if not listCourses or reload:
         ## Llamado a la api (parser)
         numberJson = random.randint(0, 5)
-        print(numberJson)
         if numberJson % 2 == 0:
             json_file = 'cursosTest1.json'
         else:
@@ -70,7 +69,6 @@ def LoadCourses(request):
                         courseUser = Course.objects.get(pk=teacher['pk'])
                         userCourse = UserCourses(user=naturalUser, course=courseUser)
                         userCourse.save()
-                        print('save course')
 
     dataCourses = UserCourses.objects.filter(user=naturalUser).values('course__subject__code', 'course__subject__name',
                                                                       'course__semester__year',
@@ -82,7 +80,7 @@ def LoadCourses(request):
     dataCoursesNotEvaluate = []
     for course in dataCourses:
         if not course['isEvaluate']:
-            course['isEvaluate'] = 'Por Evaluar'
+            course['isEvaluate'] = 'Evaluar'
             dataCoursesNotEvaluate.append(course)
         else:
             course['isEvaluate'] = 'Evaluado'

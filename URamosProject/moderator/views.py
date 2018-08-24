@@ -9,6 +9,7 @@ from rest_framework.decorators import api_view
 
 from .models import ModeratorSubjects, Moderator
 from subject.models import Subject
+from naturalUser.models import NaturalUser
 from rest_framework.decorators import api_view
 
 
@@ -24,15 +25,26 @@ class SubjectsView(View):
 
 @api_view(['POST'])
 def isModeratorCourse(request):
-    mod = Moderator.objects.get(user=request.user);
-    subject = Subject.objects.get(pk=request.POST.get('value'))
 
-    ans = False
-    if ModeratorSubjects.objects.filter(subject=subject, moderator=mod).exists():
-        ans = True
+    if Moderator.objects.filter(user=request.user).exists():
 
-    json_data = json.dumps({'isModerator':ans}, cls =DjangoJSONEncoder)  
-    return HttpResponse(json_data, content_type='application/json')
+        mod = Moderator.objects.get(user=request.user);
+        subject = Subject.objects.get(pk=request.POST.get('value'))
+
+        ans = False
+        locked = False
+        if ModeratorSubjects.objects.filter(subject=subject, moderator=mod).exists():
+            ans = True
+
+            natuser = NaturalUser.objects.get(user=request.user)
+            locked = natuser.isLocked
+
+        json_data = json.dumps({'isModerator':ans, 'isLocked': locked}, cls =DjangoJSONEncoder)
+        return HttpResponse(json_data, content_type='application/json')
+
+    else:
+        json_data = json.dumps({'isModerator':False, 'isLocked': False}, cls =DjangoJSONEncoder)
+        return HttpResponse(json_data, content_type='application/json')
 
 @api_view(['POST'])
 def ModerateCourses(request):

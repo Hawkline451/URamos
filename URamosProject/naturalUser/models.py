@@ -20,8 +20,8 @@ class NaturalUser(models.Model):
 		sounds = ['miau', 'guau', 'cuak cuak', 'muuuuu', 'pio pio', 'beeee',
 			'auuuuh', 'hooo hoooo hoo', 'oink oink', 'cri cri', 'grrrrr']
 
-		adjectives = ['consecuente', 'simple', 'feliz', 'habil', 'amable',
-			'angelical', 'debil', 'fuerte', 'realista', 'libre', 'coherente',
+		adjectives = ['consecuente', 'simple', 'feliz', 'hábil', 'amable',
+			'angelical', 'débil', 'fuerte', 'realista', 'libre', 'coherente',
 			'brillante', 'grande', 'veloz', 'joven', 'perspicaz']
 
 		nickname = random.choice(sounds)+" "+random.choice(adjectives)+" "+str(random.randint(10,99))

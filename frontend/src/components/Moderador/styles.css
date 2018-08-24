@@ -46,3 +46,16 @@
 .default>span {
   color:blue;
 }
+
+.cursos:hover {
+  text-decoration: underline;
+}
+
+.fila > th {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.fila > td {
+  font-size: 16px;
+}

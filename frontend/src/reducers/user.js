@@ -4,7 +4,7 @@ const user = (state={}, action) => {
 		case 'SET_USER':
 			return Object.assign({}, state, {
 							'nickname': action.user.nickname,
-							'isLocked': action.user.isTeacher,
+							'isLocked': action.user.isLocked,
 							'isModerator': action.user.isModerator,
 							'isTeacher': action.user.isTeacher,
 							'teacherName': action.user.teacherName

@@ -160,7 +160,7 @@ class CoursesList extends React.Component {
                 {data
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(curso => {
-                    const seccion = 'Seccion ' + curso.section;
+                    const seccion = 'Sección ' + curso.section;
                     const semestre =
                       curso.semester__year + ' ' + curso.semester__name;
                     const ramo =
@@ -171,7 +171,6 @@ class CoursesList extends React.Component {
                     return (
                       <TableRow hover key={semestre + curso.section + ramo}>
                         <TableCell
-                          component="th"
                           scope="row"
                           style={{
                             fontSize: 16,
@@ -186,7 +185,7 @@ class CoursesList extends React.Component {
                           className={'ramo-td'}
                           style={{
                             fontSize: 16,
-                            cursor: 'pointer'
+                            cursor: 'pointer',
                           }}
                         >
                           {ramo}

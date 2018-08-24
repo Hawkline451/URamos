@@ -9,8 +9,8 @@ class FormEvaluacion extends Component {
             <div>
                 <Paper style={{
                     backgroundColor: 'rgba(192, 192, 192, 0.8)',
-                    margin: '1% 22%',
-                    width: '55%',
+                    margin: '1% 14%',
+                    width: '73%',
                     padding: '1%',
                     float: 'left',
                 }}>

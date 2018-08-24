@@ -6,57 +6,72 @@ import AnimalAvatar from './AnimalAvatar';
 import Likes from './Likes';
 import Moderar from './Moderar';
 
+import '../Cursos/styles.css';
+
 class Comment extends Component {
   constructor(props) {
     super(props);
-    console.log("COMMENT")
-    console.log(props)
+
+    var voted
+    if (this.props.comentario.voted) {
+      voted = ''
+    } else {
+      voted = 'voted'
+    }
+
     this.state = {
       comentario: this.props.comentario,
       upVotes: this.props.comentario.positivePoints,
       downVotes: this.props.comentario.negativePoints,
-      isMod: this.props.isMod
+      isMod: this.props.isMod,
+      isLocked: this.props.isLocked,
+      voted: this.props.comentario.voted,
+      handClass: voted
     };
   }
 
   handleUpVotes = () => {
     this.setState({
       upVotes: this.state.upVotes + 1,
+      voted: true,
+      handClass: ''
     });
   };
 
   handleDownVotes = () => {
     this.setState({
       downVotes: this.state.downVotes + 1,
+      voted: true,
+      handClass: ''
     });
   };
 
-  render() { 
-    console.log("finalll")
-    console.log(this.state.isMod);
+  render() {
     var mod = '';
-    if(this.state.isMod){
-
-            mod = (<div
-            style={{
-              display: 'inline-block',
-              verticalAlign: 'top',
-              marginTop: 80,
-              marginLeft: 50,
-            }} >
-            <Moderar
-              nickname={this.state.comentario.user__nickname}
-              profesor={this.state.comentario.course__teacher__name.toLowerCase()}
-              curso={
-                this.state.comentario.course__semester__name +
-                ' ' +
-                this.state.comentario.course__semester__year
-              }
-              comentario={this.state.comentario.id}
-              content={this.state.comentario.content}
-            />
-          </div>)
-        }
+    if (this.state.isMod && !this.state.isLocked) {
+      mod = (
+        <div
+          style={{
+            display: 'inline-block',
+            verticalAlign: 'top',
+            marginTop: 80,
+            marginLeft: 50,
+          }}
+        >
+          <Moderar
+            nickname={this.state.comentario.user__nickname}
+            profesor={this.state.comentario.course__teacher__name.toLowerCase()}
+            curso={
+              this.state.comentario.course__semester__name +
+              ' ' +
+              this.state.comentario.course__semester__year
+            }
+            comentario={this.state.comentario.id}
+            content={this.state.comentario.content}
+          />
+        </div>
+      );
+    }
     return (
       <div>
         <Paper square style={{ textAlign: 'left' }}>
@@ -154,6 +169,8 @@ class Comment extends Component {
                 handleUpVotes={this.handleUpVotes}
                 downVotes={this.state.downVotes}
                 handleDownVotes={this.handleDownVotes}
+                voted={this.state.voted}
+                handClass={this.state.handClass}
               />
             </div>
           </div>

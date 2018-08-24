@@ -13,8 +13,7 @@ class Likes extends Component {
   };
 
   handleOnUpVote = event => {
-    console.log(this.state);
-    if (localStorage.getItem('isLogged')) {
+    if (localStorage.getItem('user') && !this.props.voted) {
       axios
         .post(
           'http://142.93.4.35:3000/comment/upVote/',
@@ -28,14 +27,15 @@ class Likes extends Component {
           },
         )
         .then(() => {
-          this.props.handleUpVotes();
+          try {
+            this.props.handleUpVotes();
+          } catch (err) {}
         });
     }
   };
 
   handleOnDownpVote = event => {
-    console.log(this.state);
-    if (localStorage.getItem('isLogged')) {
+    if (localStorage.getItem('user') && !this.props.voted) {
       axios
         .post(
           'http://142.93.4.35:3000/comment/downVote/',
@@ -49,7 +49,9 @@ class Likes extends Component {
           },
         )
         .then(() => {
-          this.props.handleDownVotes();
+          try {
+            this.props.handleDownVotes();
+          } catch (err) {}
         });
     }
   };
@@ -93,11 +95,11 @@ class Likes extends Component {
           >
             <div
               onClick={this.handleOnUpVote}
+              className={this.props.handClass}
               style={{
                 backgroundColor: 'rgba(0, 0, 0, 0.15)',
                 borderRight: '1px black solid',
                 display: 'inline-block',
-                cursor: 'pointer',
               }}
             >
               <Avatar
@@ -130,11 +132,11 @@ class Likes extends Component {
           >
             <div
               onClick={this.handleOnDownpVote}
+              className={this.props.handClass}
               style={{
                 backgroundColor: 'rgba(0, 0, 0, 0.15)',
                 borderRight: '1px black solid',
                 display: 'inline-block',
-                cursor: 'pointer',
               }}
             >
               <Avatar
