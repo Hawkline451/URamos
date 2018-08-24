@@ -39,11 +39,12 @@ class URamosBar extends Component {
                     Evaluar
                 </Button>
             );
-            if(!nextProps.user.isLocked){
-                this.setState({user_info: user});
-            }            
-            if (nextProps.user.isModerator) {
-                this.setState({mod_info: infMod});
+            if (!nextProps.user.isLocked) {
+                this.setState({ user_info: user });
+                      
+                if (nextProps.user.isModerator) {
+                    this.setState({ mod_info: infMod });
+                }
             }
 
         } else {
@@ -74,11 +75,12 @@ class URamosBar extends Component {
                     Evaluar
                 </Button>
             );
-             if(!this.props.user.isLocked){
-                this.setState({user_info: user});
-            } 
-            if (this.props.user.isModerator) {
-                this.setState({mod_info: infMod});
+            if (!this.props.user.isLocked) {
+                this.setState({ user_info: user });
+             
+                if (this.props.user.isModerator) {
+                    this.setState({ mod_info: infMod });
+                }
             }
 
 
