@@ -104,7 +104,7 @@ function getSuggestions(value, typeSearch) {
                 const suggestionAux = suggestion.label.split(' - ')[1];
                 console.log(suggestionAux);
                 keep =
-                    suggestionAux.toLowerCase().slice(0, inputLength) === inputValue;
+                    suggestionAux.toLowerCase().includes(inputValue);
                 console.log(keep);
             }
 
