@@ -140,7 +140,7 @@ class CoursesList extends Component {
                                         <TableCell>
                                             {semester}
                                         </TableCell>
-                                        <TableCell component="th" scope="row"
+                                        <TableCell scope="row"
                                                    onClick={event => this.handleClickCourse(item.code)}
                                                    className={'cursos'}
                                                    style={{

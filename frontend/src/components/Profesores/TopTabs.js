@@ -24,7 +24,7 @@ class TopTabs extends Component {
             value="resumen eval"
             className="resumen-eval-tab"
             disableRipple
-            label={'Resumen Evaluacion ' + name}
+            label={'Resumen Evaluación ' + name}
             style={{
               textTransform: 'capitalize',
               width: 550,

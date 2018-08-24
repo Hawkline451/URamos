@@ -66,29 +66,35 @@ class Form extends Component {
   };
 
   handleSubmit = event => {
-      if (this.state.notaAsistencia === 0 || this.state.notaBuenDocente === 0 || this.state.notaCompromiso === 0 || this.state.notaExigencia === 0 || this.state.notaValoracion === 0) {
-        alert("No se han completado todos los campos obligatorios")
-      } else {
-          axios
-              .post(
-                  'http://142.93.4.35:3000/comment/save/',
-                  {
-                      data: this.state,
-                  },
-                  {
-                      headers: {
-                          Authorization: `JWT ${localStorage.getItem('token')}`,
-                      },
-                  },
-              )
-              .then(({ data }) => {
-                  alert('Su evaluacion ha sido procesada con exito \n\n Gracias!');
-                  window.location = '/evaluacion/';
-              })
-              .catch(() => {
-                  alert('Algo salio mal');
-                  window.location = '/evaluacion/';
-              });     
+    if (
+      this.state.notaAsistencia === 0 ||
+      this.state.notaBuenDocente === 0 ||
+      this.state.notaCompromiso === 0 ||
+      this.state.notaExigencia === 0 ||
+      this.state.notaValoracion === 0
+    ) {
+      alert('No se han completado todos los campos obligatorios');
+    } else {
+      axios
+        .post(
+          'http://142.93.4.35:3000/comment/save/',
+          {
+            data: this.state,
+          },
+          {
+            headers: {
+              Authorization: `JWT ${localStorage.getItem('token')}`,
+            },
+          },
+        )
+        .then(({ data }) => {
+          alert('Su evaluacion ha sido procesada con exito \n\n Gracias!');
+          window.location = '/evaluacion/';
+        })
+        .catch(() => {
+          alert('Algo salio mal');
+          window.location = '/evaluacion/';
+        });
     }
     event.preventDefault();
   };
@@ -133,7 +139,7 @@ class Form extends Component {
                 fontSize: 25,
               }}
             >
-              Valoracion del ramo
+              Valoración del ramo
             </Typography>
             <Typography
               align="left"
@@ -146,7 +152,11 @@ class Form extends Component {
               }}
             >
               ¿El ramo es interesante? <br />
-              ¿Aporta en mi formacion para el plan que estoy cursando?
+              ¿Aporta en mi formación para el plan que estoy cursando?
+              <br />
+              <br />
+              1: El ramo no aporta/no es interesante <br />
+              7: El ramo aporta/es interesante
             </Typography>
             <Ratings
               typeOfWidget="Punto"
@@ -195,7 +205,7 @@ class Form extends Component {
               }}
             >
               ¿Crees que la exigencia del ramo es acorde a la cantidad de
-              creditos asignados? <br />
+              créditos asignados? <br />
               <br />
               1: El ramo no es exigente <br />
               7: El ramo es muy exigente
@@ -250,8 +260,12 @@ class Form extends Component {
               }}
             >
               ¿El profesor considera el feedback de los alumnos? <br />
-              ¿El docente es atento a responder dudas e inquietudes se sus
+              ¿El docente es atento a responder dudas e inquietudes de sus
               alumnos?
+              <br />
+              <br />
+              1: El profesor no realiza bien su labor <br />
+              7: El profesor es comprometido con el curso
             </Typography>
             <Ratings
               typeOfWidget="Punto"
@@ -284,7 +298,7 @@ class Form extends Component {
                 fontSize: 25,
               }}
             >
-              Que tan bien enseña el Docente
+              Qué tan bien enseña el Docente
             </Typography>
             <Typography
               align="left"
@@ -350,7 +364,11 @@ class Form extends Component {
                 fontSize: 16,
               }}
             >
-              ¿Que tan importante es asistir a clases en este ramo?
+              ¿Qué tan importante es asistir a clases en este ramo?
+              <br />
+              <br />
+              1: No es importante <br />
+              7: Es muy importante
             </Typography>
             <Ratings
               typeOfWidget="Punto"
@@ -394,9 +412,9 @@ class Form extends Component {
                 fontSize: 16,
               }}
             >
-              Por favor deja un comentario sobre el ramo, para que los demas
-              tengan informacion de él. <br />
-              El comentario sera totalmente anonimo, pero evita lenguaje vulgar
+              Por favor deja un comentario sobre el ramo, para que los demás
+              tengan información de él. <br />
+              El comentario será totalmente anónimo, pero evita lenguaje vulgar
               en insultos en tu respuesta.
             </Typography>
             <TextField
@@ -427,7 +445,7 @@ class Form extends Component {
               letterSpacing: 4,
             }}
           >
-            Enviar Evaluacion
+            Enviar Evaluación
           </Button>
         </form>
       </div>

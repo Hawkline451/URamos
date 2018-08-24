@@ -35,7 +35,7 @@ class RecentActList extends Component {
 
     render() {
         return (
-            <div className="list-div">
+            <div className="list-div" style={{ marginTop: '2%' }}>
                 <List>
                     <Divider />
                     <ListRecentLog list = {this.state.listLog}/>
