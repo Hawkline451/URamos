@@ -159,6 +159,7 @@ class Form extends Component {
               7: El ramo aporta/es interesante
             </Typography>
             <Ratings
+              className={'container-putnos'}
               typeOfWidget="Punto"
               rating={this.state.notaValoracion}
               changeRating={this.changeRatingValoracion}
@@ -174,9 +175,6 @@ class Form extends Component {
               <Ratings.Widget />
               <Ratings.Widget />
             </Ratings>
-            <br />
-            <br />
-            <br />
             <br />
             <br />
             <Divider />
@@ -226,6 +224,7 @@ class Form extends Component {
               <Ratings.Widget />
               <Ratings.Widget />
             </Ratings>
+            <br />
           </Paper>
           <Paper
             style={{
@@ -247,7 +246,7 @@ class Form extends Component {
                 fontSize: 25,
               }}
             >
-              Compromiso del profesor con los estudiantes
+              Compromiso del profesor
             </Typography>
             <Typography
               align="left"
@@ -260,7 +259,7 @@ class Form extends Component {
               }}
             >
               ¿El profesor considera el feedback de los alumnos? <br />
-              ¿El docente es atento a responder dudas e inquietudes de sus
+              ¿El docente responde dudas e inquietudes de sus
               alumnos?
               <br />
               <br />
