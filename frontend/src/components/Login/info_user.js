@@ -20,7 +20,6 @@ class InfoUser extends Component {
 	}
 
 	componentDidMount(){
-		console.log(this.props)
 		this.setState({
 			user:this.props.user,
 			normal_user:this.props.normalUser

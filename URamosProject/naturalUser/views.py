@@ -69,7 +69,6 @@ def LoadCourses(request):
                         courseUser = Course.objects.get(pk=teacher['pk'])
                         userCourse = UserCourses(user=naturalUser, course=courseUser)
                         userCourse.save()
-                        print('save course')
 
     dataCourses = UserCourses.objects.filter(user=naturalUser).values('course__subject__code', 'course__subject__name',
                                                                       'course__semester__year',

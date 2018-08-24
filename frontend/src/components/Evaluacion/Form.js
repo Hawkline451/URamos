@@ -101,7 +101,6 @@ class Form extends Component {
 
   componentWillMount() {
     const { code, teacher, anno, semester, name, section } = this.props;
-    console.log(semester);
     this.setState({
       code: code,
       teacher: teacher,

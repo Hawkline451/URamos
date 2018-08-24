@@ -93,7 +93,6 @@ class CoursesList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('update');
     if (prevState.load !== this.state.load) {
       this.getInfo(true);
     }
