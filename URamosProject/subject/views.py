@@ -19,6 +19,7 @@ class Search(View):
         else:
             print(keys['typeSearch'])
             subjects = Subject.objects.filter(name__contains=keys['value']).values('code', 'name')
+            print(subjects)
         json_data = json.dumps(list(subjects), cls=DjangoJSONEncoder)
         return HttpResponse(json_data, content_type='application/json')
 
