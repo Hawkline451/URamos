@@ -24,6 +24,7 @@ class Comment extends Component {
       upVotes: this.props.comentario.positivePoints,
       downVotes: this.props.comentario.negativePoints,
       isMod: this.props.isMod,
+      isLocked: this.props.isLocked,
       voted: this.props.comentario.voted,
       handClass: voted
     };
@@ -47,7 +48,7 @@ class Comment extends Component {
 
   render() {
     var mod = '';
-    if (this.state.isMod) {
+    if (this.state.isMod && !this.state.isLocked) {
       mod = (
         <div
           style={{

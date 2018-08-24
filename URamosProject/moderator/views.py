@@ -9,6 +9,7 @@ from rest_framework.decorators import api_view
 
 from .models import ModeratorSubjects, Moderator
 from subject.models import Subject
+from naturalUser.models import NaturalUser
 from rest_framework.decorators import api_view
 
 
@@ -31,14 +32,18 @@ def isModeratorCourse(request):
         subject = Subject.objects.get(pk=request.POST.get('value'))
 
         ans = False
+        locked = False
         if ModeratorSubjects.objects.filter(subject=subject, moderator=mod).exists():
             ans = True
 
-        json_data = json.dumps({'isModerator':ans}, cls =DjangoJSONEncoder)  
+            natuser = NaturalUser.objects.get(user=request.user)
+            locked = natuser.isLocked
+
+        json_data = json.dumps({'isModerator':ans, 'isLocked': locked}, cls =DjangoJSONEncoder)
         return HttpResponse(json_data, content_type='application/json')
 
     else:
-        json_data = json.dumps({'isModerator':False}, cls =DjangoJSONEncoder)  
+        json_data = json.dumps({'isModerator':False, 'isLocked': False}, cls =DjangoJSONEncoder)
         return HttpResponse(json_data, content_type='application/json')
 
 @api_view(['POST'])
