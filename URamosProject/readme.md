@@ -79,6 +79,7 @@ Ademas se generan app's (log, login, teacher, etc.) en sus carpetas respectivas.
 ## Pre-requisitos del proyecto
 Para la correcta ejecución de este proyecto se requiere python 3 y pip. 
 Luego de esto, instalar las librerias de python necesarias:
+
 ``` pip install -r requirements.txt ```
 
 ## Cargar cursos a base de datos
@@ -92,6 +93,7 @@ Luego hacer las migraciones de python:
 ``` python manage.py migrate --run-syncdb```
 
 Luego cargar el archivo creado a la base de datos
+
 ``` python manage.py loaddata ParserCursos.json ```
 
 ## Finalizar
