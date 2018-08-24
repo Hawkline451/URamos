@@ -86,8 +86,11 @@ Debido a que la plataforma utiliza una lista de ramos de la FCFM, es ncesario ca
 El archivo ```script.py``` crea un json para luego exportarlo a la base de datos, hay que ejecutar lo siguiente:
 ``` python script.py ```
 Luego hacer las migraciones de python:
+
 ``` python manage.py makemigrations```
+
 ``` python manage.py migrate --run-syncdb```
+
 Luego cargar el archivo creado a la base de datos
 ``` python manage.py loaddata ParserCursos.json ```
 
