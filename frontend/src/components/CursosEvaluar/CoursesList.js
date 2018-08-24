@@ -205,7 +205,7 @@ class CoursesList extends Component {
                                         <TableCell>
                                             {semester}
                                         </TableCell>
-                                        <TableCell component="th" scope="row">
+                                        <TableCell scope="row">
                                             {course}
                                         </TableCell>
                                         <TableCell>
