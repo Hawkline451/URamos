@@ -17,7 +17,8 @@ class Search(View):
         if keys['typeSearch'] == 'codigo':
             subjects = Subject.objects.filter(code__startswith=keys['value']).values('code', 'name')
         else:
-            subjects = Subject.objects.filter(name__icontains=keys['value']).values('code', 'name')
+            print(keys['typeSearch'])
+            subjects = Subject.objects.filter(name__contains=keys['value']).values('code', 'name')
         json_data = json.dumps(list(subjects), cls=DjangoJSONEncoder)
         return HttpResponse(json_data, content_type='application/json')
 
