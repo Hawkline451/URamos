@@ -154,7 +154,8 @@ class IntegrationAutosuggest extends React.Component {
                 typeSearch: this.state.typeSearch
             },
             responseType: 'json',
-        }).then(({data}) => {
+        }).then(({ data }) => {
+            console.log(data)
             const newData = data.map(item => {
                 return {label: item.code + ' - ' + item.name};
             });
