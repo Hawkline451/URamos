@@ -45,9 +45,23 @@ class URamosBar extends Component {
           Evaluar
         </Button>
       );
-      if (!nextProps.user.isLocked && !nextProps.user.isTeacher) {
-        this.setState({ user_info: user });
 
+      const teacherName = localStorage
+        .getItem('user')
+        .split(':')[5]
+        .split('"')[1];
+
+      const teacher = (
+        <Button color="inherit" href={'/profesor/' + teacherName}>
+          Mis Cursos
+        </Button>
+      );
+      if (!nextProps.user.isLocked) {
+        if (!nextProps.user.isTeacher) {
+          this.setState({ user_info: user });
+        } else {
+          this.setState({ user_info: teacher });
+        }
         if (nextProps.user.isModerator) {
           this.setState({ mod_info: infMod });
         }
