@@ -13,6 +13,8 @@ import { Link, Redirect, Route } from 'react-router-dom';
 import FormEvaluacion from '../Evaluacion/FormEvaluacion';
 import IconReload from '../ButtonReload/index';
 import './styles.css';
+import URL_BACKEND from '../../routes/Host'
+
 
 const styles = theme => ({
   root: {
@@ -45,7 +47,7 @@ class CoursesList extends Component {
     //142.93.4.35
     axios
       .post(
-        'http://142.93.4.35:3000/user/courses/',
+        URL_BACKEND+'/user/courses/',
         {
           load: loadValue,
         },

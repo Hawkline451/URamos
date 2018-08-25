@@ -3,6 +3,7 @@ import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import axios from "axios";
 import ListRecentLog from './ListRecentLog';
+import URL_BACKEND from '../../routes/Host'
 
 class RecentActList extends Component {
     state = {
@@ -13,7 +14,7 @@ class RecentActList extends Component {
         axios({
             method: 'post',
             //142.93.4.35
-            url: 'http://142.93.4.35:3000/logging/record/',
+            url: URL_BACKEND+'/logging/record/',
             responseType: 'json',
         }).then(({data}) => {
             const newData = data.map(item => {

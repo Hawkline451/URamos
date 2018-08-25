@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import Paper from "@material-ui/core/Paper";
 import Comment from "./Comment";
 import axios from "axios";
+import URL_BACKEND from '../../routes/Host'
+
 
 class CommentsList extends Component {
     constructor(props) {
@@ -19,7 +21,7 @@ class CommentsList extends Component {
         if (localStorage.getItem('token')) {
             axios({
                 method: 'post',
-                url: 'http://142.93.4.35:3000/moderator/moderatorCourse',
+                url: URL_BACKEND+'/moderator/moderatorCourse',
                 data: 'value=' + this.props.match.params.code,
                 responseType: 'json',
                 headers: {

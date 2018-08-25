@@ -9,6 +9,8 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import URL_BACKEND from '../../routes/Host'
+
 
 let suggestions = [];
 
@@ -146,7 +148,7 @@ class IntegrationAutosuggest extends React.Component {
     axios({
       method: 'post',
       //142.93.4.35
-      url: 'http://142.93.4.35:3000/search/',
+      url: URL_BACKEND+'/search/',
       data: {
         value: this.state.value,
         typeSearch: this.state.typeSearch,

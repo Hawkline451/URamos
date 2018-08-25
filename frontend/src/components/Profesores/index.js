@@ -5,6 +5,7 @@ import SectionName from './SectionName';
 import CoursesList from './CoursesList';
 import Graph from '../GraficosProfe/index'
 import axios from 'axios';
+import URL_BACKEND from '../../routes/Host';
 
 class Profesor extends Component {
   state = {
@@ -17,7 +18,7 @@ class Profesor extends Component {
   getinfo({ name }) {
     axios({
       method: 'post',
-      url: 'http://142.93.4.35:3000/search/infoprofe/',
+      url: URL_BACKEND+'/search/infoprofe/',
       data: 'value=' + name,
       responseType: 'json',
     }).then(({ data }) => {

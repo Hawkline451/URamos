@@ -9,7 +9,9 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
 import {Link, Redirect, Route} from "react-router-dom";
-import './styles.css'
+import './styles.css';
+import URL_BACKEND from '../../routes/Host'
+
 
 const styles = theme => ({
     root: {
@@ -34,7 +36,7 @@ class CoursesList extends Component {
 
     getInfo = () => {
         //142.93.4.35
-        axios.post('http://142.93.4.35:3000/moderator/courses/', {},
+        axios.post(URL_BACKEND+'/moderator/courses/', {},
             {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`,

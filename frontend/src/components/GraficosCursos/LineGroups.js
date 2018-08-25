@@ -1,4 +1,6 @@
 import axios from "axios";
+import URL_BACKEND from '../../routes/Host'
+
 
 /* App.js */
 var React = require('react');
@@ -33,7 +35,7 @@ class LineGroups extends Component {
         // 142.93.4.35
         axios({
             method: 'post',
-            url: 'http://142.93.4.35:3000/search/searchprof/',
+            url: URL_BACKEND+'/search/searchprof/',
             data: 'value=' + code,
             responseType: 'json',
         }).then(({data}) => {

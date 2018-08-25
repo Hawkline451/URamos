@@ -6,6 +6,8 @@ import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import URL_BACKEND from '../../routes/Host'
+
 
 import './styles.css';
 
@@ -77,7 +79,7 @@ class Form extends Component {
     } else {
       axios
         .post(
-          'http://142.93.4.35:3000/comment/save/',
+          URL_BACKEND+'/comment/save/',
           {
             data: this.state,
           },

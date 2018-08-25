@@ -6,6 +6,8 @@ import CoursesList from './CoursesList';
 import Comentario from '../Comentario';
 import Graph from '../GraficosCursos/index'
 import axios from 'axios';
+import URL_BACKEND from '../../routes/Host'
+
 
 class Curso extends Component {
   state = {
@@ -23,7 +25,7 @@ class Curso extends Component {
       name = localStorage.getItem('user').split(':')[1].split(',')[0].split('"')[1]
     } 
 
-    axios.post('http://142.93.4.35:3000/search/inforamo/', {
+    axios.post(URL_BACKEND+'/search/inforamo/', {
       value : code,
       user : name
     }).then(({ data }) => {
