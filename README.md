@@ -16,3 +16,16 @@ _El proyecto fue hecho con los siguientes frameworks:_
 ## Deploy
 _Debido que las capas de datos y presentación utilizan frameworks diferentes, el deploy esta explicado en el readme de cada carpeta_
 
+## Configuracion en desarrollo
+Cuando se mantuvo en desarrollo se usaba la url http://142.93.4.35/ donde el puerto 3000 correspondia a Django y el 8000 correspondia a React.
+
+Para usar el puerto 3000 en django y probar la aplicacion en un servidor externo: 
+
+```python manage.py runserver 0.0.0.0:3000```
+
+Para ocupar el puerto 8000 en react, la configuración se encuentra en ```frontend/package.json``` solo hay que hacer:
+
+```npm start```
+
+Al montarlo en un servidor nuevo hay que darle al ADI la nueva URL de la aplicación de URamos, esta url es la base de Django mas ```auth``` y en ```URamosProject/login/views.py```  hay que cambiar el return de ```AuthView``` y poner la url que usará el frontend.
+
