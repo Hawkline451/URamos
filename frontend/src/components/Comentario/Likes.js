@@ -16,7 +16,7 @@ class Likes extends Component {
     if (localStorage.getItem('user') && !this.props.voted) {
       axios
         .post(
-          'http://142.93.4.35:3000/comment/upVote/',
+          URL_BACKEND+'/comment/upVote/',
           {
             data: this.state,
           },
@@ -38,7 +38,7 @@ class Likes extends Component {
     if (localStorage.getItem('user') && !this.props.voted) {
       axios
         .post(
-          'http://142.93.4.35:3000/comment/downVote/',
+          URL_BACKEND+'/comment/downVote/',
           {
             data: this.state,
           },

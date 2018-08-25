@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { JWTSTATUS, setJWTStatus, AUTHSTATUS, setAuthStatus, setUser, setNormalUser} from '../../actions';
+import URL_BACKEND from '../../routes/Host'
 
 class Login extends Component{
   constructor(props){
@@ -18,7 +19,7 @@ class Login extends Component{
   this.props.set_jwt_status(JWTSTATUS.JWT_UPDATED)
   
   
-  fetch('http://142.93.4.35:3000/auth/current_user/', {
+  fetch(URL_BACKEND+'/auth/current_user/', {
     headers: {
       Authorization: `JWT ${token}`
     }
@@ -29,7 +30,7 @@ class Login extends Component{
         this.props.set_normal_user(json);
   });
 
-  fetch('http://142.93.4.35:3000/user/', {
+  fetch(URL_BACKEND+'/user/', {
       headers: {
             Authorization: `JWT ${token}`
           }
